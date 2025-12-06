@@ -1,0 +1,149 @@
+.page-head {
+    display: flex;
+}
+
+.page-head .head-col {
+    margin-right: 30px;
+    flex: 1 1 0;
+}
+
+.page-head .breadcrumbs {
+    margin-bottom: 0;
+}
+
+.page-head {
+    margin-bottom: 60px;
+}
+
+.ctry-list {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    max-width: none;
+    /* flex: 1 1 0; */
+}
+
+.ctry-list .list-card {
+    background-color: #fefefe;
+    border-radius: 25px;
+    position: relative;
+    padding: 25px;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 30px);
+    margin: 0 15px 30px;
+}
+
+.ctry-list .list-card .card-hed {
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2em;
+    color: #3f3f3f;
+}
+
+.ctry-list .list-card .card-img {
+    margin-bottom: 20px;
+    border-radius: 25px;
+    position: relative;
+    text-align: center;
+}
+
+.ctry-list .list-card .card-img img {
+    border-radius: 25px;
+    width: 100%;
+}
+
+.ctry-list .list-card .card-img .no-img {
+    background-color: #efefef;
+    border-radius: 25px;
+    padding-top: 100%;
+}
+
+.ctry-list .list-card .card-img .no-img .icn {
+    font-size: 7em;
+    color: #9c9c9c;
+}
+
+.ctry-list .list-card .card-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ctry-list .list-card .card-btns a {
+    background-color: #efefef;
+    padding: 8px 15px;
+    color: #727272;
+}
+
+.ctry-list .list-card .card-btns .edt {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position: relative;
+    transition: color 275ms;
+}
+
+.ctry-list .list-card .card-btns .edt:hover {
+    color: #4acf76;
+}
+
+.ctry-list .list-card .card-btns .edt::after {
+    content: "|";
+    position: absolute;
+    right: 0;
+    top: 8px;
+    color: #727272;
+    font-weight: 500;
+}
+
+.ctry-list .list-card .card-btns .dlt {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    transition: color 275ms;
+}
+
+.ctry-list .list-card .card-btns .dlt:hover {
+    color: #db5151;
+}
+
+@media screen and (min-width: 1881px) and (max-width: 4000px) {
+    .ctry-list .list-card {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width:1560px) {
+    .ctry-list .list-card {
+        margin: 0 10px 30px;
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .ctry-list .list-card {
+        width: calc(50% - 20px);
+        padding: 15px;
+        border-radius: 15px;
+    }
+}
+
+@media only screen and (max-width:689px) {
+    .page-head {
+        display: block;
+    }
+    .page-head .head-col {
+        margin-right: 0px;
+        margin-bottom: 20px;
+    }
+    .page-head .sh-col {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@media only screen and (max-width:460px) {
+    .ctry-list .list-card {
+        width: 100%;
+    }
+}

@@ -1,0 +1,83 @@
+.fm-field {
+    position: relative;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.fm-field .fld-label {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.fm-field .fld-inp {
+    flex: 1 1 0;
+}
+
+.fm-field .fld-inp .pix-radio {
+    margin-bottom: 10px;
+    display: block
+}
+
+.fm-field .file-list {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.fm-field .file-list .file-name {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 5px;
+}
+
+.fm-field .file-list .file-name .file-link {
+    color: #414141;
+    padding: 5px;
+    transition: color 275ms;
+}
+
+.fm-field .file-list .file-name .file-link:hover {
+    color: #6e3b79;
+}
+
+.fm-field .file-list .file-name .file-dlt {
+    padding: 2px 5px;
+    cursor: pointer;
+    transition: color 275ms;
+}
+
+.fm-field .file-list .file-name .file-dlt:hover {
+    color: #fd8d8d;
+}
+
+.fm-field .file-list .file-name .file-ttl {
+    display: block;
+    word-break: break-word;
+}
+
+.submit-box {
+    background-color: rgba(247, 247, 249, .7);
+    border-top: 1px solid #e4e4e6;
+    bottom: 0;
+    margin-top: 30px;
+    padding: 14px 0;
+    position: sticky;
+}
+
+@media only screen and (max-width: 1439px) and (min-width: 1024px) {
+    .fm-field .fld-inp .tarea {
+        width: 725px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .fm-field {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .fm-field .fld-label {
+        width: auto;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+}

@@ -1,0 +1,57 @@
+body {
+    padding-top: 5px;
+}
+
+.eg-logo {
+    margin-bottom: 80px;
+}
+
+.login-page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+}
+
+.login-page .login-form {
+    margin-bottom: 70px;
+}
+
+.login-page .login-form .form-box {
+    text-align: center;
+    width: 300px;
+    margin: 0px auto;
+}
+
+.login-page .login-form .form-box .logo {
+    margin-bottom: 30px;
+}
+
+.login-page .login-form .form-box .logo img {
+    max-width: 150px;
+}
+
+.login-page .login-form .form-box form .field {
+    text-align: left;
+}
+
+.login-page .login-form .form-box form .field+.field {
+    margin-top: 8px;
+}
+
+.login-page .login-form .form-box form .field input {
+    width: 100%;
+}
+
+.login-page .login-form .form-box form .field button {
+    width: 100%;
+}
+
+.login-page .login-form .form-box .lg-fgpass a {
+    transition: color 275ms;
+    color: #8298AB;
+}
+
+.login-page .login-form .form-box .lg-fgpass a:hover {
+    color: #5b2166;
+}

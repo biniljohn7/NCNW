@@ -1,0 +1,32 @@
+<div>
+    <p style="
+        font-size: 32px;
+        margin-bottom: 10px;
+        color: #003C46;
+    ">
+        <strong>Hi [TMPL-USERNAME]</strong>
+    </p>
+    <div style=" text-align: center; font-size: 1.2em; margin-bottom: 0.7em;  color: #075056; font-weight: 500;    ">
+        [TMPL-CONTENT]
+    </div>
+    {{if.LINK}}
+    <div style="margin: 0 auto;max-width:660px;  padding: 20px; border-radius: 38px; ">
+        <div style="text-align: center;">
+            <p>[TMPL-BTNTEXT]</p>
+            <a href="[TMPL-LINK]" target="_blank"
+                style="color: #fff;text-decoration: none;display: block;padding: 15px 25px;font-size: 1em;background-color: #075056;border-radius: 20px; margin: 0 auto; width: 200px;">
+                [TMPL-BTNLABEL]
+            </a>
+            <p style="
+                font-size: 12px;
+                color: #666666;
+                margin-bottom: 35px;
+            ">
+                <strong>Note:</strong>
+                This link is valid upto
+                <b>[TMPL-VALID]</b>
+            </p>
+        </div>
+    </div>
+    {{endif.LINK}}
+</div>

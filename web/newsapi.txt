@@ -1,0 +1,4 @@
+curl --location --request GET 'https://newsapi.org/v2/everything?q=usa&apiKey=42484e39933e4cb19eaf4bb58ee86123' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'country=us' \
+--data-urlencode 'apiKey=42484e39933e4cb19eaf4bb58ee86123'

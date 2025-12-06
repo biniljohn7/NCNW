@@ -1,0 +1,5 @@
+deny from all
+allow from ::1
+
+allow from 103.160.194.86
+allow from 59.93.62.124

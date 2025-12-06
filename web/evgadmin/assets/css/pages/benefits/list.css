@@ -1,0 +1,441 @@
+.benefits-hed {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 50px;
+}
+
+.benefits-hed .hed-left {
+    padding-right: 10px;
+}
+
+.benefits-hed .hed-left .list-count {
+    color: #8294b7;
+    font-size: .9em;
+    font-weight: 600;
+    min-width: 100px;
+}
+
+.benefits-hed .hed-right form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.benefits-hed .hed-right form .bnft-select select {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    font-weight: 600;
+    color: #8294b7;
+    appearance: none;
+    background-image: url('../../../images/down\ arrow.png');
+    background-repeat: no-repeat;
+    background-size: 15px;
+}
+
+.benefits-hed .hed-right form .bnft-select.scope select {
+    width: 135px;
+    background-position: 100px center;
+}
+
+.benefits-hed .hed-right form .bnft-select.ctgry select {
+    width: 175px;
+    background-position: 140px center;
+}
+
+.pix-key-search {
+    margin-left: 10px;
+}
+
+.benefits-hed .hed-right form .bnft-search {
+    min-width: 320px;
+    position: relative;
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 12px 0px 12px 60px;
+    display: flex;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    margin-left: 10px;
+}
+
+.benefits-hed .hed-right form .bnft-search .icn {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #c3cbda;
+    font-size: 2em;
+}
+
+.benefits-hed .hed-right form .bnft-search .srch {
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 0 0px rgba(0, 0, 0, .1);
+    padding: 0px;
+}
+
+.benefits-hed .hed-right form .bnft-search .srch::placeholder {
+    color: #8294b7;
+    font-size: .9em;
+    font-weight: 600;
+}
+
+.benefits-hed .hed-right form .bnft-search .sh-btn {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.benefits-hed .hed-right form .bnft-search .sh-btn button {
+    background-color: #5b2166;
+    color: #fff;
+    font-weight: 500;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 9.5px 18px;
+}
+
+.bnft-wrap {
+    position: relative;
+}
+
+.bnft-wrap .bnft-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    padding: 30px 35px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    color: #546486;
+    font-weight: 500;
+}
+
+.bnft-wrap .bnft-card.hed {
+    background-color: #eaedf2;
+    padding: 15px 40px;
+    color: #8c9cbc;
+    font-size: .9em;
+}
+
+.bnft-wrap .bnft-card .list-item {
+    display: flex;
+    align-items: center;
+}
+
+.bnft-wrap .bnft-card .list-item.left {
+    width: calc(37.5%);
+    padding-right: 10px;
+}
+
+.bnft-wrap .bnft-card .list-item.mid {
+    width: calc(37.5%);
+    padding-right: 10px;
+}
+
+.bnft-wrap .bnft-card .list-item.right {
+    width: calc(25%);
+}
+
+.bnft-wrap .bnft-card .list-item .txt-left {
+    flex: 0 1 50%;
+    padding-right: 10px;
+    position: relative;
+}
+
+.bnft-wrap .bnft-card .list-item .txt-left.img {
+    flex: 0 1 35%;
+}
+
+.bnft-wrap .bnft-card .list-item .img img {
+    width: 50px;
+}
+
+.bnft-wrap .bnft-card .list-item .img .no-logo {
+    position: relative;
+    display: block;
+}
+
+.bnft-wrap .bnft-card .list-item .img .no-logo .icn {
+    background-color: #e7e7e7;
+    padding: 10px;
+    color: #979797;
+    font-size: 25px;
+}
+
+.bnft-wrap .bnft-card .list-item.mid .txt-left {
+    flex: 0 1 60%;
+    padding-right: 10px;
+}
+
+.bnft-wrap .bnft-card .list-item.mid .txt-left.em {
+    word-break: break-word;
+}
+
+.bnft-wrap .bnft-card .list-item.right .txt-left {
+    flex: 0 1 60%;
+}
+
+.bnft-wrap .bnft-card .list-item .txt-left .sts {
+    border-radius: 10px;
+    padding: 2px 20px;
+    text-align: center;
+}
+
+.bnft-wrap .bnft-card .list-item .txt-left .sts.active {
+    border: 1px solid #0a7d07;
+    color: #0a7d07;
+    background-color: #bdf4c2;
+}
+
+.bnft-wrap .bnft-card .list-item .txt-left .sts.inactive {
+    border: 1px solid #ff1e1e;
+    color: #ff1e1e;
+    background-color: #f4bec0;
+    padding: 2px 15px;
+}
+
+.bnft-wrap .bnft-card .list-item .txt-right {
+    flex: 1 1 0;
+    position: relative;
+}
+
+.bnft-wrap .bnft-card .list-item.right .txt-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bnft-wrap .bnft-card .list-item.right .txt-right a {
+    color: #c3cbda;
+    transition: color 275ms;
+}
+
+.bnft-wrap .bnft-card .list-item.right .txt-right a:hover {
+    color: #8c6692;
+}
+
+.bnft-wrap .bnft-card .list-item.right .txt-right a .icn {
+    padding: 8px;
+    border: 1px solid #e9eaea;
+    border-radius: 50%;
+    transition: border 275ms;
+}
+
+.bnft-wrap .bnft-card .list-item.right .txt-right a .icn:hover {
+    border: 1px solid #8c6692;
+}
+
+@media only screen and (max-width: 1440px) {
+    .bnft-wrap .bnft-card {
+        padding: 20px;
+    }
+
+    .bnft-wrap .bnft-card.hed {
+        padding: 15px 20px;
+    }
+}
+
+@media only screen and (max-width: 1120px) and (min-width: 1025px) {
+    .pix-key-search {
+        margin-top: 10px;
+    }
+
+    .benefits-hed .hed-right form .bnft-search {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 790px) {
+    .pix-key-search {
+        margin-top: 10px;
+    }
+
+    .benefits-hed .hed-right form .bnft-search {
+        margin-top: 10px;
+    }
+}
+
+
+/* @media only screen and (max-width: 768px) and (min-width: 579px) {
+    .bnft-wrap .bnft-card .list-item .labels {
+        display: flex;
+    }
+} */
+
+@media only screen and (max-width: 768px) {
+    .bnft-wrap .bnft-card.hed {
+        display: none;
+    }
+
+    .bnft-wrap .bnft-card {
+        display: block;
+    }
+
+    .bnft-wrap .bnft-card .list-item:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    .bnft-wrap .bnft-card .list-item.left {
+        width: calc(100%);
+        padding-right: 0;
+    }
+
+    .bnft-wrap .bnft-card .list-item.mid {
+        width: calc(100%);
+        padding-right: 0;
+    }
+
+    .bnft-wrap .bnft-card .list-item.right {
+        width: calc(100%);
+    }
+
+    .bnft-wrap .bnft-card .list-item.mid .txt-left {
+        flex: 0 1 50%;
+    }
+
+    .bnft-wrap .bnft-card .list-item.right .txt-left {
+        flex: 0 1 50%;
+    }
+
+    .bnft-wrap .bnft-card .list-item .txt-left.img {
+        flex: 0 1 50%;
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels {
+        display: flex;
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels::before {
+        position: relative;
+        color: #8c9cbc;
+        font-size: .9em;
+        width: calc(50%);
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.nm::before {
+        content: "Name";
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.ct::before {
+        content: "Category";
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.pv::before {
+        content: "Provider";
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.sp::before {
+        content: "Scope";
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.nam::before {
+        content: "Name";
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.em::before {
+        content: "Email";
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels.ph::before {
+        content: "Phone";
+    }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 580px) {
+    .bnft-wrap .bnft-card .list-item.right .txt-right {
+        justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 579px) {
+    .bnft-wrap .bnft-card .list-item .labels {
+        flex-direction: column;
+    }
+
+    .bnft-wrap .bnft-card .list-item .txt-right {
+        text-align: right;
+    }
+
+    .bnft-wrap .bnft-card .list-item .labels::before {
+        width: calc(100%);
+    }
+
+    .bnft-wrap .bnft-card .list-item.right .txt-right {
+        /* justify-content: flex-end; */
+    }
+}
+
+@media only screen and (max-width: 459px) {
+    .bnft-wrap .bnft-card .list-item.mid.pv {
+        display: block;
+    }
+
+    .bnft-wrap .bnft-card .list-item .txt-left.em {
+        margin-bottom: 20px;
+    }
+
+    .bnft-wrap .bnft-card .list-item .txt-right.ph {
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 470px) {
+    .benefits-hed {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .benefits-hed .hed-left {
+        order: 2;
+    }
+
+    .benefits-hed .hed-right {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .benefits-hed .hed-right form {
+        justify-content: flex-start;
+    }
+
+    .benefits-hed .hed-right form .bnft-search {
+        margin-left: 0px;
+    }
+
+    .pix-key-search {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .benefits-hed .hed-right form .bnft-select select {
+        padding: 6px 12px;
+    }
+
+    .benefits-hed .hed-right form .bnft-select.scope select {
+        width: 125px;
+    }
+
+    .benefits-hed .hed-right form .bnft-select.ctgry select {
+        width: 150px;
+    }
+
+    .benefits-hed .hed-right form .bnft-select.ctgry select {
+        background-position: 125px center;
+    }
+
+    .benefits-hed .hed-right form .bnft-search {
+        min-width: 290px;
+    }
+
+    .pix-key-search .sh-btn button {
+        padding: 9.5px 10px;
+    }
+}

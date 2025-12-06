@@ -1,0 +1,38 @@
+.state-leader-list {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+  max-width: none;
+}
+
+.state-leader-list .state-leader-card {
+  background-color: #fff;
+  margin: 0 10px 20px;
+  border-radius: 22px;
+  padding: 36px 30px;
+  width: calc(33.33% - 20px);
+  border: 1px solid #fff;
+}
+
+.state-leader-list .state-leader-card .card-top {
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #4d4d4d;
+}
+
+.state-leader-list .state-leader-card .card-mid {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 20px;
+  gap: 10px;
+  /* justify-content: space-between; */
+}
+
+.state-leader-list .state-leader-card .card-mid .state-ldr {
+  background-color: #f4f4f4;
+  padding: 4px;
+  border-radius: 7px;
+}

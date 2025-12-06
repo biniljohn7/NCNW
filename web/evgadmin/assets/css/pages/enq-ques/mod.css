@@ -1,0 +1,18 @@
+.fm-field {
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.fm-field .fld-label {
+    width: auto;
+    max-width: 200px;
+    padding: 6px;
+    font-weight: 600;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.fm-field .fld-inp {
+    flex: 1 1 0;
+}

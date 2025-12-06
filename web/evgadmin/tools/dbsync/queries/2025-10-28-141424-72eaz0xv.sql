@@ -1,0 +1,13 @@
+-- Binil John - 28 October 2025 - 02:14 PM
+
+
+CREATE TABLE `tmp_files` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`path` VARCHAR(250) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`exp` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=MyISAM
+AUTO_INCREMENT=2
+;

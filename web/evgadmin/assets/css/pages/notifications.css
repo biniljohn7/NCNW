@@ -1,0 +1,70 @@
+.notifications .nt-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.notifications .nt-item+.nt-item {
+    margin-top: 40px;
+}
+
+.notifications .nt-item span {
+    display: block;
+}
+
+.notifications .nt-item .nt-thumb {
+    width: 50px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.notifications .nt-item .nt-thumb img {
+    border-radius: 50%;
+}
+
+.notifications .nt-item .nt-thumb .user-thumb {
+    padding-top: 100%;
+    background-color: #d7d7d7;
+    color: #afafaf;
+    border-radius: 50%;
+}
+
+.notifications .nt-item .nt-thumb .user-thumb .material-symbols-outlined {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 26px;
+}
+
+.notifications .nt-item .nt-thumb .nt-admin {
+    background-color: var(--primary);
+    color: #fff;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+
+.notifications .nt-item .nt-body {
+    flex: 1 1 0;
+}
+
+.notifications .nt-item .nt-body .nt-title {
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.notifications .nt-item .nt-body .nt-msg {
+    color: #8c8c8c;
+    margin-bottom: 7px;
+    align-self: center;
+}
+
+.notifications .nt-item .nt-body .nt-time {
+    color: #8c8c8c;
+    font-size: .9em;
+}

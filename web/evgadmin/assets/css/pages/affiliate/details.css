@@ -1,0 +1,314 @@
+.af-details {
+    position: relative;
+    max-width: 1050px;
+    color: #36342f;
+}
+
+.af-details .af-box {
+    display: flex;
+    margin-bottom: 30px;
+    justify-content: space-between;
+}
+
+.af-details .af-box .af-info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.af-details .af-box .af-info .af-name {
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 1.2em;
+    margin-bottom: 10px;
+}
+
+.af-details .af-box .af-info .items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 3px;
+    color: #a8abb4;
+}
+
+.af-details .af-box .af-info .items .itm-data {
+    margin-left: 7px;
+}
+
+.af-details .af-box .af-info .af-date {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.af-details .af-box .af-ldr {
+    background-color: #ededed;
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: auto;
+}
+
+.af-details .af-box .af-ldr .heading {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.af-details .af-box .af-ldr .ech-ldr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+}
+
+.af-details .af-box .af-ldr .ech-ldr .avatar-sec {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .no-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .no-img .icn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 25px;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .nam-sec {
+    margin-left: 15px;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .btn-sec {
+    margin-left: auto;
+}
+
+
+.af-details .af-box .af-ldr .ech-ldr .btn-sec a {
+    color: #727272;
+    transition: color 275ms;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .btn-sec a:hover {
+    color: #fff;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .btn-sec a .icn {
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 50%;
+    transition: background-color 275ms;
+}
+
+.af-details .af-box .af-ldr .ech-ldr .btn-sec a .icn:hover {
+    background-color: #8c6692;
+}
+
+.af-details .af-box .af-info .members {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.af-details .af-box .af-info .members .btn {
+    margin-left: 25px;
+}
+
+.af-details .af-box .af-info .members .btn .mbr-view {
+    background-color: #4c91e8;
+    transition: backgrounf-color 275ms;
+    padding: 5px 20px;
+    color: #f2f2f2;
+    border-radius: 6px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.af-details .af-box .af-info .members .btn .mbr-view .txt,
+.af-details .af-box .af-info .members .btn .mbr-view .icn {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.af-details .af-box .af-info .members .btn .mbr-view .icn {
+    margin-right: 7px;
+}
+
+.af-details .af-box .af-info .af-sts {
+    font-weight: 600;
+    font-size: .85em;
+}
+
+.af-details .af-box .af-info .af-sts .sts {
+    padding: 0px 12px;
+    border-radius: 30px;
+}
+
+.af-details .af-box .af-info .af-sts .sts.active {
+    background-color: #a2e295;
+    color: #1b690c;
+    border: 1px solid #1b690c;
+}
+
+.af-details .af-box .af-info .af-sts .sts.inactive {
+    background-color: #f4bec0;
+    color: #ff1e1e;
+    border: 1px solid #ff1e1e;
+}
+
+.af-details .af-actions .btn {
+    padding: 5px 20px;
+    color: #f2f2f2;
+    border-radius: 6px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.af-details .af-actions .btn .icn {
+    font-size: 1.2em;
+    margin-right: 7px;
+}
+
+.af-details .af-actions .btn.edt {
+    background-color: #4c91e8;
+    transition: backgrounf-color 275ms;
+    margin-right: 15px;
+}
+
+.af-details .af-actions .btn.edt:hover {
+    background-color: #3182e6;
+}
+
+.af-details .af-actions .btn.dlt {
+    background-color: #f53535;
+    transition: backgrounf-color 275ms;
+}
+
+.af-details .af-actions .btn.dlt:hover {
+    background-color: #f01f1f;
+}
+
+/*  choose member popup  */
+.mbr-srch .each-mbr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mbr-srch .each-mbr .avatar-sec {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.mbr-srch .each-mbr .avatar-sec .no-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.mbr-srch .each-mbr .avatar-sec .no-img .icn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 30px;
+}
+
+.mbr-srch .each-mbr .nam-sec {
+    margin-left: 10px;
+    width: calc(100% - 145px);
+}
+
+.mbr-srch .each-mbr .actn {
+    margin-left: 10px;
+    width: 65px;
+}
+
+.mbr-srch .srch-bar {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.mbr-srch .srch-bar .key-inp {
+    padding-right: 35px;
+    width: 100%;
+}
+
+.mbr-srch .srch-bar .srch-btn {
+    position: absolute;
+    border: none;
+    padding: 0px;
+    background: transparent;
+    top: 10px;
+    right: 7px;
+}
+
+.mbr-srch .show-more {
+    text-align: center;
+}
+
+.mbr-srch .show-more .btn {
+    padding: 5px 10px;
+}
+
+.mbr-srch .mbr-list {
+    height: calc(100vh - 215px);
+    overflow-y: auto;
+}
+
+.mbr-srch .no-mbr {
+    text-align: center;
+    padding-top: 35px;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .af-details .af-box {
+        flex-direction: column-reverse;
+    }
+
+    .af-details .af-box .af-info {
+        flex: none;
+        margin-right: 0px;
+    }
+
+    .af-details .af-box .af-info .af-name {
+        font-size: 2.5em;
+    }
+}
+
+@media only screen and (max-width: 424px) {
+    .af-details .af-box .af-info .af-name {
+        font-size: 2em;
+    }
+
+    .af-details .af-box .af-info .af-date {
+        font-size: 1.2em;
+    }
+}

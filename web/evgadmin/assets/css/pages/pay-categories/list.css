@@ -1,0 +1,106 @@
+.pay-types {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+    max-width: none;
+}
+
+.pay-types .pay-item {
+    background-color: #fff;
+    border-radius: 8px;
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 20px);
+    margin: 0 10px 20px;
+    display: block;
+    transition: box-shadow .25s;
+}
+
+.pay-types .pay-item span {
+    display: block;
+}
+
+.pay-types .pay-item .pay-info {
+    color: #a8abb4;
+}
+
+.pay-types .pay-item .pay-info .pay-name {
+    font-size: 1.1em;
+    font-weight: 800;
+    color: #000;
+}
+
+.pay-types .pay-item .pay-info .pay-status {
+    font-weight: 600;
+    font-size: .9em;
+    margin-bottom: 15px;
+}
+
+.pay-types .pay-item .pay-info .pay-status .sts {
+    padding: 0px 12px;
+    border-radius: 30px;
+    display: inline-block;
+}
+
+.pay-types .pay-item .pay-info .pay-status .sts.active {
+    background-color: #a2e295;
+    color: #1b690c;
+    border: 1px solid #1b690c;
+}
+
+.pay-types .pay-item .pay-info .pay-status .sts.inactive {
+    background-color: #f4bec0;
+    color: #ff1e1e;
+    border: 1px solid #ff1e1e;
+}
+
+
+.pay-types .pay-item .card-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pay-types .pay-item .card-right a {
+    color: #727272;
+    transition: color 275ms;
+}
+
+.pay-types .pay-item .card-right a:hover {
+    color: #fff;
+}
+
+.pay-types .pay-item .card-right a .icn {
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 50%;
+    transition: background-color 275ms;
+}
+
+.pay-types .pay-item .card-right a .icn:hover {
+    background-color: #8c6692;
+}
+
+@media only screen and (max-width:1439px) {
+    .pay-types .pay-item {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media only screen and (max-width:1129px) {
+    .pay-types .pay-item {
+        width: calc(50% - 20px);
+    }
+}
+
+@media only screen and (max-width:425px) {
+    .pay-types {
+        display: block;
+    }
+
+    .pay-types .pay-item {
+        margin-bottom: 20px;
+        width: auto;
+    }
+}

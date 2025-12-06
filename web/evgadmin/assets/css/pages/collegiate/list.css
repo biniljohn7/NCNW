@@ -1,0 +1,302 @@
+.affiliate-top {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  align-items: end;
+}
+
+.affiliate-top .new-affiliate {
+  position: relative;
+}
+
+.affiliate-top .new-affiliate a {
+  background-color: #5b2166;
+  padding: 5px 25px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.affiliate-top .hed-right {
+  margin-right: 10px;
+}
+
+.affiliate-top .hed-right form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.pix-key-search {
+  margin-left: 10px;
+}
+
+.affiliate-list {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+  max-width: none;
+}
+
+.affiliate-list .affiliate-card {
+  background-color: #fff;
+  border-radius: 8px;
+  position: relative;
+  padding: 20px 25px;
+  box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+  width: calc(33.33% - 20px);
+  margin: 0 10px 20px;
+}
+
+.affiliate-list .affiliate-card .card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.affiliate-list .affiliate-card .card-top .card-left {
+  padding-right: 10px;
+  display: flex;
+  position: relative;
+}
+
+.affiliate-list .affiliate-card .card-top .card-left .affiliate-info {
+  display: flex;
+  flex: 1 1 0;
+}
+
+.affiliate-list
+  .affiliate-card
+  .card-top
+  .card-left
+  .affiliate-info
+  .affiliate-name {
+  font-size: 1.1em;
+  font-weight: 800;
+  margin-right: 10px;
+}
+
+/* .affiliate-list.rg
+  .affiliate-card
+  .card-top
+  .card-left
+  .affiliate-info
+  .nt-sub {
+  color: #a8abb4;
+  font-size: 0.9em;
+} */
+
+.affiliate-list
+  .affiliate-card
+  .card-top
+  .card-left
+  .affiliate-info
+  .affiliate-sts {
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.affiliate-list
+  .affiliate-card
+  .card-top
+  .card-left
+  .affiliate-info
+  .affiliate-sts
+  .sts {
+  padding: 0px 12px;
+  border-radius: 30px;
+}
+
+.affiliate-list
+  .affiliate-card
+  .card-top
+  .card-left
+  .affiliate-info
+  .affiliate-sts
+  .sts.active {
+  background-color: #a2e295;
+  color: #1b690c;
+  border: 1px solid #1b690c;
+}
+
+.affiliate-list
+  .affiliate-card
+  .card-top
+  .card-left
+  .affiliate-info
+  .affiliate-sts
+  .sts.inactive {
+  background-color: #f4bec0;
+  color: #ff1e1e;
+  border: 1px solid #ff1e1e;
+}
+
+.affiliate-list .affiliate-card .card-top .card-right {
+  display: flex;
+  position: relative;
+}
+
+.affiliate-list .affiliate-card .card-top .card-right a {
+  color: #727272;
+  transition: color 275ms;
+}
+
+.affiliate-list .affiliate-card .card-top .card-right a:hover {
+  color: #fff;
+}
+
+.affiliate-list .affiliate-card .card-top .card-right a .icn {
+  padding: 8px;
+  background-color: #efefef;
+  border-radius: 50%;
+  transition: background-color 275ms;
+}
+
+.affiliate-list .affiliate-card .card-top .card-right a .icn:hover {
+  background-color: #8c6692;
+}
+
+.affiliate-list .affiliate-card .card-btm {
+  display: flex;
+  justify-content: space-between;
+}
+
+.affiliate-list .affiliate-card .card-btm .items {
+  padding-right: 10px;
+  display: flex;
+  position: relative;
+  color: #a8abb4;
+}
+
+.affiliate-list .affiliate-card .card-btm .items .itm-icn {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.affiliate-list .affiliate-card .card-btm .items .itm-info .itm-label {
+  font-weight: 600;
+  color: #575757;
+}
+
+@media only screen and (max-width: 1440px) {
+  .affiliate-list .affiliate-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media only screen and (max-width: 1319px) {
+  .affiliate-list .affiliate-card {
+    padding: 15px;
+  }
+}
+
+@media only screen and (max-width: 679px) {
+  .affiliate-top.rg {
+    display: block;
+  }
+
+  .affiliate-top.rg .new-nation {
+    margin-bottom: 20px;
+  }
+
+  .affiliate-top.rg .hed-right form {
+    justify-content: flex-start;
+  }
+}
+
+@media only screen and (max-width: 610px) {
+  .affiliate-list .affiliate-card .card-top .card-left .affiliate-info {
+    display: block;
+  }
+
+  .affiliate-list
+    .affiliate-card
+    .card-top
+    .card-left
+    .affiliate-info
+    .affiliate-name {
+    margin-bottom: 10px;
+  }
+
+  .affiliate-list.rg
+    .affiliate-card
+    .card-top
+    .card-left
+    .affiliate-info
+    .nt-fld {
+    margin-bottom: 10px;
+  }
+
+  .affiliate-list.rg
+    .affiliate-card
+    .card-top
+    .card-left
+    .affiliate-info
+    .affiliate-name {
+    margin-bottom: 0px;
+  }
+
+  .affiliate-list .affiliate-card .card-btm {
+    display: block;
+  }
+
+  .affiliate-list .affiliate-card .card-btm .items:first-child {
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 559px) {
+  .affiliate-list {
+    display: block;
+  }
+
+  .affiliate-list .affiliate-card {
+    margin-bottom: 20px;
+    width: calc(100% - 20px);
+  }
+}
+
+@media only screen and (max-width: 539px) {
+  .affiliate-top {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+
+  .affiliate-top .hed-right {
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+
+  .affiliate-top .hed-right form .bnft-search {
+    margin-left: 0px;
+  }
+
+  .pix-key-search {
+    margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 494px) {
+  .affiliate-top.rg .hed-right form .bnft-search {
+    margin-top: 20px;
+  }
+
+  .affiliate-top.rg .hed-right form .pix-key-search {
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .affiliate-top .hed-right form .bnft-search {
+    min-width: 290px;
+  }
+
+  .pix-key-search .sh-btn button {
+    padding: 9.5px 10px;
+  }
+}

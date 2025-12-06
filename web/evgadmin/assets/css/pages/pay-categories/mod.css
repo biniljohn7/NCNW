@@ -1,0 +1,46 @@
+.fm-field {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px
+}
+
+.fm-field .fld-label {
+    width: 140px;
+    padding: 6px;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.fm-field .fld-inp {
+    flex: 1 1 0;
+}
+
+.fm-field .fld-inp.dollar {
+    position: relative;
+}
+
+.fm-field .fld-inp.dollar::before {
+    content: '$';
+    position: absolute;
+    top: 9px;
+    left: 16px;
+    pointer-events: none;
+}
+
+.fm-field .fld-inp.dollar input {
+    padding-left: 30px;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .fm-field {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .fm-field .fld-label {
+        width: auto;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+}

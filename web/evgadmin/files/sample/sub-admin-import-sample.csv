@@ -1,0 +1,6 @@
+name,email,phone,permission to access benefit,permission to access events,permission to access location,permission to access members,permission to access members modify,permission to access transactions,permission to access career,permission to access advocacy,permission to access paid plans,permission to access point rules,permission to access messages,permission to access cms pages,permission to access contact enquiries,permission to access statistics,permission to access helpdesk,permission to access helpdesk developer,permission to access helpdesk project-coordinators,permission to access helpdesk ncnw-team
+John Carter,john.carter@example.com,5551234567,yes,yes,no,yes,yes,no,yes,no,yes,yes,yes,yes,no,yes,yes,no,yes,yes
+Emily Davis,emily.davis@example.com,5552345678,no,no,no,yes,no,no,yes,yes,no,no,yes,no,yes,yes,no,yes,no,no
+Michael Smith,michael.smith@example.com,5553456789,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes
+Sarah Johnson,sarah.johnson@example.com,5554567890,no,yes,no,yes,no,yes,no,yes,no,yes,no,yes,no,yes,no,no,yes,yes
+Hailey Buckley,jeffreymoore@carpenter.com,(376)127-7697x743,yes,no,no,no,no,no,yes,yes,yes,yes,no,no,no,no,yes,yes,no,no

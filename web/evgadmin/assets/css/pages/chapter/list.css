@@ -1,0 +1,341 @@
+.chapter-hed {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 50px;
+}
+
+.chapter-hed .new-chapter {
+    padding-right: 10px;
+}
+
+.new-chapter {
+    position: relative;
+    min-width: 130px;
+}
+
+.new-chapter a {
+    background-color: #5b2166;
+    padding: 5px 25px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.chapter-hed .hed-right form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.chapter-hed .hed-right form .fltr-left {
+    display: flex;
+    margin-right: 10px;
+}
+
+.chapter-hed .hed-right form .chapter-select select {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    font-weight: 600;
+    color: #8294b7;
+    appearance: none;
+    background-image: url('../../../images/down\ arrow.png');
+    background-repeat: no-repeat;
+    background-size: 15px;
+}
+
+.chapter-hed .hed-right form .chapter-select.nation select {
+    width: 135px;
+    background-position: 100px center;
+}
+
+.chapter-hed .hed-right form .fltr-right {
+    display: flex;
+}
+
+.chapter-hed .hed-right form .chapter-select.state select {
+    width: 155px;
+    background-position: 120px center;
+}
+
+.pix-key-search {
+    margin-left: 0px;
+}
+
+.chapter-hed .hed-right form .chapter-search {
+    min-width: 320px;
+    position: relative;
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 11px 0px 12px 60px;
+    display: flex;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    margin-left: 10px;
+}
+
+.chapter-hed .hed-right form .chapter-search .icn {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #c3cbda;
+    font-size: 2em;
+}
+
+.chapter-hed .hed-right form .chapter-search .srch {
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 0 0px rgba(0, 0, 0, .1);
+    padding: 0px;
+}
+
+.chapter-hed .hed-right form .chapter-search .srch::placeholder {
+    color: #8294b7;
+    font-size: .9em;
+    font-weight: 600;
+}
+
+.chapter-hed .hed-right form .chapter-search .sh-btn {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.chapter-hed .hed-right form .chapter-search .sh-btn button {
+    background-color: #5b2166;
+    color: #fff;
+    font-weight: 500;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 9.5px 18px;
+}
+
+.chapter-list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+    max-width: none;
+}
+
+.chapter-list .chapter-card {
+    background-color: #fff;
+    border-radius: 8px;
+    position: relative;
+    padding: 20px 25px;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px);
+    margin: 0 10px 20px;
+}
+
+.chapter-list .chapter-card .card-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.chapter-list .chapter-card .card-top .card-left {
+    padding-right: 10px;
+    display: flex;
+    position: relative;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info {
+    display: flex;
+    flex: 1 1 0;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-name {
+    font-size: 1.1em;
+    font-weight: 800;
+    margin-right: 10px;
+}
+
+.chapter-list.rg .chapter-card .card-top .card-left .chapter-info .nt-sub {
+    color: #a8abb4;
+    font-size: .9em;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-sts {
+    font-weight: 600;
+    font-size: .85em;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-sts .sts {
+    padding: 0px 12px;
+    border-radius: 30px;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-sts .sts.active {
+    background-color: #a2e295;
+    color: #1b690c;
+    border: 1px solid #1b690c;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-sts .sts.inactive {
+    background-color: #f4bec0;
+    color: #ff1e1e;
+    border: 1px solid #ff1e1e;
+}
+
+.chapter-list .chapter-card .card-top .card-right {
+    display: flex;
+    position: relative;
+}
+
+.chapter-list .chapter-card .card-top .card-right a {
+    color: #727272;
+    transition: color 275ms;
+}
+
+.chapter-list .chapter-card .card-top .card-right a:hover {
+    color: #fff;
+}
+
+.chapter-list .chapter-card .card-top .card-right a .icn {
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 50%;
+    transition: background-color 275ms;
+}
+
+.chapter-list .chapter-card .card-top .card-right a .icn:hover {
+    background-color: #8c6692;
+}
+
+.chapter-list .chapter-card .card-btm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chapter-list .chapter-card .card-btm .items {
+    padding-right: 10px;
+    display: flex;
+    position: relative;
+    color: #a8abb4;
+}
+
+.chapter-list .chapter-card .card-btm .items .itm-icn {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.chapter-list .chapter-card .card-btm .items .itm-info .itm-label {
+    font-weight: 600;
+    color: #575757;
+}
+
+@media only screen and (max-width:1440px) {
+    .chapter-list .chapter-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media only screen and (max-width:1349px) {
+    .chapter-hed {
+        display: block;
+    }
+
+    .chapter-hed .new-chapter {
+        margin-bottom: 20px;
+    }
+
+    .chapter-hed .hed-right form {
+        justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 1319px) {
+    .chapter-list .chapter-card {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 1139px) and (min-width: 1025px) {
+    .pix-key-search {
+        margin-top: 0px;
+    }
+}
+
+@media only screen and (max-width:1134px) {
+    .chapter-hed .hed-right form {
+        display: block;
+    }
+
+    .chapter-hed .hed-right form .fltr-right {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 790px) {
+    .pix-key-search {
+        margin-top: 0px;
+    }
+}
+
+@media only screen and (max-width:610px) {
+    .chapter-list .chapter-card .card-top .card-left .chapter-info {
+        display: block;
+    }
+
+    .chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-name {
+        margin-bottom: 10px;
+    }
+
+    .chapter-list.rg .chapter-card .card-top .card-left .chapter-info .nt-fld {
+        margin-bottom: 10px;
+    }
+
+    .chapter-list.rg .chapter-card .card-top .card-left .chapter-info .chapter-name {
+        margin-bottom: 0px;
+    }
+
+    .chapter-list .chapter-card .card-btm {
+        display: block;
+    }
+
+    .chapter-list .chapter-card .card-btm .items:first-child {
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width:519px) {
+    .chapter-hed .hed-right form .fltr-right {
+        display: block;
+    }
+
+    .chapter-hed .hed-right form .fltr-right .chapter-select {
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 550px) and (min-width: 426px) {
+    .chapter-list .chapter-card .card-top .card-right {
+        display: block;
+    }
+
+    .chapter-list .chapter-card .card-top .card-right a {
+        margin: 5px 0px;
+        display: block;
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .chapter-list {
+        display: block;
+    }
+
+    .chapter-list .chapter-card {
+        margin-bottom: 20px;
+        width: calc(100% - 20px);
+    }
+}

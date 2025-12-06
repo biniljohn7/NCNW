@@ -1,0 +1,42 @@
+.newpass-page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+}
+
+.newpass-page .recv-form {
+    margin-bottom: 70px;
+}
+
+.newpass-page .recv-form .recv-box {
+    text-align: center;
+    width: 300px;
+    margin: 0px auto;
+}
+
+.newpass-page .recv-form .recv-box .logo {
+    margin-bottom: 30px;
+}
+
+.newpass-page .recv-form .recv-box .lg-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.newpass-page .recv-form .recv-box .field {
+    text-align: left;
+}
+
+.newpass-page .recv-form .recv-box .field+.field {
+    margin-top: 8px;
+}
+
+.newpass-page .recv-form .recv-box .field input {
+    width: 100%;
+}
+
+.newpass-page .recv-form .recv-box .field button {
+    width: 100%;
+}

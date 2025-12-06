@@ -1,0 +1,144 @@
+.transaction-details {
+    position: relative;
+    color: #546486;
+    max-width: 700px;
+}
+
+.transaction-details .trtn-memb {
+    display: flex;
+    color: #464545;
+    font-weight: 600;
+    margin-bottom: 20px
+}
+
+.transaction-details .trtn-memb .memb {
+    width: calc(33.33%);
+    padding-right: 10px;
+}
+
+.transaction-details .trtn-memb .memb .icn {
+    font-weight: 800;
+}
+
+.transaction-details .trtn-info {
+    position: relative;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-bottom: 1px solid #EAE8E8;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+.transaction-details .trtn-info .info-details {
+    margin-bottom: 20px;
+}
+
+.transaction-details .trtn-info .info-details .eachitm {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.transaction-details .trtn-info .info-details .eachitm .pymnt-label {
+    width: calc(33.33%);
+    padding-right: 10px;
+}
+
+.transaction-details .trtn-info .info-details .trcn-mark-paid {
+    display: block;
+    font-size: .9em;
+    cursor: pointer;
+    font-weight: normal;
+    color: var(--linkColor);
+}
+
+.transaction-details .trtn-info .info-details .eachitm .sts .success {
+    color: #2D8020;
+}
+
+.transaction-details .trtn-info .info-details .eachitm .sts .pending {
+    color: #FD3801;
+}
+
+.transaction-details .trtn-charges {
+    position: relative;
+}
+
+.transaction-details .trtn-charges .chrg-details {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #EAE8E8;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.transaction-details .trtn-charges .chrg-details .dtl-hed {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.transaction-details .trtn-charges .chrg-details .dtl-itm {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.transaction-details .trtn-charges .chrg-details .dtl-itm .itm-label {
+    margin-right: 10px;
+}
+
+.transaction-details .trtn-charges .chrg-ttls {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.transaction-details .trtn-charges .chrg-ttls .ttl-itm {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.transaction-details .trtn-charges .chrg-ttls .ttl-itm.ttl {
+    margin-bottom: 0px;
+}
+
+.transaction-details .trtn-charges .chrg-ttls .ttl-itm.ttl .itm-label {
+    color: #4b4b4b;
+    font-size: 1.2em;
+}
+
+.transaction-details .trtn-charges .chrg-ttls .ttl-itm.ttl .itm-vals {
+    color: #1d1d1d;
+    font-size: 1.35em;
+    font-weight: 800;
+}
+
+@media only screen and (max-width: 559px) {
+    .transaction-details .trtn-memb {
+        display: block;
+    }
+
+    .transaction-details .trtn-memb .memb {
+        margin-bottom: 10px;
+        padding-right: 0px;
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .transaction-details .trtn-info .info-details .eachitm .pymnt-label {
+        flex: 0 0 155px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .transaction-details .trtn-info {
+        font-size: .9em;
+    }
+
+    .transaction-details .trtn-charges {
+        font-size: .9em;
+    }
+
+    .transaction-details .trtn-charges .chrg-ttls .ttl-itm .itm-label {
+        font-size: .9em;
+    }
+}

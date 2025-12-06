@@ -1,0 +1,359 @@
+.req-hed {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.req-hed .hed-rt {
+    margin-bottom: 20px;
+}
+
+.req-hed .hed-rt .pix-btn.rounded {
+    margin-right: 0px;
+}
+
+.top-sec {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.top-sec .pix-tab-groups {
+    /* max-width: 24%; */
+    max-width: 340px;
+    display: flex;
+    margin-right: 10px;
+}
+
+.top-sec .pix-tab-groups .tab-btn {
+    display: flex;
+}
+
+.top-sec .flt-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.top-sec .flt-form .req-select select {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    font-weight: 600;
+    color: #3e3e3e;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    appearance: none;
+    background-image: url('../../../images/down\ arrow.png');
+    background-repeat: no-repeat;
+    background-size: 15px;
+}
+
+.top-sec .flt-form .req-select.type {
+    margin-right: 18px;
+}
+
+.top-sec .flt-form .req-select.type select {
+    width: 162px;
+    background-position: 138px center;
+}
+
+.top-sec .flt-form .req-select.priority select {
+    width: 140px;
+    background-position: 115px center;
+}
+
+.top-sec .flt-form .pix-key-search {
+    margin-left: 18px;
+}
+
+.request-list {
+    position: relative;
+}
+
+.request-list .req-card {
+    padding: 20px;
+    border: 1px solid #777777;
+    border-radius: 10px;
+    color: #404040;
+}
+
+.request-list .req-card:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.request-list .req-card .card:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.request-list .req-card .tp {
+    display: flex;
+}
+
+.request-list .req-card .tp .top {
+    display: flex;
+    flex: 0 1 340px;
+    align-items: center;
+}
+
+.request-list .req-card .tp .top .itm.req-id {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #151515;
+}
+
+.request-list .req-card .tp .top .itm.req-id a {
+    color: #151515;
+}
+
+.request-list .req-card .tp .top .itm.req-id a:hover {
+    color: #FD3801;
+}
+
+.request-list .req-card .tp .top .req-sts {
+    padding: 3px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.request-list .req-card .tp .top .req-sts .icn {
+    font-size: 1.5em;
+    padding-right: 10px;
+}
+
+.request-list .req-card .tp .top .req-sts.open {
+    border: 1px solid #0b99ff;
+    background-color: #bbe3ff;
+    color: #0b99ff;
+}
+
+.request-list .req-card .tp .top .req-sts.pending .icn {
+    color: #C00;
+}
+
+.request-list .req-card .tp .top .req-sts.estimated .icn {
+    color: #cc7d00;
+}
+
+.request-list .req-card .tp .top .req-sts.est-verified .icn {
+    color: #00ccca;
+}
+
+.request-list .req-card .tp .top .req-sts.approved .icn {
+    color: #0060cc;
+}
+
+.request-list .req-card .tp .top .req-sts.started .icn {
+    color: #2200cc;
+}
+
+.request-list .req-card .tp .top .req-sts.deployed .icn {
+    color: #780790;
+}
+
+.request-list .req-card .tp .top .req-sts.revise-update .icn {
+    color: #85083d;
+}
+
+.request-list .req-card .tp .top .req-sts.resolved .icn {
+    color: #026c11;
+}
+
+.request-list .req-card .tp .top .itm {
+    display: flex;
+    align-items: center;
+    width: calc(50%);
+}
+
+.request-list .req-card .tp .top .high {
+    color: #ff0000;
+}
+
+.request-list .req-card .tp .top .medium {
+    color: #fd7600;
+}
+
+.request-list .req-card .tp .top .low {
+    color: #e4ec00;
+}
+
+.request-list .req-card .tp .top .bug {
+    color: #F15C2D;
+}
+
+.request-list .req-card .tp .top .change {
+    color: #0b99ff;
+}
+
+.request-list .req-card .mid {
+    border-bottom: 2px solid #B2B2B2;
+    padding-bottom: 15px;
+}
+
+.request-list .req-card .btm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.request-list .req-card .btm .btm-left {
+    display: flex;
+    width: calc(80% - 20px);
+    margin-right: 20px;
+}
+
+.request-list .req-card .btm .btm-left .btmlf {
+    display: flex;
+    width: calc(100%);
+}
+
+.request-list .req-card .btm .btm-left .btmlf .item {
+    display: flex;
+    flex: 0 1 335px;
+    position: relative;
+    align-items: baseline;
+    margin-right: 10px;
+}
+
+.request-list .req-card .btm .btm-left .btmlf .item .itm {
+    margin-right: 10px;
+    font-size: .9em;
+}
+
+.request-list .req-card .btm .btm-left .btmlf .item .raised {
+    border-radius: 50%;
+    line-height: 0;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7e7e7e;
+    font-weight: 600;
+    flex-shrink: 0;
+    font-size: 1.1em;
+}
+
+.request-list .req-card .btm .btm-left .btmlf .item .raised:not(.admin) {
+    background-color: #dedede;
+}
+
+.request-list .req-card .btm .btm-left .btmlf .item .attch {
+    transform: rotate(45deg);
+}
+
+.request-list .req-card .btm .btm-left .btmlf .item .itm-label {
+    font-weight: 600;
+}
+
+.request-list .req-card .btm .btm-right {
+    flex: 1 1 0;
+    text-align: right;
+}
+
+@media only screen and (max-width: 1359px) {
+    .request-list .req-card .btm .btm-left {
+        width: calc(100% - 20px);
+        margin-bottom: 20px;
+        margin-right: 0px;
+    }
+
+    .request-list .req-card .btm {
+        display: block;
+    }
+
+    .request-list .req-card .btm .btm-right {
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 1387px) and (min-width: 715px),
+only screen and (max-width: 687px) {
+    .top-sec .flt-form .pix-key-search {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 714px) and (min-width: 0px) {
+    .top-sec {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .top-sec .srch-fltr-box {
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (max-width: 1099px) and (min-width: 1023px),
+only screen and (max-width: 849px) {
+    .request-list .req-card .btm .btm-left .btmlf {
+        display: block;
+    }
+
+    .request-list .req-card .btm .btm-left .btmlf .item {
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (max-width: 629px) {
+    .request-list .req-card .tp .top {
+        display: block;
+    }
+
+    .request-list .req-card .tp .top .itm {
+        margin-bottom: 15px;
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 449px) {
+    .request-list .req-card .btm .btm-left {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .top-sec .pix-tab-groups .tab-btn {
+        padding: 10px 14px;
+    }
+
+    .request-list .req-card .tp {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .req-hed {
+        display: block;
+    }
+
+    .req-hed .hed-rt {
+        text-align: right;
+    }
+
+    .top-sec .flt-form .req-select select {
+        padding: 6px 12px;
+    }
+
+    .top-sec .flt-form .req-select.type select {
+        width: 146px;
+        background-position: 120px center;
+    }
+
+    .top-sec .flt-form .req-select.priority select {
+        width: 125px;
+        background-position: 100px center;
+    }
+
+    .top-sec .flt-form .pix-key-search {
+        min-width: 290px;
+    }
+
+    .top-sec .flt-form .pix-key-search .sh-btn button {
+        padding: 10px;
+    }
+}

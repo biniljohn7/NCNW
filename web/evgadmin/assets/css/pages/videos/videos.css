@@ -1,0 +1,102 @@
+.video-section {
+    position: relative;
+}
+
+.video-section .vd-hed {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.video-section .f-lst {
+    list-style: outside none none;
+    margin: 0 0 20px;
+    padding: 0px;
+    width: 600px;
+}
+
+.video-section .f-lst .video {
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    min-height: 80px;
+    padding: 15px 18px;
+    position: relative;
+    text-align: left;
+}
+
+.video-section .f-lst .video .pnt {
+    border-right: 1px solid #cdcdcd;
+    color: #d1d1d1;
+    display: block;
+    font-size: 30px;
+    left: 14px;
+    padding-right: 6px;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    width: 85px;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.video-section .f-lst .video+.video {
+    margin-top: 10px;
+}
+
+.video-section .f-lst .video .fetu {
+    color: #333;
+    display: block;
+    font-weight: 500;
+    padding: 0 65px 0 92px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.video-section .f-lst .video .fetu .video-text {
+    cursor: pointer;
+}
+
+.video-section .f-lst .video .fetu .video-text:hover {
+    color: #999;
+}
+
+.video-section .f-lst .video .fetu .fe-icn {
+    background-color: #cf1b22;
+    border-radius: 50%;
+    color: #fff;
+    padding: 5px 7px;
+    cursor: pointer;
+}
+
+.video-section .f-lst .video .fetu .fe-icn.edit-video {
+    background-color: #5b2166;
+}
+
+.video-section .f-lst .video .fetu .editable-sec {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.vd-fom-ebl {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 1.1em;
+    color: #737373;
+}
+
+.vd-fom-actions {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#videoPreviewDisp .popup-tbl .popup-tr .popup-cell .cell-content a.popup-close {
+    right: 0;
+    top: 0;
+}

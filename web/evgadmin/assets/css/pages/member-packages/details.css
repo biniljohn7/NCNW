@@ -1,0 +1,83 @@
+.tp-sts {
+    border-radius: 30px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 20px;
+    padding: 0 12px;
+    vertical-align: middle;
+}
+
+.tp-sts.active {
+    background-color: #a2e295;
+    color: #1b690c;
+    border: 1px solid #1b690c;
+}
+
+.tp-sts.inactive {
+    background-color: #ffebeb;
+    border: 1px solid #ff1e1e;
+    color: #d40000;
+}
+
+.plans {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px -15px 0;
+    max-width: none;
+}
+
+.plans .plan-item {
+    background-color: #fff;
+    margin: 0 14px 50px;
+    padding: 30px 34px;
+    border-radius: 15px;
+    width: calc(33.33% - 30px);
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 0 7px rgba(0, 0, 0, .05);
+}
+
+.plans .plan-item .plan-name {
+    font-weight: 600;
+    font-size: 1.4em;
+    margin-bottom: 12px;
+}
+
+.plans .plan-item .i-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.plans .plan-item .i-row .i-amount {
+    margin-left: 30px;
+    width: 85px;
+    text-align: right;
+}
+
+.plans .plan-item .pl-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+@media only screen and (max-width:1449px) and (min-width:830px) {
+    .plans .plan-item {
+        width: calc(50% - 30px);
+    }
+}
+
+@media only screen and (max-width:829px) {
+    .plans {
+        display: block;
+    }
+
+    .plans .plan-item {
+        width: auto;
+    }
+}
+
+@media only screen and (max-width:419px) {
+    .plans .plan-item {
+        padding: 17px;
+    }
+}

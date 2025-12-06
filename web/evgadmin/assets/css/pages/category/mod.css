@@ -1,0 +1,61 @@
+.fm-field {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px
+}
+
+.fm-field .fld-label {
+    width: 150px;
+    padding: 6px;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.fm-field .fld-inp {
+    flex: 1 1 0;
+}
+
+.fm-field .fld-inp .icon-prev {
+    width: 150px;
+    min-height: 150px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.fm-field .fld-inp .icon-prev img {
+    border-radius: 20px;
+}
+
+.fm-field .fld-inp .icon-prev .no-img {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFEFEF;
+}
+
+.fm-field .fld-inp .icon-prev .no-img .img-icn {
+    font-size: 4em;
+    color: #9c9c9c;
+}
+
+.fm-field .fld-inp .file-up {
+    position: relative;
+}
+
+@media only screen and (max-width: 767px) {
+    .fm-field {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .fm-field .fld-label {
+        width: auto;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+}

@@ -1,0 +1,223 @@
+.bnft-detail {
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 40px;
+}
+
+.bnft-detail .bnft-hed {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.bnft-detail .bnft-hed .hed-left {
+    padding-right: 10px;
+    display: flex;
+}
+
+.bnft-detail .bnft-hed .hed-left .bf-name {
+    margin-right: 10px;
+}
+
+.bnft-detail .bnft-hed .hed-left .bf-sts {
+    font-size: .9em;
+    font-weight: 400;
+}
+
+.bnft-detail .bnft-hed .hed-left .bf-sts .sts {
+    padding: 1px 10px;
+    border: 1px solid #f11f1f;
+    background-color: #ffdddd;
+    color: #f11f1f;
+    border-radius: 15px;
+}
+
+.bnft-detail .shrt-desc {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.bnft-detail .shrt-desc .desc-label {
+    padding-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.bnft-detail .shrt-desc .decs-val {
+    color: #848588;
+    font-size: .95em;
+}
+
+.bnft-detail .box-items {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #ededed;
+    display: flex;
+    border-radius: 8px;
+}
+
+.bnft-detail .box-items .item {
+    position: relative;
+    display: flex;
+}
+
+.bnft-detail .box-items .item.left {
+    width: calc(50%);
+}
+
+.bnft-detail .box-items .item .itm {
+    display: flex;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #aeaeae;
+    position: relative;
+}
+
+.bnft-detail .box-items .item .itm.lf {
+    width: calc(50% - 20px);
+    border-right: 1px solid #dededf;
+}
+
+.bnft-detail .box-items .item .itm.rt {
+    flex: 1 1 0;
+}
+
+.bnft-detail .box-items .item .itm.rt.brd {
+    border-right: 1px solid #dededf;
+}
+
+.bnft-detail .box-items .item.right {
+    flex: 1 1 0;
+}
+
+.bnft-detail .box-items .itm .itm-icn {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.bnft-detail .box-items .itm .itm-info .itm-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.bnft-detail .box-items .itm .itm-info .itm-val {
+    color: #484848;
+}
+
+.bnft-detail .lg-desc {
+    padding: 20px;
+    background-color: #f8f9fb;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.bnft-detail .lg-desc .desc-label {
+    margin-bottom: 10px;
+    color: #aeaeae;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.bnft-detail .lg-desc .desc-val {
+    color: #484848;
+    line-height: 1.8em;
+    font-size: .95em;
+}
+
+.bnft-detail .dlt-btn {
+    position: relative;
+    /* text-align: right; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bnft-detail .dlt-btn a {
+    padding: 5px 20px;
+    background-color: #5b2166;
+    border-radius: 5px;
+    color: #fff;
+    transition: background-color 275ms;
+}
+
+.bnft-detail .dlt-btn .bf-dlt {
+    background-color: #db1c35;
+}
+
+.bnft-detail .dlt-btn .bf-dlt:hover {
+    background-color: #dd3d53;
+}
+
+.bnft-detail .dlt-btn a:hover {
+    background-color: #6e3b79;
+}
+
+@media only screen and (max-width: 1189px) and (min-width: 0px) {
+    .bnft-detail .box-items {
+        display: block;
+    }
+
+    .bnft-detail .box-items .item.left {
+        width: auto;
+        margin-bottom: 20px;
+    }
+
+    .bnft-detail .box-items .item .itm.rt.brd {
+        border-right: none;
+    }
+
+    .bnft-detail .box-items .item .itm {
+        justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .bnft-detail {
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 599px) and (min-width: 460px) {
+    .bnft-detail .box-items .item .itm.rt {
+        padding-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .bnft-detail .box-items {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 529px) {
+    .bnft-detail .bnft-hed .hed-left {
+        flex-direction: column;
+    }
+
+    .bnft-detail .bnft-hed .hed-left .bf-sts {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 459px) {
+    .bnft-detail .box-items .item {
+        display: block;
+    }
+
+    .bnft-detail .box-items .item .itm {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .bnft-detail .box-items .item .itm.lf {
+        width: auto;
+        border-right: none;
+        margin-bottom: 20px;
+    }
+}

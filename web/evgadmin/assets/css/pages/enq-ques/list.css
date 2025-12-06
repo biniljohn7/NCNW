@@ -1,0 +1,41 @@
+.ques {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    padding: 30px 35px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    color: #546486;
+    font-weight: 500;
+    justify-content: space-between;
+}
+
+.add-btn {
+    background-color: #5b2166;
+    padding: 5px 25px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.ques .actions a {
+    color: #727272;
+    transition: color 275ms;
+}
+
+.ques .actions a:hover {
+    color: #fff;
+}
+
+.ques .actions a .icn {
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 50%;
+    transition: background-color 275ms;
+}
+
+.ques .actions a .icn:hover {
+    background-color: #8c6692;
+}

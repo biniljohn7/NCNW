@@ -1,3 +1,10 @@
 
 app/yarn.lock
 app/package.json
+
+
+web/evgadmin/emails
+web/evgadmin/errors
+web/uploads
+web/evgadmin/__datas
+/web/.env

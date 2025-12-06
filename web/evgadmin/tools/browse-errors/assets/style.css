@@ -1,0 +1,112 @@
+html,
+body {
+    background-color: #282c34;
+    color: #d9d9d9;
+    position: relative;
+    height: 100%;
+}
+
+body {
+    font-family: verdana;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    position: fixed;
+    left: 20px;
+    top: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100% - 20px);
+    width: 270px;
+    border-right: 1px solid #424242;
+}
+
+.sidebar .link-item {
+    position: relative;
+}
+
+.sidebar .link-item .nav-link {
+    color: #c3c3c3;
+    text-decoration: none;
+    padding: 5px 0;
+    display: block;
+    margin-right: 37px;
+}
+
+.sidebar .link-item .nav-link:hover,
+.sidebar .link-item .nav-link.active {
+    color: #9f6;
+}
+
+.sidebar .link-item .file-del {
+    color: #fff;
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    background-color: #414650;
+    border-radius: 5px;
+    padding: 4px 7px;
+}
+
+.sidebar .link-item .file-del:hover {
+    color: #fff;
+    background-color: #5e626b;
+}
+
+.sidebar .side-head {
+    font-weight: bold;
+    font-size: 17px;
+    padding: 8px 0;
+}
+
+.sidebar .side-child {
+    margin-left: 13px;
+}
+
+.sidebar .side-child+.side-head {
+    margin-top: 30px;
+}
+
+.content-area {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    width: calc(100% - 350px);
+    height: calc(100% - 20px);
+    /* white-space: pre-wrap; */
+    font-family: monospace;
+    word-wrap: break-word;
+}
+
+.content-area .err-wrap {
+    padding-right: 70px;
+    position: relative;
+}
+
+.content-area .err-wrap .close-error {
+    position: absolute;
+    border: 1px solid #999;
+    display: flex;
+    justify-content: space-around;
+    right: 0px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    border-radius: 50%;
+    color: #999;
+    cursor: pointer;
+}
+
+.content-area .err-wrap .close-error:hover {
+    border-color: #f90;
+    color: #f90;
+}
+
+.content-area .err-wrap .close-error span.material-symbols-outlined {
+    font-size: 14px;
+}

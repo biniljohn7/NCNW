@@ -1,0 +1,9 @@
+.sample-file {
+    color: var(--primary);
+    font-weight: 500;
+    transition: color .3s ease-in-out;
+}
+
+.sample-file:hover {
+    color: #a63eb6;
+}

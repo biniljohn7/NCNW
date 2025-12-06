@@ -1,0 +1,168 @@
+.page-head {
+    display: flex;
+}
+
+.page-head .head-col {
+    margin-right: 30px;
+    flex: 1 1 0;
+}
+
+.page-head .breadcrumbs {
+    margin-bottom: 0;
+}
+
+.page-head {
+    margin-bottom: 20px;
+}
+
+.admin-list {
+    display: flex;
+    margin: 0 -15px;
+    flex-wrap: wrap;
+    max-width: none;
+}
+
+.admin-list .team-list-item {
+    background: #fff;
+    border-radius: 30px;
+    margin: 0 15px 20px;
+    width: calc(20% - 30px);
+    text-align: center;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    display: block;
+    padding: 25px;
+}
+
+.admin-list .team-list-item span {
+    display: block;
+}
+
+.admin-list .team-list-item .team-img {
+    width: 200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.admin-list .team-list-item .team-img img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.admin-list .team-list-item .team-img .no-img {
+    background-color: #EBE9E9;
+    border-radius: 50%;
+    padding-top: 100%;
+    position: relative;
+}
+
+.admin-list .team-list-item .team-img .no-img .usr-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6em;
+    color: #C9C9C9;
+}
+
+.admin-list .team-list-item .team-info {
+    padding-top: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.admin-list .team-list-item .team-info .team-mbr-name {
+    color: #003C46;
+    font-size: 1.3em;
+    font-weight: 700;
+    display: block;
+    margin-bottom: .4em;
+}
+
+.admin-list .team-list-item:hover .team-info .team-mbr-name {
+    color: #8304a9;
+}
+
+.admin-list .team-list-item .team-info .adm-status {
+    font-size: .75em;
+    border: 1px solid #f00;
+    display: inline-block;
+    background-color: #fee;
+    padding: .2em 1em;
+    border-radius: 15px;
+    margin-bottom: 1.5em;
+}
+
+.admin-list .team-list-item .team-info .adm-status.active {
+    color: #090;
+    border-color: #090;
+    background-color: #efe;
+}
+
+.admin-list .team-list-item .team-info .adm-perms .perm-txt {
+    color: #3E7983;
+    font-size: .8em;
+    display: inline;
+}
+
+.admin-list .team-list-item .team-info .adm-perms .perm-txt.more {
+    color: #bd3ee3;
+}
+
+.admin-list .team-list-item .team-info .adm-perms .perm-txt+.perm-txt::before {
+    display: inline-block;
+    content: '';
+    background-color: #ccc;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin: 0 6px;
+}
+
+@media screen and (min-width: 2099px) {
+    .admin-list .team-list-item {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width:1699px) and (min-width:1400px) {
+    .admin-list .team-list-item {
+        margin: 0 10px 30px;
+        width: calc(25% - 20px);
+    }
+}
+
+@media only screen and (max-width:1399px) and (min-width:768px) {
+    .admin-list .team-list-item {
+        margin: 0 10px 30px;
+        width: calc(33% - 20px);
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .admin-list .team-list-item {
+        width: calc(50% - 20px);
+        padding: 15px;
+        border-radius: 10px;
+    }
+}
+
+@media only screen and (max-width:619px) {
+    .page-head {
+        display: block;
+    }
+
+    .page-head .head-col {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .page-head .pix-key-search {
+        width: auto;
+    }
+}
+
+@media only screen and (max-width:460px) {
+    .admin-list .team-list-item {
+        width: 100%;
+    }
+}

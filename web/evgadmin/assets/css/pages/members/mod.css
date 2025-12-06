@@ -1,0 +1,199 @@
+.fm-field {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.fm-field .fld-label {
+    width: 190px;
+    padding: 6px;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.fm-field .sub-hed {
+    width: auto;
+}
+
+.fm-field .sec-sub {
+    color: #979797;
+}
+
+.fm-field .sub-hed.sec {
+    margin-bottom: 0px;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.fm-field .fld-inp {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 0;
+    justify-content: space-between;
+}
+
+.fm-field .fld-inp.inp-flx {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+}
+
+.fm-field .fld-inp.inp-flx.edu {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.fm-field .field-actions {
+    width: fit-content;
+}
+
+.fm-field .field-actions .field-delete {
+    cursor: pointer;
+    padding: 10px 0;
+    display: block;
+    color: #f86565;
+}
+
+.fm-field .field-actions .field-delete:hover {
+    color: #ff0404;
+}
+
+.fm-field .fld-inp .edc-fld {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.fm-field .fld-inp .edc-fld .fld-rg {
+    display: flex;
+    align-items: center;
+    color: #e95252;
+}
+
+.fm-field .fld-inp .edc-fld .fld-rg .delete-edc {
+    cursor: pointer;
+}
+
+.fm-field .fld-inp .edc-tp {
+    margin-bottom: 10px;
+}
+
+.gp-fields {
+    display: none;
+}
+
+.gp-fields.show {
+    display: flex;
+}
+
+.submit-box {
+    background-color: rgba(247, 247, 249, 0.7);
+    border-top: 1px solid #e4e4e6;
+    bottom: 0;
+    margin-top: 30px;
+    padding: 14px 0;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+}
+
+.affiliate-picker {
+    position: relative;
+}
+
+.aff-search {
+    position: fixed;
+    margin-bottom: 20px;
+    top: 55px;
+    width: calc(100% - 52px);
+}
+
+.aff-search input {
+    width: 100%;
+    padding-right: 30px;
+}
+
+.aff-search .search-icn {
+    position: absolute;
+    top: 10px;
+    right: 6px;
+    color: #acacac;
+    pointer-events: none;
+}
+
+.aff-add-btn {
+    position: fixed;
+    background-color: #fff;
+    bottom: 0px;
+    padding: 15px 0px;
+    z-index: 100;
+    width: calc(100% - 52px);
+}
+
+.aff-list {
+    padding: 30px 0px;
+}
+
+.aff-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.aff-wrap:hover {
+    color: #55c755;
+}
+
+.aff-wrap:last-child {
+    margin-bottom: 0px;
+}
+
+.aff-wrap .wrap-lf {
+    display: flex;
+    justify-content: space-between;
+}
+
+.aff-wrap .wrap-lf .btns {
+    padding: 6px;
+}
+
+.aff-wrap .wrap-lf .btns .icn {
+    padding: 8px;
+    border: 1px solid #e9eaea;
+    border-radius: 50%;
+    transition: border 275ms;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 275ms border 275ms color 275ms;
+    color: #c3cbda;
+}
+
+.aff-wrap:hover .wrap-lf .select-aff .icn {
+    border: 1px solid #55c755;
+    color: #55c755;
+}
+
+.aff-wrap.add .wrap-lf .select-aff .icn {
+    border: 1px solid #55c755;
+    background-color: #55c755;
+    color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+    .fm-field {
+        /* display: block; */
+        margin-bottom: 15px;
+    }
+
+    .fm-field .fld-label {
+        flex: none;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+}
