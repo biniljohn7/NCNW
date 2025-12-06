@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Animated Landing Page</title>
+    <meta name="description"
+        content="A modern animated landing page with CSS and JS — gradient hero, floating shapes, typing subtitle, CTA." />
+
+    <style>
+        /* Reset & base */
+        :root {
+            --bg: #0f1724;
+            --card: #0b1220;
+            --muted: rgba(255, 255, 255, 0.65);
+            --accent1: #7c5cff;
+            --accent2: #00d4ff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-strong: rgba(255, 255, 255, 0.06);
+            --radius: 14px;
+            --max-width: 1100px;
+            --gap: clamp(16px, 2.5vw, 32px);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg, #061029 0%, #08121f 50%, #061026 100%);
+            color: #eef2ff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            line-height: 1.35;
+        }
+
+        /* Container layout */
+        .wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(36px, 6vw, 64px);
+            position: relative;
+        }
+
+        .hero {
+            width: 100%;
+            max-width: var(--max-width);
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: var(--gap);
+            align-items: center;
+        }
+
+        /* Card */
+        .left {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+            border-radius: var(--radius);
+            padding: clamp(28px, 4vw, 44px);
+            box-shadow: 0 10px 40px rgba(3, 6, 23, 0.6);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(6px);
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: clamp(28px, 4.5vw, 48px);
+            letter-spacing: -0.02em;
+            line-height: 1.03;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        p.lead {
+            margin: 8px 0 20px 0;
+            color: var(--muted);
+            font-size: clamp(14px, 1.2vw, 16px);
+        }
+
+        /* CTA group */
+        .cta-row {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform .16s ease, box-shadow .16s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:focus {
+            outline: 2px solid rgba(124, 92, 255, 0.25);
+            outline-offset: 3px
+        }
+
+        .btn.primary {
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            color: #051025;
+            box-shadow: 0 8px 30px rgba(124, 92, 255, 0.12);
+            border: none;
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-4px)
+        }
+
+        .btn.secondary {
+            color: var(--muted);
+        }
+
+        /* Small meta */
+        .meta {
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .meta .pill {
+            background: var(--glass);
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-strong);
+        }
+
+        /* Typing subtitle */
+        .subtitle {
+            color: var(--muted);
+            font-size: clamp(16px, 2.1vw, 20px);
+            margin: 6px 0 0 0;
+            min-height: 1.2em;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* Right column (preview card) */
+        .right {
+            border-radius: 18px;
+            min-height: 260px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(180deg, rgba(10, 14, 22, 0.6), rgba(6, 8, 12, 0.45));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 12px 30px rgba(1, 4, 12, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mock preview content */
+        .mock {
+            width: 100%;
+            max-width: 360px;
+            background: linear-gradient(180deg, #081227 0%, #07121b 100%);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .mock .header {
+            height: 16px;
+            width: 60%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .mock .row {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 10px;
+            border-radius: 6px
+        }
+
+        .mock .row.short {
+            width: 40%
+        }
+
+        .mock .row.mid {
+            width: 70%
+        }
+
+        .mock .badge {
+            display: inline-block;
+            padding: 6px 8px;
+            font-size: 12px;
+            border-radius: 8px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            margin-top: 8px;
+        }
+
+        /* Decorative floating blobs */
+        .blob {
+            position: absolute;
+            filter: blur(18px) saturate(120%);
+            opacity: 0.9;
+            transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .blob.b1 {
+            width: 360px;
+            height: 360px;
+            left: -80px;
+            top: -60px;
+            background: radial-gradient(circle at 30% 30%, var(--accent1), transparent 40%);
+        }
+
+        .blob.b2 {
+            width: 260px;
+            height: 260px;
+            right: -60px;
+            bottom: -40px;
+            background: radial-gradient(circle at 70% 40%, var(--accent2), transparent 40%);
+        }
+
+        .blob.b3 {
+            width: 160px;
+            height: 160px;
+            left: 20%;
+            top: 60%;
+            background: radial-gradient(circle at 50% 50%, #00ffa3, transparent 40%);
+            opacity: 0.6
+        }
+
+        /* Blob anims */
+        @keyframes floaty {
+            0% {
+                transform: translateY(0) rotate(0)
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(8deg)
+            }
+
+            100% {
+                transform: translateY(0) rotate(0)
+            }
+        }
+
+        .blob.b1 {
+            animation: floaty 12s ease-in-out infinite
+        }
+
+        .blob.b2 {
+            animation: floaty 10s ease-in-out infinite reverse
+        }
+
+        .blob.b3 {
+            animation: floaty 14s ease-in-out infinite
+        }
+
+        /* SVG wave at bottom */
+        .wave {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 110px;
+            transform: translateY(32px);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        /* scroll indicator */
+        .scroll {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .mouse {
+            width: 20px;
+            height: 32px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            display: inline-flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 5px;
+        }
+
+        .mouse .dot {
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.22);
+            border-radius: 99px;
+            animation: scroll-dot 1.6s infinite
+        }
+
+        @keyframes scroll-dot {
+            0% {
+                transform: translateY(0);
+                opacity: 0.95
+            }
+
+            50% {
+                transform: translateY(8px);
+                opacity: 0.4
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 0.95
+            }
+        }
+
+        /* Responsive */
+        @media (max-width:980px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .right {
+                order: -1;
+                margin-bottom: 6px
+            }
+        }
+
+        /* Accessibility: reduce motion */
+        @media (prefers-reduced-motion: reduce) {
+            .blob {
+                animation: none !important;
+                transition: none !important
+            }
+
+            .btn {
+                transition: none !important
+            }
+
+            .mouse .dot {
+                animation: none !important
+            }
+        }
+
+        /* Ripple effect (for JS) */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            background: rgba(255, 255, 255, 0.18);
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+            will-change: transform, opacity;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="wrap" id="top">
+        <div class="hero" role="region" aria-label="Landing hero">
+            <section class="left" aria-labelledby="headline">
+                <!-- floating decorative blobs -->
+                <div class="blob b1" aria-hidden="true"></div>
+                <div class="blob b3" aria-hidden="true"></div>
+
+                <h1 id="headline">Build delightful experiences</h1>
+
+                <div class="subtitle" id="subtitle" aria-live="polite"></div>
+
+                <p class="lead">Design-forward tools to prototype, ship and scale faster. Beautiful defaults, thoughtful
+                    animations, and built-in accessibility.</p>
+
+                <div class="cta-row">
+                    <button class="btn primary" id="getStarted" aria-label="Get started">Get started</button>
+                    <a class="btn secondary" href="#learn" id="learnMore">Learn more</a>
+                </div>
+
+                <div class="meta" aria-hidden="true">
+                    <div class="pill">Trusted by teams in 30+ countries</div>
+                    <div class="pill">Free trial • No credit card</div>
+                </div>
+
+                <!-- subtle wave and more decor -->
+                <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0,0 C300,120 900,0 1200,90 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.02)"></path>
+                </svg>
+            </section>
+
+            <aside class="right" aria-label="Product preview">
+                <div class="blob b2" aria-hidden="true"></div>
+                <div class="mock" aria-hidden="true">
+                    <div class="header"></div>
+                    <div class="row"></div>
+                    <div class="row mid"></div>
+                    <div class="row short"></div>
+                    <div class="badge">Preview</div>
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll" aria-hidden="true">
+            <div class="mouse">
+                <div class="dot"></div>
+            </div>
+            <div>Scroll</div>
+        </div>
+    </main>
+
+    <script>
+        /* ===== Typing subtitle =====
+           This creates a subtle typewriter effect for the subtitle.
+           It respects prefers-reduced-motion by skipping typing.
+        */
+        (function () {
+            const phrases = [
+                "Design systems that scale.",
+                "Pixel-perfect UI, built for speed.",
+                "Animations that feel alive.",
+                "Accessible by default."
+            ];
+            const el = document.getElementById('subtitle');
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function typeText(text, targetEl, speed = 40) {
+                if (prefersReduced) {
+                    targetEl.textContent = text;
+                    return Promise.resolve();
+                }
+                targetEl.textContent = '';
+                return new Promise(resolve => {
+                    let i = 0;
+                    const t = setInterval(() => {
+                        targetEl.textContent += text[i++];
+                        if (i >= text.length) {
+                            clearInterval(t);
+                            setTimeout(resolve, 900);
+                        }
+                    }, speed);
+                });
+            }
+
+            (async function loop() {
+                let idx = 0;
+                while (true) {
+                    await typeText(phrases[idx], el, 30 + (idx % 2 ? 10 : 0));
+                    // delete effect
+                    if (!prefersReduced) {
+                        await new Promise(r => setTimeout(r, 900));
+                        for (let k = el.textContent.length; k >= 0; k--) {
+                            el.textContent = el.textContent.slice(0, k);
+                            await new Promise(r => setTimeout(r, 14));
+                        }
+                    } else {
+                        // if reduced motion, rotate after a pause
+                        await new Promise(r => setTimeout(r, 1400));
+                    }
+                    idx = (idx + 1) % phrases.length;
+                }
+            })();
+        })();
+
+        /* ===== Button ripple effect (vanilla) ===== */
+        (function () {
+            function createRipple(ev) {
+                const btn = ev.currentTarget;
+                const rect = btn.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                btn.appendChild(ripple);
+
+                // compute size and position
+                const max = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = (max * 2) + 'px';
+                const x = ev.clientX - rect.left - max;
+                const y = ev.clientY - rect.top - max;
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+
+                // animate
+                ripple.animate([
+                    { transform: 'scale(0)', opacity: 0.7 },
+                    { transform: 'scale(1)', opacity: 0.2 }
+                ], {
+                    duration: 500,
+                    easing: 'cubic-bezier(.2,.8,.2,1)'
+                });
+
+                setTimeout(() => ripple.remove(), 600);
+            }
+
+            document.querySelectorAll('.btn').forEach(b => {
+                b.addEventListener('click', createRipple);
+            });
+        })();
+
+        /* ===== Parallax-ish subtle movement for preview on scroll ===== */
+        (function () {
+            const right = document.querySelector('.right');
+            if (!right) return;
+            let ticking = false;
+            function onScroll() {
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const offset = Math.max(0, window.scrollY);
+                        // small translate and rotate effect proportional to scroll
+                        const t = Math.min(1, offset / 600);
+                        right.style.transform = `translateY(${t * 18}px) rotate(${t * -0.6}deg)`;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+        })();
+
+        /* ===== Optional: keyboard accessibility for CTA ===== */
+        (function () {
+            const mainBtn = document.getElementById('getStarted');
+            mainBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    mainBtn.click();
+                }
+            });
+            mainBtn.addEventListener('click', () => {
+                // demo action: scroll to next section or show alert
+                // On a real site, replace with navigation or modal.
+                alert('Welcome! This is a demo action — replace with your onboarding flow.');
+            });
+        })();
+    </script>
+</body>
+
+</html>
