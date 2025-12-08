@@ -131,155 +131,31 @@ const SignUp = (props) => {
       });
   }, []);
 
-  /* const handleGoogleLogin = () => {
-    const auth2 = window.gapi.auth2.getAuthInstance();
-    auth2
-      .signIn()
-      .then((googleUser) => {
-        const profile = googleUser.getBasicProfile();
-        const userData = {
-          email: profile.getEmail(),
-          firstName: profile.getGivenName(),
-          lastName: profile.getFamilyName(),
-          imageUrl: profile.getImageUrl(),
-          googleId: profile.getId(),
-        };
-        handleSMediaSignIn(userData);
-      })
-      .catch((error) => {
-        console.error("Google login error", error);
-      });
-  }; */
+  const handleSignup = async (e) => {
 
-  /* const handleFacebookLogin = () => {
-    window.FB.login(
-      (response) => {
-        if (response.authResponse) {
-          window.FB.api(
-            "/me",
-            { fields: "first_name,last_name,email,picture" },
-            (response) => {
-              const userData = {
-                email: response.email,
-                firstName: response.first_name,
-                lastName: response.last_name,
-                imageUrl: response.picture.data.url,
-                facebookId: response.id,
-              };
-              handleSMediaSignIn(userData);
-            }
-          );
-        } else {
-          console.log("User cancelled login or did not fully authorize.");
-        }
-      },
-      { scope: "public_profile,email" }
-    );
-  }; */
+    if (!isValid) {
+      let allErrors = await props.validateForm();
+      props.setTouched(
+        Object.keys(allErrors).reduce((acc, key) => {
+          acc[key] = true;
+          return acc;
+        }, {})
+      );
+    }
 
-  /* const Login = () => {
-    return (
-      <>
-        {Tst.Obj}
-        {Spn.Obj}
-        <div className="flex-item">
-          <Link to="/">
-            <img
-              src={Logo}
-              alt={SITE_NAME}
-              className="image-size"
-              width="50px"
-              height="50px"
-            />
-            <div>
-              <label className="white--text text-bold fs-25 letter-spacing-2 title mt-3 mb-0">
-                {SITE_NAME}
-              </label>
-            </div>
-            <p className="white--text text-bold fs-7 short-desc">
-              {SITE_SHORT_DESC}
-            </p>
-          </Link>
-          <h4 className="text-bold mt-20">Welcome Back!</h4>
-          <p className="mt-10">Login to access your account</p>
-          <Button
-            className="border-radius-41 bg-white mt-20"
-            name="LOGIN"
-            clicked={() => props.history.push("/signin")}
-          />
-        </div>
-      </>
-    );
-  }; */
-
-  /* const handleSMediaSignIn = (userData) => {
-    Spn.Show();
-    const body = {
-      method: "login-via-smedia",
-      email: userData.email,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      imageUrl: userData.imageUrl,
-      facebookId: userData.facebookId || null,
-      googleId: userData.googleId || null,
-      registerType: userData.googleId
-        ? REGISTER_TYPE.google
-        : userData.facebookId
-        ? REGISTER_TYPE.facebook
-        : REGISTER_TYPE.normal,
-      deviceType: "web",
-    };
-
-    logInViaSMedia(body)
-      .then((res) => {
-        if (res.success === 1) {
-          const userData = {
-            isLogin: true,
-            accessToken: res.data.accessToken,
-            memberId: res.data.memberId,
-            firstName: res.data.firstName,
-            lastName: res.data.lastName,
-            referralPoints: res.data.refferalPoints || 0,
-            prefix: res.data.prefix,
-            profileImage: res.data.profileImage,
-            isProfileCreated: res.data.profileCreated,
-            isNotificationOn: res.data.notification || false,
-            currentChapter: res.data.currentChapter,
-            userRoles: res.data.roles,
-            membershipStatus: res.data.membershipStatus,
-          };
-          props.login(userData);
-          Tst.Success(res.message);
-          if (res.data.profileCreated) {
-            props.history.push("/home");
-          } else {
-            props.history.push("/account");
-          }
-        } else {
-          props.resetForm();
-          Tst.Error(res.message);
-        }
-      })
-      .catch((err) => {
-        Tst.Error("Something went wrong!");
-      })
-      .finally(() => {
-        Spn.Hide();
-      });
-  }; */
-
-  const handleSignup = (e) => {
-    console.log(isValid);
     if (isValid) {
       if (!values.section && !values.affiliation && !values.collegiateSection) {
-        console.log(
-          "Please select at least one: Section, Affiliation, or Collegiate Section."
-        );
         Tst.Error(
           "Please select at least one: Section, Affiliation, or Collegiate Section."
         );
         return;
       }
+
+      console.log(values.phoneNumber);
+
+      console.log('Ready to go');
+      return false;
+
       Spn.Show();
 
       const body = {
@@ -360,6 +236,7 @@ const SignUp = (props) => {
                 />
                 <Error field="lastName" />
               </div>
+
               <div className="fm-row">
                 <Input
                   label="EMAIL"
@@ -372,6 +249,20 @@ const SignUp = (props) => {
                 />
                 <Error field="email" />
               </div>
+
+              <div className="fm-row">
+                <Input
+                  label="PHONE NUMBER"
+                  type="text"
+                  placeholder="PHONE NUMBER"
+                  id="phoneNumber"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.phoneNumber || ""}
+                />
+                <Error field="phoneNumber" />
+              </div>
+
               <div className="fm-row">
                 <Select
                   label="SECTION"
@@ -417,6 +308,7 @@ const SignUp = (props) => {
                   onBlur={handleBlur}
                   value={values.collegiateSection || ""}
                 />
+                <Error field="collegiateSection" />
               </div>
               <div className="fm-row">
                 <div className="position-relative">
@@ -480,24 +372,6 @@ const SignUp = (props) => {
               clicked={handleSignup}
             />
           </div>
-
-          {/* <div className="sgp-agree">
-          OR SIGNUP WITH
-        </div>
-        <div className="d-flex justify-content-center">
-            <span onClick={handleFacebookLogin}>
-              <img
-                src={FB}
-                alt="Create with Facebook"
-                className="mr-20"
-              />
-            </span>
-            <span>
-              <span onClick={handleGoogleLogin}>
-                <img src={Google} alt="Create with Google" className="" />
-              </span>
-            </span>
-          </div> */}
         </div>
       </SignUpWrapper>
     </>

@@ -67,7 +67,7 @@ if (!$pix->canAccess('members')) {
                     //update access token
                     $evg->changeAccessToken($mid);
                     $pix->addmsg('Membership saved', 1);
-                    $pix->redirect('?page=members&sec=details&id=' . $member->id);
+                    $pix->redirect('?page=members&sec=details&id=' . $member->id . '#membership');
                 }
             } else {
                 $pix->addmsg('Invalid request.');
