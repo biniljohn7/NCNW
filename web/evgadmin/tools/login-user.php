@@ -2,6 +2,41 @@
 include '../lib/lib.php';
 
 $_ = $_POST;
+$page  = max(0, intval($_GET['pgn'] ?? 0));
+$searchKey = trim($_GET['search'] ?? '');
+
+if ($searchKey !== '') {
+    $safe = q('%' . addslashes($searchKey) . '%');
+
+    $searchWhere = "(
+        firstName LIKE $safe OR
+        middleName LIKE $safe OR
+        lastName LIKE $safe OR
+        role LIKE $safe OR
+        CAST(id AS CHAR) LIKE $safe
+    )";
+}
+
+
+
+$args = [
+    '#SRT'    => 'firstName asc, middleName asc, lastName asc',
+    '__limit' => 100,
+    '__page'  => $page
+];
+
+if (!empty($searchWhere)) {
+    $args['__QUERY__'] = $searchWhere;
+}
+
+
+$users = $pixdb->get(
+    'members',
+    $args,
+    'id, firstName, middleName, lastName, role'
+);
+
+
 
 if (isset($_['uid'])) {
     $uid = esc($_['uid']);
@@ -151,20 +186,92 @@ if (isset($_['uid'])) {
             padding: 13px 28px;
             border-radius: 4px;
         }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination a,
+        .pagination span {
+            height: 40px;
+            padding: 0 20px;
+            border-radius: 8px;
+            border: 1px solid #32404d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 500;
+            color: #fff;
+            background: #0a2339;
+        }
+
+        .pagination a:hover {
+            background: #417be6;
+            color: #fff;
+            border-color: #417be6;
+        }
+
+        .pagination .active,
+        .pagination span.active {
+            background: #417be6;
+            color: #fff;
+            border-color: #417be6;
+            cursor: default;
+        }
+
+        .pagination .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .search-bar-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #020f1a;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+
+        .search-bar-wrap input {
+            width: 320px;
+            padding: 12px 16px 12px 40px;
+            border-radius: 10px;
+            border: 1px solid #32404d;
+            background: #0a2339;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .search-bar-wrap input:focus {
+            outline: none;
+            border-color: #417be6;
+            box-shadow: 0 0 0 3px rgba(65, 123, 230, .15);
+        }
     </style>
 </head>
 
 <body>
+    <div class="search-bar-wrap">
+        <form method="get" action="">
+            <input type="text"
+                id="memberSearch"
+                name="search"
+                placeholder="Search by name or role..."
+                value="<?php $_GET['search'] ?? '' ?>">
+            <input type="hidden" name="pgn" value="0">
+        </form>
+    </div>
+
     <form action="" method="post" target="_blank" class="login-form">
         <div class="users-list">
             <?php
-            $users = $pixdb->get(
-                'members',
-                array(
-                    '#SRT' => 'firstName asc, middleName asc, lastName asc'
-                ),
-                'id, firstName, middleName, lastName, role'
-            );
             foreach ($users->data as $usr) {
             ?>
                 <label class="usr-row">
@@ -182,6 +289,10 @@ if (isset($_['uid'])) {
                 </label>
             <?php
             }
+            if (!$users->data) {
+                echo "No user Found";
+            }
+
             ?>
         </div>
         <div class="usr-action">
@@ -199,6 +310,21 @@ if (isset($_['uid'])) {
             </button>
         </div>
     </form>
+    <div style="margin-top:30px;">
+        <?php
+        echo $pix->pagination(
+            $users->pages,
+            $page,
+            5,
+            null,
+            '',
+            0,
+            'pgn',
+            null
+        );
+        ?>
+    </div>
+
 
 </body>
 
