@@ -95,7 +95,7 @@ class pageHead
         'page=member-packages&sec=mod-type&id=[NUM]' => 'Edit Membership Plan',
         'page=member-packages' => 'Membership Plans',
 
-        'evergreenadmin/' => 'Dashboard',
+        'evergreen/' => 'Dashboard',
     );
 
     public function __construct()

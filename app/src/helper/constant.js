@@ -3,7 +3,7 @@ export const BASE_URL = process.env.REACT_APP_API_URL;
 export const ISLOCAL = !!window.localStorage.isLocal;
 
 // export const BASE_URL = 1 ?
-//     'http://localhost/evergreenadmin/api' :
+//     'http://localhost/evergreen/api' :
 //     'https://memberapp-api.apps.openxcell.dev/api';
 
 export const SECONDARY_COLOR = "#C33FD9";
@@ -491,5 +491,5 @@ export const COUNTRY_CODE = [
 ];
 
 export function getApiURL() {
-  return "http://localhost/evergreenadmin/api";
+  return "http://localhost/evergreen/api";
 }
