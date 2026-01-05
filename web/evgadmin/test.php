@@ -1,6 +1,9 @@
 <?php
 include 'lib/lib.php';
 
+var_dump($_ENV['MAILGUN_DOMAIN'], $_ENV['MAILGUN_APIKEY']);
+exit;
+
 // devMode();
 header('content-type:text/plain');
 
