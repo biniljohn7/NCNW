@@ -1173,7 +1173,7 @@ class pix
                 }
             } else {
 
-                if ($_SERVER['REMOTE_ADDR'] == '103.160.194.86') {
+                if ($_SERVER['REMOTE_ADDR'] == '103.182.166.71') {
                     // if ($_SERVER['REMOTE_ADDR'] == '::1') {
 
 
