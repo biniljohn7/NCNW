@@ -78,7 +78,10 @@
                             </span>
                         </div>
                         <div class="usr-info">
-                            <div class="mbr-name">${mb.name}</div>
+                            <div class="mbr-name">
+                                <span class="name-hold">${mb.name}</span>
+                                <span class="sec-hold">${mb.secName}</span>
+                            </div>
                             <div class="mbr-close">
                                 <span class="material-symbols-outlined icn remove-mbr" data-id="${mb.id}">
                                     remove
@@ -217,6 +220,10 @@
                             <div class="wp-rg">${mbr.memberid ?? '--'}</div>
                         </div>
                         <div class="info-wrap">
+                            <div class="wp-lf">Section:</div>
+                            <div class="wp-rg">${mbr.secName ?? '--'}</div>
+                        </div>
+                        <div class="info-wrap">
                             <div class="wp-lf">City:</div>
                             <div class="wp-rg">${mbr.city ?? '--'}</div>
                         </div>
@@ -349,7 +356,7 @@
                                     name="key"
                                     class="key-inp"
                                     id="srchKey"
-                                    placeholder="Search by name or email",
+                                    placeholder="Search by Name/Email/Member ID",
                                     value="`+ key + `"
                                 />
                                 <button
@@ -360,8 +367,8 @@
                                 </button>
                                 <select name="sec" id="srchSec" class="srch-sec">
                                     <option value="0">Any Section</option>`
-                                    + optionStr +
-                                `</select>
+                + optionStr +
+                `</select>
                             </form>
                         </div>
                         <div class="mbr-list" id="mbrList">`+ htm + `</div>` +
@@ -414,7 +421,10 @@
                         </span>
                     </div>`) + `
                 </div>
-                <div class="nam-sec">` + list[i].name + `</div>
+                <div class="nam-sec">
+                    <span class="name-hold">` + list[i].name + `</span>
+                    <span class="sec-hold">` + list[i].secName + `</span>
+                </div>
                 <div class="actn">
                     <span
                         class="pix-btn site sm add-btn"
@@ -425,6 +435,7 @@
                         data-memberid="` + list[i].memberId + `"
                         data-city="` + list[i].city + `"
                         data-zipcode="` + list[i].zipcode + `"
+                        data-sec = "${list[i].secName}"
                     >
                         Add
                     </span>
@@ -478,18 +489,19 @@
     function setItemMember() {
         let id = $(this).data('id'),
             name = $(this).data('name'),
-            avatar = $(this).data('avatar')
-        membership = $(this).data('membership'),
+            avatar = $(this).data('avatar'),
+            membership = $(this).data('membership'),
             memberid = $(this).data('memberid'),
             city = $(this).data('city'),
-            zipcode = $(this).data('zipcode');
+            zipcode = $(this).data('zipcode'),
+            secName = $(this).data('sec');
 
         let exists = selMbr.some(m => m.id === id);
 
         if (exists) {
             pix.openNotification('Member already exists!');
         } else {
-            let member = { id, name, avatar, membership, memberid, city, zipcode };
+            let member = { id, name, avatar, membership, memberid, city, zipcode, secName };
             selMbr.push(member);
             pix.openNotification('Member added.', 1);
 
@@ -503,7 +515,12 @@
                         </span>
                     </div>
                     <div class="usr-info">
-                        <div class="mbr-name">${name}</div>
+                        <div class="mbr-name">
+                                <span class="name-hold">${name}</span>
+                                <span class="sec-hold">${secName}</span>
+                        </div>
+                        
+                    
                         <div class="mbr-close">
                             <span class="material-symbols-outlined icn remove-mbr" data-id="${id}">
                                 remove

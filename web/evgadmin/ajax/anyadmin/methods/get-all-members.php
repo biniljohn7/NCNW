@@ -36,7 +36,7 @@ if ($csId) {
 
 if ($key && $key != '') {
     $qSearch = q("%$key%");
-    $filterArr['__QUERY__'][] = "(concat(mm.firstName, ' ', mm.lastName) LIKE $qSearch OR mm.email LIKE $qSearch)";
+    $filterArr['__QUERY__'][] = "(concat(mm.firstName, ' ', mm.lastName) LIKE $qSearch OR mm.email LIKE $qSearch OR mm.memberId LIKE $qSearch)";
 }
 
 $members = $pixdb->get(
@@ -62,20 +62,33 @@ $members = $pixdb->get(
 
 if ($members) {
     $membIds = [];
+    $crntChapters = [];
 
-    foreach($members->data as $row) {
-        if($row->id) {
+    foreach ($members->data as $row) {
+        if ($row->id) {
             $membIds[] = $row->id;
+        }
+        if ($row->cruntChptr) {
+            $crntChapters[] = $row->cruntChptr;
         }
     }
 
     $membIds = array_unique($membIds);
+    $crntChapters = array_unique($crntChapters);
+
+    $chapters = $pixdb->fetchAssoc(
+        'chapters',
+        ['id' => $crntChapters],
+        'id,name',
+        'id'
+    );
+
     $cnd = [
         'h.enabled' => 'Y',
         '#QRY' => "(h.expiry >= '$date' OR h.expiry IS NULL)"
     ];
 
-    if($membIds) {
+    if ($membIds) {
         $cnd['m.id'] = $membIds;
     }
 
@@ -90,8 +103,8 @@ if ($members) {
     )->data;
 
     $membershipsArr = [];
-    if($memberships) {
-        foreach($memberships as $row) {
+    if ($memberships) {
+        foreach ($memberships as $row) {
             $membershipsArr[$row->member] = $row;
         }
     }
@@ -100,12 +113,12 @@ if ($members) {
         $mbr->membership = $membershipsArr[$mbr->id]->planName ?? null;
         $mbr->avatar = $mbr->avatar ? $pix->domain . 'uploads/avatars/' . $pix->thumb($mbr->avatar, '150x150') : null;
         $mbr->name = $mbr->firstName . ' ' . $mbr->lastName;
+        $mbr->secName = $chapters[$mbr->cruntChptr]->name ?? '';
     }
-
     $r->status = 'ok';
     $r->list = $members->data;
     $r->currentPageNo = $members->current + 1;
     $r->totalPages = $members->pages;
 }
-var_dump($members->data);
+//var_dump($members->data);
 // exit;

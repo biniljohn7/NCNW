@@ -111,6 +111,19 @@
     width: calc(100% - 145px);
 }
 
+.mbr-srch .each-mbr .nam-sec .name-hold,
+.mbr-itm .usr-info .mbr-name .name-hold {
+    font-size: 14px;
+    display: block;
+}
+
+.mbr-srch .each-mbr .nam-sec .sec-hold,
+.mbr-itm .usr-info .mbr-name .sec-hold {
+    font-size: 12px;
+    color: #a9a9a9;
+    display: block;
+}
+
 .mbr-srch .each-mbr .actn {
     margin-left: 10px;
     width: 65px;
