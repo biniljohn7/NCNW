@@ -1173,8 +1173,8 @@ class pix
                 }
             } else {
 
-                if ($_SERVER['REMOTE_ADDR'] == '103.182.166.71') {
-                    // if ($_SERVER['REMOTE_ADDR'] == '::1') {
+                //if ($_SERVER['REMOTE_ADDR'] == '103.182.166.71') {
+                // if ($_SERVER['REMOTE_ADDR'] == '::1') {
 
 
 
@@ -1185,7 +1185,7 @@ class pix
 
 
 
-                    $to = 'binilweb@gmail.com';
+                //$to = 'binilweb@gmail.com';
 
 
 
@@ -1195,26 +1195,26 @@ class pix
 
 
 
-                    include 'mailgun.php';
-                    $mg = new Mailgun();
-                    $send = $mg->send(
-                        $to,
-                        $subject,
-                        $template
-                    );
-                    // 
-                } else {
-                    $from = 'NCNW Communications <support@ncnw.org>';
-                    $replyTo = 'support@ncnw.org';
+                include 'mailgun.php';
+                $mg = new Mailgun();
+                $send = $mg->send(
+                    $to,
+                    $subject,
+                    $template
+                );
+                // 
+                // } else {
+                //     $from = 'NCNW Communications <support@ncnw.org>';
+                //     $replyTo = 'support@ncnw.org';
 
-                    $to = implode(', ', $to);
-                    $mailheaders =   'MIME-Version: 1.0' . "\r\n" .
-                        'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-                        'From: ' . $from . "\r\n" .
-                        'Reply-To: ' . $replyTo;
+                //     $to = implode(', ', $to);
+                //     $mailheaders =   'MIME-Version: 1.0' . "\r\n" .
+                //         'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
+                //         'From: ' . $from . "\r\n" .
+                //         'Reply-To: ' . $replyTo;
 
-                    mail($to, $subject, $template, $mailheaders);
-                }
+                //     mail($to, $subject, $template, $mailheaders);
+                // }
             }
         }
     }
