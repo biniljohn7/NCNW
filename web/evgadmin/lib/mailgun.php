@@ -29,7 +29,7 @@ class Mailgun
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => [
-                    'from' => 'Mailgun Sandbox <postmaster@sandboxfe19955942344cb0b99012df8c545dcf.mailgun.org>',
+                    'from' => 'NCNW Communications <postmaster@ncnw.haguetechnologies.io>',
                     'to' => $to,
                     'subject' => $subject,
                     'html' => $content
