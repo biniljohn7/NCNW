@@ -120,7 +120,7 @@
                                             newUser = false;
                                             setTimeout(uploadRow, 100);
 
-                                        } /* else if (data.status == 'new') {
+                                        } else if (data.status == 'new') {
                                             console.log(data);
                                             popup.hide();
                                             popup.show(
@@ -177,7 +177,7 @@
                                                 continuePop();
                                                 setTimeout(uploadRow, 100);
                                             });
-                                        } */ else {
+                                        } else {
                                             this.error();
                                         }
                                     }

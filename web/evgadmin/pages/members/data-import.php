@@ -24,6 +24,10 @@ breadcrumbs(
             Import Data
         </button>
     </div>
+    <div class="text-note">
+        Duplicate Detection is enabled.
+        When you import members, the system will automatically scan for existing records and notify you if a member already exists in Evergreen.
+    </div>
 </form>
 <div class="">
     <a href="<?php echo ADMINURL, 'files/sample/members-import.csv'; ?>" download="Members_Sample_File_Import.csv" class="sample-file">
