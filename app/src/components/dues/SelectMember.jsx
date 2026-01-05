@@ -85,7 +85,7 @@ function SelectMember(props) {
           }
           Spn.Hide();
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else {
       getAllMembers(queryParams)
         .then((res) => {
@@ -95,7 +95,7 @@ function SelectMember(props) {
           }
           Spn.Hide();
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   }, []);
   useEffect(() => {
@@ -392,9 +392,12 @@ function SelectMember(props) {
                                 <div className="name">{mbr.name}</div>
                                 <div className="memberId">{`ID : ${mbr.memberId}`}</div>
                                 <div className="address">
-                                  {`${[mbr.city, mbr.stateName]
+                                  {/* {`${[mbr.city, mbr.stateName]
                                     .filter((v) => v)
-                                    .join(", ")}`}
+                                    .join(", ")}`} */}
+                                  {[mbr.secName, mbr.collegiateSection]
+                                    .find((v) => v && v.trim())
+                                  }
                                 </div>
                               </div>
                               <div className="actn">
@@ -418,8 +421,8 @@ function SelectMember(props) {
                           );
                         })}
                         {mbrData.totalPages &&
-                        mbrData.currentPageNo &&
-                        mbrData.totalPages > mbrData.currentPageNo ? (
+                          mbrData.currentPageNo &&
+                          mbrData.totalPages > mbrData.currentPageNo ? (
                           <div className="show-more">
                             <span
                               className="btn"
