@@ -8,7 +8,7 @@ include 'lib/lib.php';
     <meta charset="utf-8">
     <title>NCNW Sync DB</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/jquery-1.11.1.min.js"></script>
     <script src="assets/js/site-default.js"></script>
     <script src="assets/js/home.js"></script>
 </head>

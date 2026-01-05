@@ -5,7 +5,7 @@ $config->live = new stdClass();
 
 // local config
 $config->local->url = 'http://localhost/evergreenadmin/evgadmin/tools/dbsync/';
-$config->local->syncDir = dirname(__FILE__) . '/../../../../QuerySync/';
+$config->local->syncDir = dirname(__FILE__) . '/../../../QuerySync/';
 $config->local->dbHost = 'localhost';
 $config->local->dbUser = 'root';
 $config->local->dbPass = '';
