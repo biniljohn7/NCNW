@@ -97,7 +97,8 @@ devMode();
 
             $exMemb = false;
             $membId = false;
-            $newUser = ($user === 'true') ? true : false;
+            //$newUser = ($user === 'true') ? true : false;
+            $newUser = true; //uncoment above line once complted importing all members
 
             $memberData = [
                 'firstName' => substr($fName, 0, 60),
@@ -203,7 +204,7 @@ devMode();
                     'members',
                     $memberData
                 );
-            }  elseif (
+            } /* elseif (
                 $memberData['firstName'] &&
                 !$exMemb &&
                 !$newUser
@@ -215,7 +216,12 @@ devMode();
                 $r->email = $email;
                 $r->phone = $phone;
                 $r->address = $address;
-            } 
+            } */
+            //uncoment above elseif lines once complted importing all members
+            //var_dump($membId, $r->status);
+            //exit;
+            /* var_dump($membId, $proceed);
+            exit;
 
             if (!is_mail($email)) {
                 $email = 'noreply-' . str2url($fName . $lName) . '-' . $pix->makestring(10, 'ln') . '@ncnw.org';

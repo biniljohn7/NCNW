@@ -8,3 +8,4 @@ web/evgadmin/errors
 web/uploads
 web/evgadmin/__datas
 /web/.env
+web/QuerySync/log.txt

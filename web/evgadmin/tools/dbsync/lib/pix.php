@@ -7,12 +7,21 @@ class pix
     public function __construct()
     {
         global $config;
+        // $this->domain       = $root->domain;
+        // $this->appUrl       = $root->appUrl;
         $this->basedir = dirname(dirname(__FILE__)) . '/';
-        $this->local = $_SERVER['HTTP_HOST'] == 'localhost';
+        $this->local = $_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == 'ncnw.haguetechnologies.io';
 
         $ckey = $this->local ? 'local' : 'live';
 
         $this->domain = $config->{$ckey}->url;
+
+        // $this->upload_dir    = $this->basedir . 'uploads/';
+        // $this->db           = $pix_db;
+
+        // ## fetching requested address
+        // $reqAdr = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        // $this->reqURI = $reqAdr;
     }
     public function display_post($method = '_POST')
     {

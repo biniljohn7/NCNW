@@ -1,5 +1,0 @@
--- Binil John - 14 October 2025 - 03:37 PM
-
-
-ALTER TABLE `aa11`
-	CHANGE COLUMN `name` `name` VARCHAR(50) NULL DEFAULT NULL AFTER `id`;
