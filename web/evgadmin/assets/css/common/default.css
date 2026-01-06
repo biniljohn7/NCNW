@@ -1704,10 +1704,13 @@ input.pix-btn:active {
 
 #notificationMsgLoader {
     position: fixed;
-    left: 7px;
+    /* left: 7px; */
     bottom: 0;
-    z-index: 9999;
+    z-index: 999999;
     max-width: 670px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
 }
 
 #notificationMsgLoader .notification-item {
