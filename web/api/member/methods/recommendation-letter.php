@@ -20,33 +20,38 @@ if (isset($lgUsrInfo->state)) {
     }
 }
 
-$membership = $pixdb->getRow('memberships', ['member' => $lgUser->id]);
-$address = "\n";
+$membership = $pixdb->getRow(
+    'memberships',
+    [
+        'member' => $lgUser->id,
+        '#SRT' => 'id desc',
+        '#QRY' => '((giftedBy IS NOT NULL AND accepted = "Y") OR giftedBy IS NULL)'
+    ]
+);
+$address = "<br>";
 if ($lgUsrInfo->address) {
-    $address .= $lgUsrInfo->address . "\n";
+    $address .= $lgUsrInfo->address . "<br>";
+}
+if ($lgUsrInfo->address2) {
+    $address .= $lgUsrInfo->address2 . "<br>";
 }
 if ($lgUsrInfo->city) {
     $address .= $lgUsrInfo->city;
 }
 if ($state) {
-    $address .= ($lgUsrInfo->city ? ', ' : '') . $state;
+    $address .= ($lgUsrInfo->city ? '<br>' : '') . $state;
 }
 if ($lgUsrInfo->zipcode) {
     $address .= ' ' . $lgUsrInfo->zipcode;
 }
 ?>
-<p><?php echo date('F d, Y', strtotime($datetime)); ?>
+<br>
+<p><strong>To: <?php echo (isset($lgUsrInfo->prefix) ? $evg::prefix[$lgUsrInfo->prefix] . ' ' : '') . $lgUser->firstName . ' ' . $lgUser->lastName; ?></strong>
+    <?php echo  $address; ?>
+    <br>
 </p>
-
-<p>
-    <strong>
-        <?php
-        echo (isset($lgUsrInfo->prefix) ? $evg::prefix[$lgUsrInfo->prefix] . ' ' : '') . $lgUser->firstName . ' ' . $lgUser->lastName, $address;
-        ?>
-    </strong>
-</p>
-
-<p>Dear <strong><?php echo (isset($lgUsrInfo->prefix) ? $evg::prefix[$lgUsrInfo->prefix] . ' ' : '') . $lgUser->lastName; ?>,</strong>
+<p><?php echo date('F d, Y', strtotime($datetime)); ?><br></p>
+<p>Dear <strong><?php echo (isset($lgUsrInfo->prefix) ? $evg::prefix[$lgUsrInfo->prefix] . ' ' : '') .  $lgUser->firstName . ' ' . $lgUser->lastName; ?>,</strong>
 </p>
 
 <p>On behalf of the Board of Directors of NCNW—Thank You! Your <strong><?php echo $membership && $membership->planName ? strtoupper($membership->planName) : ''; ?></strong> membership and ongoing support helps us to build on our rich legacy of leadership and service.
@@ -56,33 +61,86 @@ if ($lgUsrInfo->zipcode) {
 </p>
 
 <p>To stay abreast of our national initiatives, find a local section near you or learn more about our history, visit us at www.ncnw.org.
+    <br>
 </p>
 
 <p>Sincerely,</p>
 
-<p>David Glenn, Jr., VP of Membership</p>
+<p>David Glenn, Jr., <br>VP of Membership</p>
 <?php
 $letterTxt = ob_get_clean();
 
 // pdf
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-$pdf->SetPageUnit('pt');
+
+class MyPDF extends TCPDF
+{
+    public function Header()
+    {
+        global $pix;
+        $this->SetFillColor(96, 38, 95);
+        $this->Rect(
+            0,
+            0,
+            $this->getPageWidth(),
+            5,
+            'F'
+        );
+
+        $logo = $pix->domain . 'evgadmin/assets/images/ncnw-logo-new.png';
+        $logoWidth = 50;
+
+        $xLogo = ($this->getPageWidth() - $logoWidth) / 2;
+        $yLogo = 15;
+
+        $this->Image($logo, $xLogo, $yLogo, $logoWidth);
+
+        $lineY = $yLogo + 30;
+        $this->SetDrawColor(96, 38, 95);
+        $this->SetLineWidth(1);
+
+        $lineWidth = 150;
+        $xLineStart = ($this->getPageWidth() - $lineWidth) / 2;
+        $xLineEnd   = $xLineStart + $lineWidth;
+
+        $this->Line($xLineStart, $lineY, $xLineEnd, $lineY);
+    }
+    public function Footer()
+    {
+        $this->SetFillColor(96, 38, 95);
+        $this->SetY(-20);
+        $this->Rect(
+            0,
+            $this->getPageHeight() - 10,
+            $this->getPageWidth(),
+            10,
+            'F'
+        );
+        $this->SetY(-10);
+        $this->SetFont('helvetica', '', 9);
+        $this->SetTextColor(255, 255, 255);
+
+        $footerText = '633 Pennsylvania Avenue, NW, Washington, DC 20004  |  Call: 202-737-0120  |  Email: info@ncnw.org';
+
+        $this->Cell(0, 10, $footerText, 0, 0, 'C');
+    }
+}
+
+$pdf = new MyPDF();
 $pdf->SetCreator('NCNW');
 $pdf->SetAuthor('NCNW Team');
 $pdf->SetTitle('Recommendation Letter');
 $pdf->SetSubject('Recommendation Letter');
-$pdf->SetHeaderData('../../../assets/images/ncnw-logo.png', 60, '', '');
 
+$pdf->SetPrintHeader(true);
+$pdf->SetPrintFooter(true);
 
-$pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-$pdf->SetMargins(50, 80, 50);
-$pdf->SetHeaderMargin(30);
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-$pdf->setPrintFooter(false);
+$pdf->SetMargins(15, 45, 15);
+$pdf->SetFooterMargin(30);
 
 $pdf->AddPage();
+$pdf->SetFont('helvetica', '', 12);
+$pdf->SetTextColor(54, 63, 63);
+$pdf->SetCellHeightRatio(1.5);
 $pdf->writeHTML($letterTxt, true, false, true, false, '');
-
 $pdf->Output();
 exit;
