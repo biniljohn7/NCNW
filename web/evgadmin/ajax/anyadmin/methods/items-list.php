@@ -10,9 +10,13 @@ if (isset($_['table'])) {
         $table &&
         array_key_exists($table, $tables)
     ) {
+
         $fltrCond = [
             '#SRT' => 'id asc'
         ];
+        if ($table !== 'officers_titles') {
+            $fltrCond['#SRT'] = 'name asc';
+        }
 
         $collectedData = $pixdb->get(
             $table,

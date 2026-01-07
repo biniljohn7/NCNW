@@ -1,7 +1,7 @@
 <?php
 $pgn = max(0, intval($_GET['pgn'] ?? 0));
 $grpConds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'title asc',
     '__page' => $pgn,
     '__limit' => 24,
     '__QUERY__' => array()

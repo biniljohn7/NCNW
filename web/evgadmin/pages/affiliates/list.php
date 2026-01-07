@@ -1,7 +1,7 @@
 <?php
 $pgn = max(0, intval($_GET['pgn'] ?? 0));
 $afConds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'name asc',
     '__page' => $pgn,
     '__limit' => 24,
     '__QUERY__' => array()

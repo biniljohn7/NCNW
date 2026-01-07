@@ -1,7 +1,7 @@
 <?php
 $pgn = max(0, intval($_GET['pgn'] ?? 0));
 $pvConds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'name desc',
     '__page' => $pgn,
     '__limit' => 20,
     '__QUERY__' => array()

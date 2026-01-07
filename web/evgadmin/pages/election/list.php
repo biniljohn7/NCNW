@@ -114,7 +114,7 @@ if ($lgUser->type == 'section-president') {
 
 //
 $conds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'firstName asc',
     '__page' => $pgn,
     '__limit' => 24,
     '__QUERY__' => array(),
@@ -380,7 +380,7 @@ $sortBy = '(
     FROM officers 
     WHERE memberId = members.id
     LIMIT 1
-) IS NULL, id';
+) IS NULL, firstName';
 
 $shSort = esc($_GET['sh_sort'] ?? '');
 if ($shSort) {
@@ -550,6 +550,7 @@ if (
         $conds['__QUERY__'][] = '`id` IN (0)';
     }
 }
+//var_dump($conds);
 $members = $pixdb->get(
     'members',
     $conds,

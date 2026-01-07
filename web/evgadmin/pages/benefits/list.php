@@ -3,7 +3,7 @@ global
     $evg;
 $pgn = max(0, intval($_GET['pgn'] ?? 0));
 $bfConds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'name asc',
     '__page' => $pgn,
     '__limit' => 20,
     '__QUERY__' => array()
@@ -76,16 +76,16 @@ $pvdDatas = $evg->getProviders($providerIds, 'id,name,status');
 $category = $pixdb->get(
     'categories',
     [
-        '#SRT' => 'id asc'
+        '#SRT' => 'ctryName asc'
     ],
     'id, ctryName'
 )->data;
 
 $bfScope = [
     'national' => 'National',
-    'state' => 'State',
     'regional' => 'Regional',
-    'chapter' => 'Section'
+    'chapter' => 'Section',
+    'state' => 'State',
 ];
 
 loadStyle('pages/benefits/list');
