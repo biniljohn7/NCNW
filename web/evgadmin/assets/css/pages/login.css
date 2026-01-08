@@ -33,6 +33,7 @@ body {
 
 .login-page .login-form .form-box form .field {
     text-align: left;
+    position: relative;
 }
 
 .login-page .login-form .form-box form .field+.field {
@@ -54,4 +55,12 @@ body {
 
 .login-page .login-form .form-box .lg-fgpass a:hover {
     color: #5b2166;
+}
+
+.login-page .login-form .form-box form .field .show-pwd {
+    position: absolute;
+    right:15px;
+    top:12px;
+    cursor:pointer;
+    caret-color:transparent;
 }
