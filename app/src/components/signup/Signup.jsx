@@ -72,6 +72,7 @@ const loadGoogleSDK = () => {
 
 const SignUp = (props) => {
 	const [passwordType, setPasswordType] = useState("password");
+	const [rePasswordType, setRePasswordType] = useState("password");
 	const [sectionList, setSectionList] = useState([]);
 	const [affiliationList, setAffiliationList] = useState([]);
 	const [collegiateSectionList, setCollegiateSectionList] = useState([]);
@@ -430,19 +431,19 @@ const SignUp = (props) => {
 										value={values.password || ""}
 									/>
 									{passwordType === "password" ? (
-										<i
-											className="fa fa-eye eye pwd cursor-pointer"
-											onClick={() => {
-												setPasswordType("text");
-											}}
-										></i>
+										<span
+											className="material-symbols-outlined eye pwd cursor-pointer"
+											onClick={() => { setPasswordType("text"); }}
+										>
+											visibility
+										</span>
 									) : (
-										<i
-											className="fa fa-eye-slash eye pwd cursor-pointer"
-											onClick={() => {
-												setPasswordType("password");
-											}}
-										></i>
+										<span
+											className="material-symbols-outlined eye pwd cursor-pointer"
+											onClick={() => { setPasswordType("password"); }}
+										>
+											visibility_off
+										</span>
 									)}
 									<Error field="password" />
 									<div className="pws-rule">
@@ -452,15 +453,32 @@ const SignUp = (props) => {
 								</div>
 							</div>
 							<div className="fm-row">
+								<div className="position-relative">
 								<Input
 									label="CONFIRM PASSWORD"
-									type="password"
+									type={rePasswordType}
 									placeholder="PASSWORD"
 									id="confirmPwd"
 									onChange={handleChange}
 									onBlur={handleBlur}
 									value={values.confirmPwd || ""}
 								/>
+								{rePasswordType === "password" ? (
+									<span
+										className="material-symbols-outlined eye pwd cursor-pointer"
+										onClick={() => { setRePasswordType("text"); }}
+									>
+										visibility
+									</span>
+								) : (
+									<span
+										className="material-symbols-outlined eye pwd cursor-pointer"
+										onClick={() => { setRePasswordType("password"); }}
+									>
+										visibility_off
+									</span>
+								)}
+								</div>
 								<Error field="confirmPwd" />
 							</div>
 						</div>

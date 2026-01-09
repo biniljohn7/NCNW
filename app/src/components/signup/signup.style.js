@@ -9,6 +9,11 @@ const SigninWrapper = styled.div`
     box-sizing: border-box;
     margin: 0 auto;
   }
+  .pwd {
+    position: absolute;
+    right: 15px;
+    top: 62px;
+  }
   .ttl-1 {
     text-align: center;
     color: #5b2166;
@@ -76,7 +81,12 @@ const SigninWrapper = styled.div`
     padding: 16px 26px !important;
     font-size: 16px;
   }
-
+  .form-area .form-col .inputmain::-ms-reveal {
+    display: none;
+  }
+  .form-area .form-col .inputmain::-ms-clear {
+    display: none;
+  }
   .form-area .form-col .inputmain.multiselect {
     border: 1px solid;
     background-color: #fff;

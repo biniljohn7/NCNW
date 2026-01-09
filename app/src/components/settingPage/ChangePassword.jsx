@@ -122,6 +122,7 @@ const ChangePassword = (props) => {
 									contentFontSize="fs-14"
 									onChange={handleChange}
 									onBlur={handleBlur}
+									className="pwd-inp"
 								/>
 
 								{curPwd === 'password' ? (
@@ -159,6 +160,7 @@ const ChangePassword = (props) => {
 									contentFontSize={'fs-14'}
 									onChange={handleChange}
 									onBlur={handleBlur}
+									className="pwd-inp"
 								/>
 								{passwordType === 'password' ? (
 									<span
@@ -193,6 +195,7 @@ const ChangePassword = (props) => {
 								contentFontSize={'fs-14'}
 								onChange={handleChange}
 								onBlur={handleBlur}
+								className="pwd-inp"
 								/>
 							
 							{reTypPwd === 'password' ? (

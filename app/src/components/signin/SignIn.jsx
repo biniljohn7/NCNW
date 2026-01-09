@@ -423,20 +423,22 @@ const SignIn = (props) => {
 														value={password}
 														onChange={(e) => setPassword(e.target.value)}
 													/>
+													
 													{passwordType === "password" ? (
-														<i
-															className="fa fa-eye eye pwd cursor-pointer"
-															onClick={() => {
-																setPasswordType("text");
-															}}
-														></i>
+														<span 
+															className="material-symbols-outlined eye pwd cursor-pointer"
+															onClick={() => { setPasswordType("text"); }}
+														>
+															visibility
+														</span>
+														
 													) : (
-														<i
-															className="fa fa-eye-slash eye pwd cursor-pointer"
-															onClick={() => {
-																setPasswordType("password");
-															}}
-														></i>
+														<span 
+															className="material-symbols-outlined eye pwd cursor-pointer"
+															onClick={() => { setPasswordType("password"); }}
+														>
+															visibility_off
+														</span>
 													)}
 												</div>
 												<Error field="password" />
