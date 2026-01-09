@@ -20,7 +20,8 @@ if (
         $sData = $pixdb->get(
             'states',
             [
-                'region' => $region
+                'region' => $region,
+                '#SRT' => 'name asc'
             ],
             'id, name'
         );

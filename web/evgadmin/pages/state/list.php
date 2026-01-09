@@ -1,7 +1,7 @@
 <?php
 $pgn = max(0, intval($_GET['pgn'] ?? 0));
 $stConds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'name asc',
     '__page' => $pgn,
     '__limit' => 24,
     '__QUERY__' => array()
@@ -245,7 +245,7 @@ $pix->pagination(
                         </div>
                         <div class="itm-val">
                             <?php
-                            echo $mbrCnt[$row->id] ?? '0' ;
+                            echo $mbrCnt[$row->id] ?? '0';
                             ?>
                         </div>
                     </div>

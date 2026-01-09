@@ -15,7 +15,8 @@ $filterArr =  [
     'mm.enabled' => 'Y',
     '__page' => $pgn,
     '__limit' => $pageLimit,
-    '__QUERY__' => []
+    '__QUERY__' => [],
+    '#SRT' => 'firstName asc'
 ];
 
 if ($state) {
