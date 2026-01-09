@@ -1,5 +1,5 @@
 <?php
-(function ($pix, $pixdb, $evg) {
+(function ($pix, $pixdb, $evg, $date) {
     $pgn = max(0, intval($_GET['pgn'] ?? 0));
     $trConds = [
         '#SRT' => 'id desc',
@@ -144,6 +144,53 @@
     $shStatus = esc($_GET['sh_status'] ?? '');
     if ($shStatus) {
         $adnlqry[] = 'status=' . q($shStatus);
+    }
+
+    //  filter by membership status
+    $mbrSts = esc($_GET['mbr-sts'] ?? '');
+    if ($mbrSts) {
+        $mbrIds = [];
+
+        if ($mbrSts == 'act') {
+            $filtrConds = ' AND m.enabled = "Y" AND (expiry IS NULL OR expiry >= "' . $date . '")';
+        } elseif ($mbrSts == 'inact') {
+            $filtrConds = ' AND m.enabled = "N"';
+        }
+
+        $membActive = $pixdb->fetchAll(
+            'SELECT m.member
+            FROM memberships m
+            WHERE (
+                m.created = (
+                    SELECT MAX(created)
+                    FROM memberships
+                    WHERE member = m.member
+                    AND created IS NOT NULL
+                    AND (
+                        (giftedBy IS NOT NULL AND accepted = "Y")
+                        OR giftedBy IS NULL
+                    )
+                )
+                OR (
+                    m.created IS NULL
+                    AND NOT EXISTS (
+                        SELECT 1
+                        FROM memberships
+                        WHERE member = m.member
+                        AND created IS NOT NULL
+                    )
+                )
+            )
+            ' . $filtrConds . '
+            ORDER BY m.created DESC'
+        );
+        foreach ($membActive as $ma) {
+            $mbrIds[] = $ma->member;
+        }
+
+        if ($mbrIds) {
+            $adnlqry[] = 'member IN (' . implode(', ', $mbrIds) . ')';
+        }
     }
 
     if (!empty($adnlqry)) {
@@ -450,6 +497,17 @@
         ], */
         [
             'type' => 'radio-group',
+            'label' => 'Membership Status',
+            'name' => 'mbr-sts',
+            'getKey' => 'mbr-sts',
+            'options' => [
+                ['Any', '', true],
+                ['Active', 'act'],
+                ['Inactive', 'inact']
+            ]
+        ],
+        [
+            'type' => 'radio-group',
             'label' => 'Status',
             'name' => 'sh_status',
             'getKey' => 'sh_status',
@@ -497,5 +555,5 @@
         ] : null
 
     );
-})($pix, $pixdb, $evg);
+})($pix, $pixdb, $evg, $date);
 ?>

@@ -349,7 +349,7 @@ if (!empty($shMembSts)) {
     }
 
     if (in_array('active', $shMembSts)) {
-        $shCond[] = 'm.enabled = ' . q('Y');
+        $shCond[] = 'm.enabled = ' . q('Y') . ' AND (expiry IS NULL OR expiry >= "' . $date . '")';
     }
     if (in_array('inactive', $shMembSts)) {
         $shCond[] = 'm.enabled = ' . q('N');
@@ -375,13 +375,25 @@ if (!empty($shMembSts)) {
     $membActive = $pixdb->fetchAll(
         'SELECT *
         FROM memberships m
-        WHERE m.created = (
-            SELECT MAX(created)
-            FROM memberships
-            WHERE member = m.member
-            AND (
-                (giftedBy IS NOT NULL AND accepted = "Y")
-                OR giftedBy IS NULL
+        WHERE (
+            m.created = (
+                SELECT MAX(created)
+                FROM memberships
+                WHERE member = m.member
+                AND created IS NOT NULL
+                AND (
+                    (giftedBy IS NOT NULL AND accepted = "Y")
+                    OR giftedBy IS NULL
+                )
+            )
+            OR (
+                m.created IS NULL
+                AND NOT EXISTS (
+                    SELECT 1
+                    FROM memberships
+                    WHERE member = m.member
+                    AND created IS NOT NULL
+                )
             )
         )
         ' . $shFiltrConds . '
@@ -515,6 +527,7 @@ $colSections = [];
 $affOrgs = [];
 $mmbrAffiliations = [];
 $trxnDataArr = [];
+$activeMbrs = [];
 foreach ($members->data as $mbr) {
     $mbrIds[] = $mbr->id;
 }
@@ -605,7 +618,46 @@ if (!empty($mbrIds)) {
         'secId,mbrId,type',
         'mbrId'
     );
+
+    if (in_array('active', $shMembSts)) {
+        foreach ($membActive as $ma) {
+            $activeMbrs[] = $ma->member;
+        }
+    } else {
+        $membActive = $pixdb->fetchAll(
+            'SELECT m.member
+            FROM memberships m
+            WHERE (
+                m.created = (
+                    SELECT MAX(created)
+                    FROM memberships
+                    WHERE member = m.member
+                    AND created IS NOT NULL
+                    AND (
+                        (giftedBy IS NOT NULL AND accepted = "Y")
+                        OR giftedBy IS NULL
+                    )
+                )
+                OR (
+                    m.created IS NULL
+                    AND NOT EXISTS (
+                        SELECT 1
+                        FROM memberships
+                        WHERE member = m.member
+                        AND created IS NOT NULL
+                    )
+                )
+            )
+            AND (m.enabled = "Y" AND (expiry IS NULL OR expiry >= "' . $date . '")) 
+            AND m.member IN (' . implode(', ', $mbrIds) . ')
+            ORDER BY m.created DESC'
+        );
+        foreach ($membActive as $ma) {
+            $activeMbrs[] = $ma->member;
+        }
+    }
 }
+
 
 foreach ($mbrInfos as $sts) {
     $stateIds[] = $sts->state;
@@ -856,6 +908,12 @@ $pix->pagination(
                                 ? date('d-m-Y', strtotime($memberShips[$mbr->id]->expiry))
                                 : '--';
                             ?>
+                        </span>
+                    </div>
+                    <div class="itm-wrap">
+                        <small class="wrp-ttl">Membership Status</small>
+                        <span class="mbr-sts <?php echo in_array($mbr->id, $activeMbrs) ? 'active' : ''; ?>">
+                            <?php echo in_array($mbr->id, $activeMbrs) ? 'Active' : 'Inactive'; ?>
                         </span>
                     </div>
                 </div>
