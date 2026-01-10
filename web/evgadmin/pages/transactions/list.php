@@ -149,55 +149,35 @@
     //  filter by membership status
     $mbrSts = esc($_GET['mbr-sts'] ?? '');
     if ($mbrSts) {
-        $mbrIds = [];
 
         if ($mbrSts == 'act') {
-            $filtrConds = ' AND m.enabled = "Y" AND (expiry IS NULL OR expiry >= "' . $date . '")';
+            $filtrConds = ' AND lm.enabled = "Y" AND (lm.expiry IS NULL OR lm.expiry >= "' . $date . '")';
         } elseif ($mbrSts == 'inact') {
-            $filtrConds = ' AND m.enabled = "N"';
+            $filtrConds = ' AND lm.enabled = "N"';
         }
 
-        $membActive = $pixdb->fetchAll(
-            'SELECT m.member
-            FROM memberships m
-            WHERE (
-                m.created = (
-                    SELECT MAX(created)
-                    FROM memberships
-                    WHERE member = m.member
-                    AND created IS NOT NULL
-                    AND (
-                        (giftedBy IS NOT NULL AND accepted = "Y")
-                        OR giftedBy IS NULL
-                    )
-                )
-                OR (
-                    m.created IS NULL
-                    AND NOT EXISTS (
-                        SELECT 1
-                        FROM memberships
-                        WHERE member = m.member
-                        AND created IS NOT NULL
-                    )
-                )
-            )
+        $adnlqry[] = 'EXISTS (
+            SELECT 1
+            FROM (
+                SELECT m1.*
+                FROM memberships m1
+                LEFT JOIN memberships m2
+                    ON m1.member = m2.member
+                AND m1.created < m2.created
+                WHERE m2.created IS NULL
+            ) lm
+            WHERE lm.member = t.member
             ' . $filtrConds . '
-            ORDER BY m.created DESC'
-        );
-        foreach ($membActive as $ma) {
-            $mbrIds[] = $ma->member;
-        }
-
-        if ($mbrIds) {
-            $adnlqry[] = 'member IN (' . implode(', ', $mbrIds) . ')';
-        }
+        )';
     }
 
     if (!empty($adnlqry)) {
         $trConds['__QUERY__'][] = implode(' and ', $adnlqry);
     }
     $transactions = $pixdb->get(
-        'transactions',
+        [
+            ['transactions', 't', 'id']
+        ],
         $trConds,
         'id,
         member,
@@ -286,6 +266,13 @@
                 ),
                 'sh_trEnd' => array(
                     'label' => 'End Date',
+                ),
+                'mbr-sts' => array(
+                    'label' => 'Membership Status',
+                    'value' => [
+                        'act' => 'Active',
+                        'inact' => 'Inactive'
+                    ]
                 ),
 
             )
