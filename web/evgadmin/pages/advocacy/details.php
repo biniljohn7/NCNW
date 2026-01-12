@@ -216,9 +216,19 @@
                 <div class="pdf-lbl">
                     PDF
                 </div>
-                <?php
-                echo htmlspecialchars_decode($adData->pdfContent, ENT_QUOTES);
-                ?>
+                <div class="pdfcnt">
+                    <?php
+                    echo htmlspecialchars_decode($adData->pdfContent, ENT_QUOTES);
+                    ?>
+                </div>
+                <?php if ($adData->pdfUpload) { ?>
+                    <div class="pdf-lbl pt10">
+                        Uploaded PDF
+                    </div>
+                    <div class="uplPdf">
+                        <a href="<?php echo $pix->uploadPath, 'advocacy-pdf/', $adData->pdfUpload; ?>" target="_blank">View Uploaded PDF</a>
+                    </div>
+                <?php } ?>
             </div>
             <div class="cnt-btns">
                 <a href="<?php echo $pix->adminURL . "?page=advocacy&sec=mod&id=$adData->id"; ?>">
@@ -242,13 +252,12 @@
                     </span>
                 </a>
                 <?php
-                if($advMemb->data) {
+                if ($advMemb->data) {
                 ?>
-                    <a 
-                        href="<?php echo ADMINURL . "actions/anyadmin/?method=petition-export&id=" . $aid; ?>" 
-                        class="pix-btn sm site" 
-                        target="_blank"
-                    >
+                    <a
+                        href="<?php echo ADMINURL . "actions/anyadmin/?method=petition-export&id=" . $aid; ?>"
+                        class="pix-btn sm site"
+                        target="_blank">
                         <span class="material-symbols-outlined icn">
                             upgrade
                         </span>
