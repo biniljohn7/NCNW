@@ -21,7 +21,8 @@ $data = (object)[
     'profileCreated' => true,
     'notification' => false,
     'roles' => [],
-    'membershipStatus' => null
+    'membershipStatus' => null,
+    'supporterStatus' => null
 ];
 
 if ($memberId) {
@@ -140,6 +141,22 @@ if ($memberId) {
                 $data->membershipExpireDate = $mmbrShp->expiry;
                 $data->membershipStatus = 'active';
                 break;
+            }
+        }
+
+        $paidBenefits = $pixdb->get(
+            'paid_benefits',
+            [
+                'members' => $member->id,
+                '#SRT' => 'id desc'
+            ]
+        );
+        if ($paidBenefits->data) {
+            foreach ($paidBenefits->data as $bnft) {
+                $data->supporterStatus = $bnft->expiry && $date > $bnft->expiry ? 'expired' : 'active';
+                if ($data->supporterStatus == 'active') {
+                    break;
+                }
             }
         }
     }

@@ -17,6 +17,7 @@ const initState = {
     chatProfileImage: null,
     userRoles: [],
     membershipStatus: null,
+    supporterStatus: null,
 }
 
 export default function rootReducer(state = initState, action) {
