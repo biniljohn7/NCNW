@@ -330,6 +330,7 @@ const SignIn = (props) => {
 							currentChapter: res.data.currentChapter,
 							userRoles: res.data.roles,
 							membershipStatus: res.data.membershipStatus,
+							supporterStatus: res.data.supporterStatus
 						};
 						props.login(userData);
 						Tst.Success(res.message);
@@ -407,7 +408,7 @@ const SignIn = (props) => {
 
 										{step === 2 && emailValid && (
 											<div className="mb-20 col-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-												
+
 												<div className="position-relative">
 													<Input
 														//label={lgWithOtp ? "The OTP has been sent to your email. Please enter it below." : "Password"}
@@ -423,17 +424,17 @@ const SignIn = (props) => {
 														value={password}
 														onChange={(e) => setPassword(e.target.value)}
 													/>
-													
+
 													{passwordType === "password" ? (
-														<span 
+														<span
 															className="material-symbols-outlined eye pwd cursor-pointer"
 															onClick={() => { setPasswordType("text"); }}
 														>
 															visibility
 														</span>
-														
+
 													) : (
-														<span 
+														<span
 															className="material-symbols-outlined eye pwd cursor-pointer"
 															onClick={() => { setPasswordType("password"); }}
 														>

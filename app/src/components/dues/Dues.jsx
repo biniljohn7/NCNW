@@ -23,7 +23,7 @@ import { connect } from "react-redux";
 const { logout } = AuthActions;
 const Dues = (props) => {
   const Tst = Toast();
-  const { membershipStatus } = store.getState().auth;
+  const { membershipStatus, supporterStatus } = store.getState().auth;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [historyData, setHistoryData] = useState(null);
@@ -104,7 +104,7 @@ const Dues = (props) => {
       .finally(() => {
         setLoading(false);
       });
-    if (membershipStatus != "active") {
+    if (membershipStatus != "active" && supporterStatus != "active") {
       Tst.Success("An active membership is required to continue.");
     }
   }, []);
@@ -129,54 +129,54 @@ const Dues = (props) => {
             <div className="due-box">
               <div className="container">
                 <div className="due-left">
-                    <div className="due-item pay-btn">
-                        <div 
-                            className="due-head"
-                            onClick={() => {
-                                props.history.push("/dues/membership");
-                            }}
-                        >
-                            {membershipStatus == "active" ? "PAY MEMBERSHIP FEE" : "CHOOSE MEMBERSHIP"}{" "}
-                        </div>
+                  <div className="due-item pay-btn">
+                    <div
+                      className="due-head"
+                      onClick={() => {
+                        props.history.push("/dues/membership");
+                      }}
+                    >
+                      {membershipStatus == "active" ? "PAY MEMBERSHIP FEE" : "CHOOSE MEMBERSHIP"}{" "}
                     </div>
-                    <div className="due-item">
-                        <div className="due-head">MEMBERSHIP FEE DETAILS</div>
-                        <div className="due-content">
-                        {(function () {
-                            if (data) {
-                            return (
-                                <table cellPadding={7} style={{ width: "100%" }}>
-                                <tbody>
-                                    {data.map((group, groupIndex) => {
-                                    const validItems =
-                                        group?.filter(
-                                        (item) => item && item.label
-                                        ) || [];
+                  </div>
+                  <div className="due-item">
+                    <div className="due-head">MEMBERSHIP FEE DETAILS</div>
+                    <div className="due-content">
+                      {(function () {
+                        if (data) {
+                          return (
+                            <table cellPadding={7} style={{ width: "100%" }}>
+                              <tbody>
+                                {data.map((group, groupIndex) => {
+                                  const validItems =
+                                    group?.filter(
+                                      (item) => item && item.label
+                                    ) || [];
 
-                                    return validItems.map((item, itemIndex) => (
-                                        <tr
-                                        key={`${groupIndex}-${itemIndex}`}
-                                        style={
-                                            groupIndex > 0 && itemIndex === 0
-                                            ? { borderTop: "1px solid #ccc" }
-                                            : {}
-                                        }
-                                        >
-                                        <td className="bold-600">{item.label}</td>
-                                        <td className="text-right">
-                                            {item.amount}
-                                        </td>
-                                        </tr>
-                                    ));
-                                    })}
-                                </tbody>
-                                </table>
-                            );
-                            }
-                        })()}
-                        <ExpiredMembership />
-                        </div>
+                                  return validItems.map((item, itemIndex) => (
+                                    <tr
+                                      key={`${groupIndex}-${itemIndex}`}
+                                      style={
+                                        groupIndex > 0 && itemIndex === 0
+                                          ? { borderTop: "1px solid #ccc" }
+                                          : {}
+                                      }
+                                    >
+                                      <td className="bold-600">{item.label}</td>
+                                      <td className="text-right">
+                                        {item.amount}
+                                      </td>
+                                    </tr>
+                                  ));
+                                })}
+                              </tbody>
+                            </table>
+                          );
+                        }
+                      })()}
+                      <ExpiredMembership />
                     </div>
+                  </div>
 
                   <div className="text-center">
                     <img src={Visa} alt="Visa" className="card-icon mr-3" />
@@ -247,76 +247,76 @@ const Dues = (props) => {
                     <div className="due-content">
                       {(function () {
                         if (historyData && Object.keys(historyData).length > 0) {
-                            return Object.values(historyData).map(function (el, index) {
-                                return (
-                                <div className="mb15 hist-item" key={index}>
-                                    <div className={`info ${el.benefitTo ? 'gift' : ''}`}>
-                                    <div className="bold-600 text-12 mb5 inf-top">
-                                        <span>{el.chargesTitle}</span>
-                                        {el.benefitTo ? (
-                                        <span className="paid-by">
-                                            (Paid by {el.benefitTo.firstName + ' ' + el.benefitTo.lastName})
-                                        </span>
-                                        ) : (
-                                        ''
-                                        )}
-                                    </div>
-                                    {el.giftedDetails && Object.values(el.giftedDetails).length > 0 ? (
-                                        <div className="gifted-wrapper mb-10">
-                                            {Object.values(el.giftedDetails).map((gift, i) => (
-                                                <div key={i}>
-                                                    <span>{gift.membership}</span> -{" "}
-                                                    <span className="text-bold">
-                                                        {gift.giftTo}
-                                                    </span>
-                                                    <span>
-                                                        {" (" + new Date(gift.paidDate).toLocaleDateString("en-US") + ")"}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
+                          return Object.values(historyData).map(function (el, index) {
+                            return (
+                              <div className="mb15 hist-item" key={index}>
+                                <div className={`info ${el.benefitTo ? 'gift' : ''}`}>
+                                  <div className="bold-600 text-12 mb5 inf-top">
+                                    <span>{el.chargesTitle}</span>
+                                    {el.benefitTo ? (
+                                      <span className="paid-by">
+                                        (Paid by {el.benefitTo.firstName + ' ' + el.benefitTo.lastName})
+                                      </span>
                                     ) : (
-                                        ''
+                                      ''
                                     )}
-                                    <div className="inf-btm">
-                                        <div className={`inf-rg ${el.benefitTo ? 'gift' : ''}`}>
-                                        {el.status === 'success' && el.benefitTo && (
-                                            <>
-                                            <div className="gf-lf">
-                                                {el.benefitTo.avatar ? (
-                                                <img src={el.benefitTo.avatar} alt="" />
-                                                ) : (
-                                                <div className="no-img">
-                                                    <span className="material-symbols-outlined icn">person</span>
-                                                </div>
-                                                )}
-                                            </div>
-                                            <div className="gf-rg">
-                                                <div className="bold">
-                                                {el.benefitTo.firstName} {el.benefitTo.lastName}
-                                                </div>
-                                                <div>{el.benefitTo.memberId}</div>
-                                                <div>
-                                                {el.benefitTo.city}, {el.benefitTo.zipcode}
-                                                </div>
-                                            </div>
-                                            </>
-                                        )}
+                                  </div>
+                                  {el.giftedDetails && Object.values(el.giftedDetails).length > 0 ? (
+                                    <div className="gifted-wrapper mb-10">
+                                      {Object.values(el.giftedDetails).map((gift, i) => (
+                                        <div key={i}>
+                                          <span>{gift.membership}</span> -{" "}
+                                          <span className="text-bold">
+                                            {gift.giftTo}
+                                          </span>
+                                          <span>
+                                            {" (" + new Date(gift.paidDate).toLocaleDateString("en-US") + ")"}
+                                          </span>
                                         </div>
-                                        <div className="inf-lf">
-                                        <div>{new Date(el.paidAt).toLocaleDateString('en-US')}</div>
-                                        {Pix.dollar(el.totalAmount, 1)}
-                                        </div>
+                                      ))}
                                     </div>
+                                  ) : (
+                                    ''
+                                  )}
+                                  <div className="inf-btm">
+                                    <div className={`inf-rg ${el.benefitTo ? 'gift' : ''}`}>
+                                      {el.status === 'success' && el.benefitTo && (
+                                        <>
+                                          <div className="gf-lf">
+                                            {el.benefitTo.avatar ? (
+                                              <img src={el.benefitTo.avatar} alt="" />
+                                            ) : (
+                                              <div className="no-img">
+                                                <span className="material-symbols-outlined icn">person</span>
+                                              </div>
+                                            )}
+                                          </div>
+                                          <div className="gf-rg">
+                                            <div className="bold">
+                                              {el.benefitTo.firstName} {el.benefitTo.lastName}
+                                            </div>
+                                            <div>{el.benefitTo.memberId}</div>
+                                            <div>
+                                              {el.benefitTo.city}, {el.benefitTo.zipcode}
+                                            </div>
+                                          </div>
+                                        </>
+                                      )}
                                     </div>
-                                    <div className={`status-btn ${el.status} ${el.benefitTo ? 'gift' : ''}`}>
-                                    {el.status}
+                                    <div className="inf-lf">
+                                      <div>{new Date(el.paidAt).toLocaleDateString('en-US')}</div>
+                                      {Pix.dollar(el.totalAmount, 1)}
                                     </div>
+                                  </div>
                                 </div>
-                                );
-                            });
+                                <div className={`status-btn ${el.status} ${el.benefitTo ? 'gift' : ''}`}>
+                                  {el.status}
+                                </div>
+                              </div>
+                            );
+                          });
                         } else {
-                            return <div className="text-center">YOU HAVE NO MEMBERSHIP</div>;
+                          return <div className="text-center">YOU HAVE NO MEMBERSHIP</div>;
                         }
                       })()}
                     </div>
