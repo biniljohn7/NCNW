@@ -198,6 +198,19 @@ $pix->pagination(
         $stDatas = $stateData[$row->state] ?? null;
         $rgDatas = $stDatas ? $regionData[$stDatas->region] ?? null : null;
         $ntDatas = $rgDatas ? $nationData[$rgDatas->nation] ?? null : null;
+        $lnk  = '';
+        if (
+            $stDatas &&
+            isset($stDatas->id)
+        ) {
+            $params = [
+                'page' => 'members',
+                'st_sort' => [$stDatas->id],
+                'sh_sc_sort' => [$row->id]
+            ];
+            //$lnk  = $pix->adminURL . '?page=members&st_sort[]=' . $stDatas->id . '&sh_sc_sort[]=' . $row->id;
+            $lnk  = $pix->adminURL . '?' . http_build_query($params);
+        }
     ?>
         <div class="chapter-card">
             <div class="card-top">
@@ -206,7 +219,11 @@ $pix->pagination(
                         <div class="nt-fld">
                             <div class="chapter-name">
                                 <?php
-                                echo $row->name;
+                                if ($lnk && $row->name) {
+                                    echo '<a href="', $lnk, '" class="lnk">', $row->name, '</a>';
+                                } else {
+                                    echo $row->name;
+                                }
                                 ?>
                             </div>
                             <div class="nt-sub">

@@ -71,10 +71,10 @@ export const LOGIN_HEADER = [
     label: "Advocacy",
     path: "/advocacy",
   },
-  /* {
+  {
     label: "Programs",
     path: "/programs",
-  }, */
+  },
   {
     label: "Events",
     path: "/events",

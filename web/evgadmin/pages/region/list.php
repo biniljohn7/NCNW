@@ -113,7 +113,11 @@ $pix->pagination(
                         <div class="nt-fld">
                             <div class="nation-name">
                                 <?php
-                                echo $row->name ?? '--'
+                                if ($row->name) {
+                                    echo '<a href="', $pix->adminURL, '?page=state&sh_nation=', $row->nation, '&sh_region=', $row->id, '" class="lnk">', $row->name, '</a>';
+                                } else {
+                                    echo '--';
+                                }
                                 ?>
                             </div>
                             <div class="nt-sub">
