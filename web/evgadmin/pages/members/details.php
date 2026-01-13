@@ -228,8 +228,7 @@
                 $member->firstName, ' ',
                 $member->middleName, ' ',
                 $member->lastName, '',
-                isset($info->suffix) ? ', ' . $evg::suffix[$info->suffix] : '';
-
+                isset($info->suffix) ? ', ' . ($evg::suffix[$info->suffix] ?? '') : '';
                 ?>
             </div>
 

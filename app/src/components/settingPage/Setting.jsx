@@ -62,9 +62,9 @@ const SIDE_MENU = [
 		state: CHILD_STATE.notification,
 	},
 	{
-		label: "Leadership Team",
+		label: "Elected/Appointed Officer Positions",
 		icon: LeadershipIcon,
-		alt: "Leadership Team",
+		alt: "Elected/Appointed Officer Positions",
 		state: CHILD_STATE.leadershipTeam,
 	},
 	{
