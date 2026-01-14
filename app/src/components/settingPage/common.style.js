@@ -284,7 +284,12 @@ const CommonWrapper = styled.div`
         align-items: center;
         gap: 6px;
     }
-
+  .pwd-inp::-ms-reveal {
+    display: none;
+  }
+    .pwd-inp::-ms-clear {
+    display: none;
+  }
   @media only screen and (max-width: 1024px) {
       .row.prf-row {
         flex-direction: column;

@@ -1,5 +1,5 @@
 <?php
-(function ($pix, $pixdb, $evg) {
+(function ($pix, $pixdb, $evg, $date) {
     $pgn = max(0, intval($_GET['pgn'] ?? 0));
     $trConds = [
         '#SRT' => 'id desc',
@@ -146,11 +146,38 @@
         $adnlqry[] = 'status=' . q($shStatus);
     }
 
+    //  filter by membership status
+    $mbrSts = esc($_GET['mbr-sts'] ?? '');
+    if ($mbrSts) {
+
+        if ($mbrSts == 'act') {
+            $filtrConds = ' AND lm.enabled = "Y" AND (lm.expiry IS NULL OR lm.expiry >= "' . $date . '")';
+        } elseif ($mbrSts == 'inact') {
+            $filtrConds = ' AND lm.enabled = "N"';
+        }
+
+        $adnlqry[] = 'EXISTS (
+            SELECT 1
+            FROM (
+                SELECT m1.*
+                FROM memberships m1
+                LEFT JOIN memberships m2
+                    ON m1.member = m2.member
+                AND m1.created < m2.created
+                WHERE m2.created IS NULL
+            ) lm
+            WHERE lm.member = t.member
+            ' . $filtrConds . '
+        )';
+    }
+
     if (!empty($adnlqry)) {
         $trConds['__QUERY__'][] = implode(' and ', $adnlqry);
     }
     $transactions = $pixdb->get(
-        'transactions',
+        [
+            ['transactions', 't', 'id']
+        ],
         $trConds,
         'id,
         member,
@@ -239,6 +266,13 @@
                 ),
                 'sh_trEnd' => array(
                     'label' => 'End Date',
+                ),
+                'mbr-sts' => array(
+                    'label' => 'Membership Status',
+                    'value' => [
+                        'act' => 'Active',
+                        'inact' => 'Inactive'
+                    ]
                 ),
 
             )
@@ -450,6 +484,17 @@
         ], */
         [
             'type' => 'radio-group',
+            'label' => 'Membership Status',
+            'name' => 'mbr-sts',
+            'getKey' => 'mbr-sts',
+            'options' => [
+                ['Any', '', true],
+                ['Active', 'act'],
+                ['Inactive', 'inact']
+            ]
+        ],
+        [
+            'type' => 'radio-group',
             'label' => 'Status',
             'name' => 'sh_status',
             'getKey' => 'sh_status',
@@ -497,5 +542,5 @@
         ] : null
 
     );
-})($pix, $pixdb, $evg);
+})($pix, $pixdb, $evg, $date);
 ?>

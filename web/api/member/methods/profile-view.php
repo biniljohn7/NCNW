@@ -364,6 +364,31 @@ if ($lgUser->id) {
         'id'
     );
 
+    // supporter
+    $isSupporter = false;
+    $supporterStatus = 'Inactive';
+    $supportType = '';
+    $supportEnd = '';
+
+    $paidBenefits = $pixdb->get(
+        'paid_benefits',
+        [
+            'members' => $lgUser->id,
+            '#SRT' => 'id desc'
+        ]
+    );
+    $isSupporter = $paidBenefits->data ? true : false;
+    if ($paidBenefits->data) {
+        foreach ($paidBenefits->data as $bnft) {
+            $supporterStatus = $bnft->expiry && $date > $bnft->expiry ? 'Inactive' : 'Active';
+            $supportType = $bnft->title;
+            $supportEnd = $bnft->expiry ? date('d/m/Y', strtotime($bnft->expiry)) : '';
+            if ($supporterStatus == 'Active') {
+                break;
+            }
+        }
+    }
+
     $r->status = 'ok';
     $r->success = 1;
     $r->data = [
@@ -518,7 +543,11 @@ if ($lgUser->id) {
             'mmbrshpExpiry' => $mmbrshpValidity,
             'deceased' => $memberInfo && $memberInfo->deceased ? ($memberInfo->deceased == 'Y' ? true : false) : false,
             'legacyTracker' => $LegacyLifeMmmshp,
-            'lifeTracker' => $LifeMembership
+            'lifeTracker' => $LifeMembership,
+            'isSupporter' => $isSupporter,
+            'supportSts' => $supporterStatus,
+            'supportType' => $supportType,
+            'supportEnd' => $supportEnd
         ]
     ];
     $r->message = 'Data Retrieved Successfully!';

@@ -58,13 +58,17 @@ $advocacies = $pixdb->get(
     recipient as recipientName,
     recipAddr as recipientAddress,
     recipEmail as recipientEmail,
-    image'
+    image,
+    pdfUpload'
 );
 
 foreach ($advocacies->data as $itm) {
     $itm->createdAt = date('Y-m-d\TH:i:s.uP', strtotime($itm->createdAt));
     if ($itm->image) {
         $itm->image = $pix->uploadPath . 'advocacy-image/' . $pix->thumb($itm->image, '450x450');
+    }
+    if ($itm->pdfUpload) {
+        $itm->pdfUpload = $pix->uploadPath . 'advocacy-pdf/' . $itm->pdfUpload;
     }
 }
 

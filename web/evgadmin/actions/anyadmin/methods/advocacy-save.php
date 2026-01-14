@@ -45,6 +45,8 @@ if (
     $aid = esc($_['aid'] ?? '');
     $new = !$aid;
 
+    $pdfUpload = isset($_FILES['pdfUpload']) ? $_FILES['pdfUpload'] : null;
+
     if (
         $title &&
         $scope &&
@@ -62,6 +64,19 @@ if (
                 ],
                 'id, image'
             );
+        }
+        $filePath = null;
+        if ($pdfUpload['tmp_name']) {
+            $dateDir = $pix->setDateDir('advocacy-pdf');
+            $fileName = $pix->makestring(50, 'ln') . '.' . exf($pdfUpload['name']);
+            if (
+                move_uploaded_file(
+                    $pdfUpload['tmp_name'],
+                    $dateDir->absdir . $fileName
+                )
+            ) {
+                $filePath = $dateDir->uplroot . $fileName;
+            };
         }
         if (
             $new ||
@@ -82,7 +97,8 @@ if (
                 'recipAddr' => $address,
                 'recipEmail' => $recipEmail,
                 'descrptn' => $desc,
-                'pdfContent' => $pdf
+                'pdfContent' => $pdf,
+                'pdfUpload' => $filePath,
             ];
             if ($new) {
                 $dbData['createdAt'] = $datetime;
@@ -101,11 +117,11 @@ if (
                 );
             }
             if ($iid) {
-                var_dump(basename(__FILE__) . ':' . __LINE__);
+                //var_dump(basename(__FILE__) . ':' . __LINE__);
                 $pix->addmsg('Advocacy saved', 1);
                 $pix->redirect('?page=advocacy&sec=details&id=' . $iid);
             }
         }
     }
 }
-exit;
+//exit;

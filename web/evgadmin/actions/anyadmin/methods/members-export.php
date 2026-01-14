@@ -397,13 +397,15 @@ if (!$pix->canAccess('members') || !$pix->canAccess('elect')) {
         $whereClause = ' WHERE m.id IN (' . $idString . ')';
     }
     $members = $pixdb->fetchAll(
-        'SELECT 
+        "SELECT 
+            i.prefix,
             m.firstName, 
             m.lastName,
             m.memberId,
             m.email,
+            i.bEmail,
             m.regOn,
-            if(m.verified="Y", "Yes", "No") AS verified,
+            if(m.verified='Y', 'Yes', 'No') AS verified,
             i.refcode,
             i.pointsBalance,
             i.referralsTotal,  
@@ -414,23 +416,28 @@ if (!$pix->canAccess('members') || !$pix->canAccess('elect')) {
             r.name AS region,
             i.city,
             i.address,
+            i.address2,
             i.zipcode,
             i.phone,
             i.deceased,
+            ms.planName,
+            ms.created,
+            ms.payStatus,
             ms.pinStatus,
             ms.shpdOn,
-            o.title
+            ot.title
         FROM
             members m 
         LEFT JOIN members_info i ON m.id=i.member    
         LEFT JOIN nations n ON n.id=i.country 
         LEFT JOIN states s ON s.id=i.state 
-        LEFT JOIN memberships ms ON m.id = ms.member 
-        LEFT JOIN officers o ON m.id = o.memberId AND o.circle = "section" AND o.circleId = i.cruntChptr
+        LEFT JOIN memberships ms ON m.id = ms.member AND ((ms.giftedBy IS NOT NULL AND ms.accepted = 'Y') OR ms.giftedBy IS NULL) AND ms.enabled = 'Y'
+        LEFT JOIN officers o ON m.id = o.memberId AND o.circle = 'section' AND o.circleId = i.cruntChptr
+        LEFT JOIN officers_titles ot ON o.title = ot.id
         LEFT JOIN chapters c ON c.id = i.cruntChptr
-        LEFT JOIN regions r ON r.id = i.regionId' .
-            $whereClause . '
-        ORDER BY ' . $sortBy,
+        LEFT JOIN regions r ON r.id = i.regionId 
+            $whereClause 
+        ORDER BY  $sortBy ,ms.id desc",
         PDO::FETCH_NUM
     );
 
@@ -439,37 +446,47 @@ if (!$pix->canAccess('members') || !$pix->canAccess('elect')) {
     $memArray = [];
     foreach ($members as $obj) {
         $ar = (array) $obj;
-        if (!empty($ar[4])) {
-            $ar[4] = '="' . date('d-m-Y h:i A', strtotime($ar[4])) . '"';
+        if (!empty($ar[0])) {
+            $ar[0] = $evg::prefix[$ar[0]] ?? '';
         }
-        $ar[19] = $ar[19] ? ucfirst($ar[19]) : '';
-        if (!empty($ar[20])) {
-            $ar[20] = '="' . date('d-m-Y', strtotime($ar[20])) . '"';
+        if (!empty($ar[6])) {
+            $ar[6] = '="' . date('d-m-Y h:i A', strtotime($ar[6])) . '"';
         }
-        if (!empty($ar[21])) {
-            //$ar[20] = '="' . date('d-m-Y', strtotime($ar[20])) . '"';
-            $titleId = intval($ar[21]);
-            $title = $pixdb->getRow(
-                'officers_titles',
-                ['id' => $titleId],
-                'title'
-            );
-            $ar[21] = $title->title;
-        } else {
-            $ar[21] = "";
+        $ar[21] = ($ar[21] == 'Y') ? 'Yes' : 'No';
+        if (!empty($ar[23])) {
+            $ar[23] = '="' . date('d-m-Y', strtotime($ar[23])) . '"';
         }
-        $ar[18] = ($ar[18] == 'Y') ? 'Yes' : 'No';
+        $ar[24] = $ar[24] ? ucfirst($ar[24]) : '';
+        $ar[25] = $ar[25] ? ucfirst($ar[25]) : '';
+        if (!empty($ar[26])) {
+            $ar[26] = '="' . date('d-m-Y', strtotime($ar[26])) . '"';
+        }
+        // if (!empty($ar[27])) {
+        //     //$ar[20] = '="' . date('d-m-Y', strtotime($ar[20])) . '"';
+        //     // $titleId = intval($ar[27]);
+        //     // $title = $pixdb->getRow(
+        //     //     'officers_titles',
+        //     //     ['id' => $titleId],
+        //     //     'title'
+        //     // );
+        //     // $ar[27] = $title->title;
+        // } else {
+        //     $ar[27] = "";
+        // }
+
         $memArray[] = $ar;
     }
-    //var_dump($memArray);
-    //exit;
-    // CSV Head 
+    // var_dump($memArray);
+    // exit;
+    // // CSV Head 
     $data = [
         [
+            'Prefix',
             'First Name',
             'Last Name',
             'Member ID',
             'Email',
+            'Secondary Email',
             'Registered On',
             'Verified',
             'Referral Code',
@@ -481,10 +498,14 @@ if (!$pix->canAccess('members') || !$pix->canAccess('elect')) {
             'State',
             'Region',
             'City',
-            'Address',
+            'Address Line 1',
+            'Address Line 2',
             'Zip Code',
             'Phone',
             'Deceased',
+            'Membership Category',
+            'Last Paid Date',
+            'Status',
             'Pin Distribution Status',
             'Pin Shipped on',
             'Elected Title'

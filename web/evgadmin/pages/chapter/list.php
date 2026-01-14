@@ -1,7 +1,7 @@
 <?php
 $pgn = max(0, intval($_GET['pgn'] ?? 0));
 $cpConds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'name asc',
     '__page' => $pgn,
     '__limit' => 24,
     '__QUERY__' => array()
@@ -78,7 +78,7 @@ $nationData = $evg->getNations($nationIds, 'id,name');
 $nations = $pixdb->get(
     'nations',
     [
-        '#SRT' => 'id asc'
+        '#SRT' => 'name asc'
     ],
     'id, name'
 )->data;

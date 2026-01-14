@@ -3,7 +3,7 @@ $r->status = 'ok';
 $r->success = 1;
 $plans =  $pixdb->get(
     'membership_plans',
-    ['#SRT' => 'id asc'],
+    ['#SRT' => 'title asc'],
     'id as membershipPlanId,
     title as membershipPlanName,
     duration,

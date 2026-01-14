@@ -215,6 +215,13 @@
     word-break: break-word;
 }
 
+.member-container .member-box .mbr-item .mbr-itm .itm-wrap .mbr-sts {
+    color: #f00;
+}
+.member-container .member-box .mbr-item .mbr-itm .itm-wrap .mbr-sts.active {
+    color: #009d00;
+}
+
 .member-container .member-box .mbr-item .mbr-itm .itm-flx {
     display: flex;
     gap: 5px;

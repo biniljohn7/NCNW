@@ -24,12 +24,16 @@ if (isset($_GET['id'])) {
             descrptn as description,
             pdf,
             pdfContent,
-            image'
+            image,
+            pdfUpload'
         );
 
         if ($advocacy) {
             if ($advocacy->image) {
                 $advocacy->image = $pix->uploadPath . 'advocacy-image/' . $advocacy->image;
+            }
+            if ($advocacy->pdfUpload) {
+                $advocacy->pdfUpload = $pix->uploadPath . 'advocacy-pdf/' . $advocacy->pdfUpload  ;
             }
             $r->status = 'ok';
             $r->success = 1;

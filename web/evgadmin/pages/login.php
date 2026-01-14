@@ -28,6 +28,9 @@ loadScript('pages/login');
                 </div>
                 <div class="field">
                     <input type="password" name="pass" placeholder="Password" data-type="string" />
+                    <span class="material-symbols-outlined show-pwd">
+                        visibility
+                    </span>
                 </div>
                 <div class="field">
                     <button class="pix-btn site lg" name="login" type="submit">

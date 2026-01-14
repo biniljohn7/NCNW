@@ -38,6 +38,8 @@ const Profile = (props) => {
     });
   };
 
+  console.log(profile);
+
   document.title = "Profile - " + window.seoTagLine;
 
   return (
@@ -666,7 +668,16 @@ const Profile = (props) => {
                   </div>
                 </div>
               ) : (
-                ""
+                profile.profile.isSupporter ? (
+                  <div className="col-6 pt-2">
+                    <div className="form-group">
+                      <label className="fs-18 medium-text">
+                        Type&nbsp;:&nbsp;
+                      </label>
+                      {profile.profile.supportType ?? "-"}
+                    </div>
+                  </div>
+                ) : ""
               )}
             </div>
             <div className="row prf-row">
@@ -676,9 +687,15 @@ const Profile = (props) => {
                     <label className="fs-18 medium-text">
                       Status&nbsp;:&nbsp;
                     </label>
-                    <span className={`sts ${profile.profile.mmbrshpStatus}`}>
-                      {profile.profile.mmbrshpStatus ?? "-"}
-                    </span>
+                    {profile.profile.isSupporter ? (
+                      <span className={`sts ${profile.profile.supportSts}`}>
+                        {profile.profile.supportSts ?? "-"}
+                      </span>
+                    ) : (
+                      <span className={`sts ${profile.profile.mmbrshpStatus}`}>
+                        {profile.profile.mmbrshpStatus ?? "-"}
+                      </span>
+                    )}
                   </div>
                 </div>
               ) : (
@@ -732,7 +749,7 @@ const Profile = (props) => {
             <div className="row prf-row">
               <div className="col-12 pt-2">
                 <div className="form-group">
-                  <div className="fs-18 medium-text">Membership Card</div>
+                  <div className="fs-18 medium-text">{profile.profile.isSupporter ? 'Supporter Card' : 'Membership Card'} </div>
                   <div className="mb-wrap">
                     <div className="mb-item">
                       <div className="mb-card" id="membershipCard">
@@ -750,9 +767,9 @@ const Profile = (props) => {
                               </span>
                             </div>
                             <div className="dtl-itms">
-                              <span>Membership:</span>
+                              <span>{profile.profile.isSupporter ? 'Type' : 'Membership'}:</span>
                               <span>
-                                {profile.profile.mmbrshpCategory ?? "-"}
+                                {profile.profile.isSupporter ? (profile.profile.supportType ?? "-") : (profile.profile.mmbrshpCategory ?? "-")}
                               </span>
                             </div>
                             <div className="dtl-itms">
@@ -762,7 +779,7 @@ const Profile = (props) => {
                             <div className="dtl-itms">
                               <span>Expiration Date:</span>
                               <span>
-                                {profile.profile.mmbrshpExpiry ?? "-"}
+                                {profile.profile.isSupporter ? (profile.profile.supportEnd ?? "-") : (profile.profile.mmbrshpExpiry ?? "-")}
                               </span>
                             </div>
                           </div>

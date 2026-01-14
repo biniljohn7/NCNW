@@ -18,6 +18,9 @@
             </div>
             <div class="fld-inp">
                 <input type="password" size="30" name="curpass" data-type="string" data-label="password">
+                <span class="material-symbols-outlined show-pwd">
+                    visibility
+                </span>
                 <br />
             </div>
         </div>
@@ -28,6 +31,9 @@
             </div>
             <div class="fld-inp">
                 <input type="password" size="30" name="npass1" data-type="string" data-label="password" id="npass1">
+                <span class="material-symbols-outlined show-pwd">
+                    visibility
+                </span>
                 <br />
             </div>
         </div>
@@ -38,6 +44,9 @@
             </div>
             <div class="fld-inp">
                 <input type="password" size="30" name="npass2" data-type="func" data-func="checkConfirmPass" data-errormsg="passwords are not matching">
+                <span class="material-symbols-outlined show-pwd">
+                    visibility
+                </span>
                 <br />
             </div>
         </div>

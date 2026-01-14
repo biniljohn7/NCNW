@@ -86,7 +86,7 @@ foreach ($collegiateSec->data as $row) {
 }
 //
 $conds = [
-    '#SRT' => 'id desc',
+    '#SRT' => 'firstName asc',
     '__page' => $pgn,
     '__limit' => 24,
     '__QUERY__' => array(),
@@ -304,7 +304,7 @@ if ($memPlanKey) {
 }
 
 // sorting
-$sortBy = 'id desc';
+$sortBy = 'firstName asc';
 $shSort = esc($_GET['sh_sort'] ?? '');
 if ($shSort) {
     switch ($shSort) {

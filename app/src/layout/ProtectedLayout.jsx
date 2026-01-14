@@ -16,6 +16,7 @@ const ProtectedLayout = ({
     isProfileCreated,
     userRoles,
     membershipStatus,
+    supporterStatus,
   } = store.getState().auth;
   // Not logged in
   if (!isLogin || !accessToken) return <Redirect to="/signin" />;
@@ -26,8 +27,10 @@ const ProtectedLayout = ({
     (membershipStatus === null || membershipStatus === "expired") &&
     !allowedPaths.includes(location.pathname)
   ) {
-    // Redirect based on which one they should see first
-    return <Redirect to="/dues" />;
+    if (supporterStatus === null || supporterStatus === "expired") {
+      // Redirect based on which one they should see first
+      return <Redirect to="/dues" />;
+    }
   }
 
   // Profile not created

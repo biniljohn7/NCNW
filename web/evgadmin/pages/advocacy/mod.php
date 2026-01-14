@@ -239,6 +239,31 @@ breadcrumbs(
     </div>
     <div class="fm-field">
         <div class="fld-label">
+            PDF Upload
+        </div>
+        <div class="fld-inp">
+            <input
+                type="file"
+                name="pdfUpload"
+                accept="application/pdf"
+                <?php if (!isset($advData->pdfUpload) || !$advData->pdfUpload) { ?>
+                data-type="files"
+                data-extensions="pdf"
+                data-label="pdf upload" <?php } ?>>
+        </div>
+    </div>
+    <?php if (isset($advData->pdfUpload) && $advData->pdfUpload) { ?>
+        <div class="fm-field">
+            <div class="fld-label">
+                &nbsp;
+            </div>
+            <div class="fld-inp">
+                <a href="<?php echo $pix->uploadPath, 'advocacy-pdf/', $advData->pdfUpload; ?>" target="_blank">View Uploaded PDF</a>
+            </div>
+        </div>
+    <?php } ?>
+    <div class="fm-field">
+        <div class="fld-label">
             Enable
         </div>
         <div class="fld-inp">

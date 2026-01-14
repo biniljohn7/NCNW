@@ -38,7 +38,7 @@ const SigninWrapper = styled.form`
   .pwd {
     position: absolute;
     right: 15px;
-    top: 56%;
+    top: 36%;
   }
 
   .inp-row {
@@ -89,6 +89,12 @@ const SigninWrapper = styled.form`
     font-size: 16px;
     padding: 20px 25px !important;
     outline: none;
+  }
+  .login-sec .inputmain::-ms-reveal {
+    display: none;
+  }
+  .login-sec .inputmain::-ms-clear {
+    display: none;
   }
   .login-sec .inputmain::placeholder {
     color: #5B2166;
