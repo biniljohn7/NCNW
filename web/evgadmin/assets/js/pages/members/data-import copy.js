@@ -32,6 +32,7 @@
                             let records = data.records;
                             let importCancelled = false;
                             let finalWord = 'Importing Finished';
+                            let newUser = false;
 
                             if (records.length === 0) {
                                 popup.showError('The file is empty.');
@@ -98,12 +99,14 @@
 
                             function sendRow(data) {
                                 if (importCancelled) return;
+                                console.log(newUser);
                                 $.ajax(
                                     domain + 'ajax/anyadmin/', {
                                     method: 'post',
                                     data: {
                                         method: 'members-import',
-                                        records: JSON.stringify({ data: data })
+                                        records: JSON.stringify({ data: data }),
+                                        user: newUser
                                     },
                                     error: function () {
                                         errCount++;
@@ -114,45 +117,60 @@
                                         if (data.status == 'ok') {
                                             sccCount++;
                                             incCount();
+                                            newUser = false;
                                             setTimeout(uploadRow, 100);
 
-                                        } else if (data.status == 'exist') {
+                                        } else if (data.status == 'new') {
                                             console.log(data);
                                             popup.hide();
                                             popup.show(
-                                                'Duplicate Found',
+                                                'New Member Found',
                                                 `<div style="padding-bottom:20px">
-                                                    <p>One duplicate member record has been identified due to a matching ${data.duplicate}.</p>
+                                                    <p>One new member data found which is not available in the database.</p>
                                                     <p>
                                                     <table>
                                                         <tr>
                                                             <td><strong>Name</strong></td>
                                                             <td>:</td>
-                                                            <td>${data.member.fname} ${data.member.lname}</td>
+                                                            <td>${data.fname} ${data.lname}</td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>MemberID</strong></td>
                                                             <td>:</td>
-                                                            <td>${data.member.memberID}</td>
+                                                            <td>${data.memberID}</td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Email</strong></td>
                                                             <td>:</td>
-                                                            <td>${data.member.email}</td>
+                                                            <td>${data.email}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Phone</strong></td>
+                                                            <td>:</td>
+                                                            <td>${data.phone}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Address</strong></td>
+                                                            <td>:</td>
+                                                            <td>${data.address}</td>
                                                         </tr>
                                                     </table>
                                                     </p>
+                                                    What would you like to do?
                                                 </div>
                                                 <div style="padding:10px 0; text-align:left">
+                                                    <span class="pix-btn site mb10" id="acceptImport">Accept</span>
                                                     <span class="pix-btn mb10" id="skipImport">Skip</span>
                                                 </div>`, { width: 500, closebtn: false }
                                             );
-                                            // $('#acceptImport').on("click", function () {
-                                            //     popup.hide();
-                                            //     continuePop();
-                                            //     setTimeout(uploadRow, 100);
-                                            // });
+                                            $('#acceptImport').on("click", function () {
+                                                newUser = true;
+                                                popup.hide();
+                                                continuePop();
+                                                setTimeout(uploadRow, 100);
+                                            });
                                             $('#skipImport').on("click", function () {
+                                                newUser = false;
                                                 popup.hide();
                                                 errCount++;
                                                 incCount();
