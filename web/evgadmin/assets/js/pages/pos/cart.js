@@ -107,6 +107,9 @@
                                 Choose Item
                             </option>
                             ${itemList}
+                            <option value="custom_product">
+                                Custom Product
+                            </option>
                         </select>
                     </div>
                     <div class="mb15">
@@ -129,6 +132,9 @@
             _e('addMember').onclick = addMember;
             $('#chItem').on('change', function () {
                 selItm = $(this).val();
+                if (selItm == 'custom_product') {
+                    addProduct();
+                }
             });
 
             $("#saveItm").formchecker({
@@ -541,4 +547,102 @@
             pix.openNotification('Member removed.', 1);
         }
     }
+
+    function addProduct() {
+        popup.show(
+            'Add Product',
+            `<form action="" method="post" id="pdtForm">
+                <div class="fm-field">
+                    <div class="fld-label">
+                        Name
+                    </div>
+                    <div class="fld-inp">
+                        <input type="text" size="50" name="name" value="" data-type="string">
+                    </div>
+                </div>
+                <div class="fm-field">
+                    <div class="fld-label">
+                        Code
+                    </div>
+                    <div class="fld-inp">
+                        <input type="text" size="50" name="code" value="" data-type="string">
+                    </div>
+                </div>
+                <div class="fm-field">
+                    <div class="fld-label">
+                        Visibility
+                    </div>
+                    <div class="fld-inp">
+                        <label class="pix-check ">
+                            <input type="checkbox" autocomplete="off" value="1" name="enabled[]" checked="">
+                            <span class="pix-check-tik material-symbols-outlined">
+                                check
+                            </span>
+                            <span class="chk-txt">
+                                Visible to Members
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="fm-field">
+                    <div class="fld-label">
+                        Type
+                    </div>
+                    <div class="fld-inp">
+                        <div class="mb5">
+                            <label class="pix-radio">
+                                <input type="radio" autocomplete="off" value="fee" name="type" checked="" class="pdt-type-rdo">
+                                <span class="rddot"></span>
+                                <span class="rdtxt">Fee</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="feeInfo" style="">
+                    <div class="fm-field">
+                        <div class="fld-label">
+                            Amount
+                        </div>
+                        <div class="fld-inp dollar">
+                            <input type="text" size="20" name="amount" class="amt-input" id="feeAmt" value="" data-type="number"
+                                data-min="0" data-label="amount" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="fm-field">
+                        <div class="fld-label">
+                            Validity
+                        </div>
+                        <div class="fld-inp">
+                            <select name="validity" id="validity" data-type="string">
+                                <option value="fiscal-year">Fiscal Year (October 1 – September 30)</option>
+                                <option value="lifelong">Lifelong</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="fm-field">
+                    <div class="fld-label">
+                        Description
+                    </div>
+                    <div class="fld-inp">
+                        <textarea name="desc" class="tarea" cols="50" rows="8" data-type="string"
+                            data-label="description"></textarea>
+                    </div>
+                </div>
+                <div class="fm-field">
+                    <div class="fld-label">
+                    </div>
+                    <div class="fld-inp">
+                        <input type="submit" class="pix-btn lg site bold-500" value="Save Details">
+                    </div>
+                </div>
+            </form>`,
+            {
+                width: 600,
+                id: 'addItmPopup'
+            }
+        );
+    }
+
+
 })();
