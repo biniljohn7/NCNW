@@ -1,11 +1,25 @@
 <?php
-(function ($pix, $pixdb, $evg) {
+(function ($pix, $pixdb, $evg, $lgUser) {
+    $crcs = $evg->getLeaderCircles($lgUser->memberid, [$lgUser->type]);
+    $secCond = ['#SRT' => 'name asc'];
+    $idStr = '';
+    if ($lgUser->type !== 'admin') {
+        if (!empty($crcs->sections)) {
+            foreach ($crcs->sections as $sec) {
+                $idStr .= $sec . ',';
+            }
+            $idStr = substr($idStr, 0, strlen($idStr) - 1);
+        }
+    }
+    if ($idStr) {
+        $secCond['#QRY'] = 'id IN (' . $idStr . ')';
+    }
     $pid = esc($_GET['id'] ?? 'new');
     $new = $pid == 'new';
 
     $sections = $pixdb->get(
         'chapters',
-        ['#SRT' => 'name asc'],
+        $secCond,
         'id, name'
     );
     $sections = $sections->data;
@@ -46,11 +60,14 @@
         $pdIds['pd_' . $pt->id] = $pt->name;
     }
 
+    $ldr = ($lgUser->type === 'section-president' || $lgUser->type === 'section-leader') ? 1 : 0;
+
     echo '<script type="text/javascript">
         var sections = ' . json_encode($sections) . ',
             items = ' . json_encode($itemArr) . ',
             mbIds = ' . json_encode($mbIds) . ',
-            pdIds = ' . json_encode($pdIds) . ';
+            pdIds = ' . json_encode($pdIds) . ',
+            ldr = ' . $ldr . ';
     </script>';
 
     loadStyle('pages/pos/cart');
@@ -112,5 +129,5 @@
         </div>
     </form>
 <?php
-})($pix, $pixdb, $evg);
+})($pix, $pixdb, $evg, $lgUser);
 ?>

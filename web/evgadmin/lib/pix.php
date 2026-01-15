@@ -359,9 +359,9 @@ class pix
         if ($lgUser) {
             if ($lgUser->type == 'admin') {
                 return true;
-            } else if (
+                /* } else if (
                 $lgUser->type == 'section-president' &&
-                ($perm == 'elect' || $perm == 'members')
+                ($perm == 'elect' || $perm == 'members' || $perm == 'pos')
             ) {
                 return true;
             } elseif (
@@ -382,7 +382,7 @@ class pix
                 ) &&
                 $perm == 'members'
             ) {
-                return true;
+                return true; */
             } else {
                 $perms = $this->getUserPermissions($lgUser);
                 return isset($perms[$perm]);

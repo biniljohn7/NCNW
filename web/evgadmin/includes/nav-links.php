@@ -163,15 +163,22 @@ if ($lgUser) {
                     ],
                 ]
             ] : null,
-        $pix->canAccess('transactions') ?
+        $pix->canAccess('transactions') || $pix->canAccess('pos') ?
             [
                 'name' => 'Transactions',
                 'items' => [
-                    [
-                        '?page=transactions',
-                        'receipt_long',
-                        'Recent Transactions'
-                    ]
+                    $pix->canAccess('transactions') ?
+                        [
+                            '?page=transactions',
+                            'receipt_long',
+                            'Recent Transactions'
+                        ] : null,
+                    $pix->canAccess('pos') ?
+                        [
+                            '?page=transactions&sec=cart',
+                            'add_business',
+                            'POS'
+                        ] : null,
                 ]
             ] : null,
 

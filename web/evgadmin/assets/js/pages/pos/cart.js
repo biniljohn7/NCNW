@@ -365,10 +365,10 @@
                                 >
                                     <span class="material-symbols-outlined">search</span>
                                 </button>
-                                <select name="sec" id="srchSec" class="srch-sec">
-                                    <option value="0">Any Section</option>`
-                + optionStr +
-                `</select>
+                                <select name="sec" id="srchSec" class="srch-sec"${ldr === 1 ? 'style="display:none"' : ''}>
+                                    <option value="0">Any Section</option>
+                                    ${optionStr}
+                                </select>
                             </form>
                         </div>
                         <div class="mbr-list" id="mbrList">`+ htm + `</div>` +
