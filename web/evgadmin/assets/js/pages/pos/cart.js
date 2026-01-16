@@ -552,12 +552,13 @@
         popup.show(
             'Add Product',
             `<form action="" method="post" id="pdtForm">
+                <input type="hidden" name="method" value="product-save">
                 <div class="fm-field">
                     <div class="fld-label">
                         Name
                     </div>
                     <div class="fld-inp">
-                        <input type="text" size="50" name="name" value="" data-type="string">
+                        <input type="text" size="47" name="name" value="" data-type="string">
                     </div>
                 </div>
                 <div class="fm-field">
@@ -565,7 +566,7 @@
                         Code
                     </div>
                     <div class="fld-inp">
-                        <input type="text" size="50" name="code" value="" data-type="string">
+                        <input type="text" size="47" name="code" value="" data-type="string">
                     </div>
                 </div>
                 <div class="fm-field">
@@ -642,6 +643,47 @@
                 id: 'addItmPopup'
             }
         );
+
+        $("#pdtForm").formchecker({
+            scroll: 0,
+            onValid: function () {
+                $(':focus').blur();
+
+                popup.showPreloader('Saving data..', 400, 'prdtPreLdr');
+                $.ajax(
+                    domain + 'ajax/anyadmin/', {
+                    method: 'post',
+                    data: $('#pdtForm').serialize(),
+
+                    error: function (data) {
+                        popup.hide('prdtPreLdr');
+                        popup.showError('Unable to perform this action. ' + (data.errorMsg || 'Please try again.'));
+                    },
+                    success: function (data) {
+                        if (data.status == 'ok') {
+                            popup.hide('prdtPreLdr');
+
+                            // success logic
+                            if (data.prdtInfo) {
+                                let key = 'pd_' + data.prdtInfo.pd_id;
+                                items[key] = data.prdtInfo;
+
+                                let chItem = _e('chItem');
+                                chItem.add(new Option(data.prdtInfo.pd_name, key, true, true), chItem.options.length - 1);
+                                selItm = key;                                
+                            }
+                            popup.hide('addItmPopup');
+                            ///
+                        } else {
+                            this.error(data);
+                        }
+                    }
+                }
+                );
+
+                return false;
+            }
+        });
     }
 
 
