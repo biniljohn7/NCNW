@@ -159,6 +159,15 @@
     margin-right: 10px;
 }
 
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-name .lnk {
+    color: #5b2166;
+}
+
+.chapter-list .chapter-card .card-top .card-left .chapter-info .chapter-name .lnk:hover {
+    text-decoration: underline;
+}
+
+
 .chapter-list.rg .chapter-card .card-top .card-left .chapter-info .nt-sub {
     color: #a8abb4;
     font-size: .9em;

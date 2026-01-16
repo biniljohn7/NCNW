@@ -39,7 +39,20 @@ if ($key && $key != '') {
     $qSearch = q("%$key%");
     $filterArr['__QUERY__'][] = "(concat(mm.firstName, ' ', mm.lastName) LIKE $qSearch OR mm.email LIKE $qSearch OR mm.memberId LIKE $qSearch)";
 }
-
+if ($lgUser->type !== 'admin' && !$chptr) {
+    $crcs = $evg->getLeaderCircles($lgUser->memberid, [$lgUser->type]);
+    $idStr = '';
+    if (!empty($crcs->sections)) {
+        foreach ($crcs->sections as $sec) {
+            $idStr .= $sec . ',';
+        }
+        $idStr = substr($idStr, 0, strlen($idStr) - 1);
+    }
+    if ($idStr) {
+        $filterArr['__QUERY__'][] = 'mi.cruntChptr IN (' . $idStr . ')';
+        $filterArr['__QUERY__'][] = 'mm.id != ' . $lgUser->memberid;
+    }
+}
 $members = $pixdb->get(
     [
         ['members', 'mm', 'id'],

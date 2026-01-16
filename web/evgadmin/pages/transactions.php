@@ -1,5 +1,5 @@
 <?php
-if ($pix->canAccess('transactions')) {
+if ($pix->canAccess('transactions') || $pix->canAccess('pos')) {
     $subPage = str2url($_GET['sec'] ?? '');
     if (!$subPage) {
         $subPage = 'list';

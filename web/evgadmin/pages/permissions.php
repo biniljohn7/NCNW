@@ -34,7 +34,7 @@
                     </option>
                     <?php
                     $selType = $type ?? '';
-                    foreach($evg::permissions as $ky => $vl){
+                    foreach ($evg::permissions as $ky => $vl) {
                     ?>
                         <option <?php echo $selType == $ky ? 'selected' : ''; ?> value="<?php echo $ky; ?>"><?php echo $vl; ?></option>
                     <?php
@@ -79,6 +79,11 @@
                         'transactions',
                         'Transaction Management',
                         'Admins oversee all financial transactions, ensuring accurate processing, tracking, and reporting of payments and receipts.'
+                    ],
+                    [
+                        'pos',
+                        'POS Permissions',
+                        'Admins can limit leaders from accessing the POS Cart page and allow them to make bulk payments for the members of their section.'
                     ],
                     [
                         'career',
@@ -132,10 +137,10 @@
                     ],
                 ];
                 $selPerms = ($permissions && isset($permissions->perms))
-                            ? explode(',', $permissions->perms ?: '')
-                            : [];
+                    ? explode(',', $permissions->perms ?: '')
+                    : [];
 
-                foreach($perms as $pms) {
+                foreach ($perms as $pms) {
                 ?>
                     <div class="perm-row">
                         <div class="perm-chk">

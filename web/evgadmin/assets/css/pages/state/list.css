@@ -157,6 +157,14 @@
     margin-right: 10px;
 }
 
+.nation-list .nation-card .card-top .card-left .nation-info .nation-name .lnk {
+    color: #5b2166;
+}
+
+.nation-list .nation-card .card-top .card-left .nation-info .nation-name .lnk:hover {
+    text-decoration: underline;
+}
+
 .nation-list.rg .nation-card .card-top .card-left .nation-info .nt-sub {
     color: #a8abb4;
     font-size: .9em;

@@ -154,6 +154,17 @@ $pix->pagination(
         $detailsLink = $pix->adminURL . "?page=state&sec=details&id=$row->id";
         $rDatas = $regionData[$row->region] ?? null;
         $nDatas = $rDatas ? $nationData[$rDatas->nation] ?? null : null;
+        $lnk  = '';
+        if (
+            $rDatas &&
+            $nDatas &&
+            isset(
+                $nDatas->id,
+                $rDatas->id
+            )
+        ) {
+            $lnk  = $pix->adminURL . '?page=chapter&sh_nation=' . $nDatas->id . '&sh_region=' . $rDatas->id . '&sh_state=' . $row->id;
+        }
     ?>
         <div class="nation-card">
             <div class="card-top">
@@ -162,7 +173,11 @@ $pix->pagination(
                         <div class="nt-fld">
                             <div class="nation-name">
                                 <?php
-                                echo $row->name ?? '--'
+                                if ($lnk && $row->name) {
+                                    echo '<a href="', $lnk, '" class="lnk">', $row->name, '</a>';
+                                } else {
+                                    echo $row->name ?? '--';
+                                }
                                 ?>
                             </div>
                             <div class="nt-sub">
