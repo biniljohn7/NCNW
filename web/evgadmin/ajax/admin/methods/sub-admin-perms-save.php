@@ -26,7 +26,8 @@
                 'developer',
                 'project-coordinators',
                 'ncnw-team',
-                'elect'
+                'elect',
+                'pos'
             ];
             $role = [
                 'developer',
