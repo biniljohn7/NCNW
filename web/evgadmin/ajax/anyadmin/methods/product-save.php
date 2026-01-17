@@ -58,9 +58,6 @@ if (
             );
         }
         if ($iid) {
-            //$pix->addmsg('Product saved', 1);
-            //$pix->redirect('?page=payment-categories');
-
             $r->prdtInfo = (object)[
                 'pd_id' => $iid,
                 'pd_amnt' => $amount,
