@@ -122,7 +122,8 @@
                                             popup.show(
                                                 'Duplicate Found',
                                                 `<div style="padding-bottom:20px">
-                                                    <p>One duplicate member record has been identified due to a matching ${data.duplicate}.</p>
+                                                    <p>One duplicate member record has been identified due to a matching ${data.duplicate}. 
+                                                    This member already exists in the database and does not need to be added again.</p>
                                                     <p>
                                                     <table>
                                                         <tr>

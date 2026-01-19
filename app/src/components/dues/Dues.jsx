@@ -19,6 +19,7 @@ import GiftMembership from "./GiftMembership";
 import ExpiredMembership from "./ExpiredMembership";
 import { store } from "../../redux/store";
 import { connect } from "react-redux";
+import OfflinePaymentProof from "./OfflinePaymentProof";
 
 const { logout } = AuthActions;
 const Dues = (props) => {
@@ -27,6 +28,11 @@ const Dues = (props) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [historyData, setHistoryData] = useState(null);
+  const [openOfflineProof, setOpenOfflineProof] = useState(false);
+  const [activeTxnId, setActiveTxnId] = useState(null);
+  const [proofs, setProofs] = useState({});
+  // { txnid: [ { id, fileName, fileUrl } ] }
+
   // const [chargesTitle, setChargesTitle] = useState(null);
   // const [isOpen, setOpen] = useState(false);
 
@@ -108,6 +114,26 @@ const Dues = (props) => {
       Tst.Success("An active membership is required to continue.");
     }
   }, []);
+  const handleUploadClick = (txnid) => {
+    console.log(txnid);
+    setActiveTxnId(txnid);
+    setOpenOfflineProof(true);
+  };
+  const handleUploadSuccess = (txnid, data) => {
+    setProofs((prev) => ({
+      ...prev,
+      [txnid]: data,
+    }));
+  };
+  
+  const handleRemoveProof = (txnid) => {
+    setProofs((prev) => {
+      const updated = { ...prev };
+      delete updated[txnid];
+      return updated;
+    });
+  };
+  
 
   document.title = "Dues - " + window.seoTagLine;
 
@@ -136,7 +162,9 @@ const Dues = (props) => {
                         props.history.push("/dues/membership");
                       }}
                     >
-                      {membershipStatus == "active" ? "PAY MEMBERSHIP FEE" : "CHOOSE MEMBERSHIP"}{" "}
+                      {membershipStatus == "active"
+                        ? "PAY MEMBERSHIP FEE"
+                        : "CHOOSE MEMBERSHIP"}{" "}
                     </div>
                   </div>
                   <div className="due-item">
@@ -246,77 +274,159 @@ const Dues = (props) => {
                     <div className="due-head">PAYMENT HISTORY </div>
                     <div className="due-content">
                       {(function () {
-                        if (historyData && Object.keys(historyData).length > 0) {
-                          return Object.values(historyData).map(function (el, index) {
+                        if (
+                          historyData &&
+                          Object.keys(historyData).length > 0
+                        ) {
+                          return Object.values(historyData).map(function (
+                            el,
+                            index
+                          ) {
                             return (
                               <div className="mb15 hist-item" key={index}>
-                                <div className={`info ${el.benefitTo ? 'gift' : ''}`}>
+                                <div
+                                  className={`info ${
+                                    el.benefitTo ? "gift" : ""
+                                  }`}
+                                >
                                   <div className="bold-600 text-12 mb5 inf-top">
                                     <span>{el.chargesTitle}</span>
                                     {el.benefitTo ? (
                                       <span className="paid-by">
-                                        (Paid by {el.benefitTo.firstName + ' ' + el.benefitTo.lastName})
+                                        (Paid by{" "}
+                                        {el.benefitTo.firstName +
+                                          " " +
+                                          el.benefitTo.lastName}
+                                        )
                                       </span>
                                     ) : (
-                                      ''
+                                      ""
                                     )}
                                   </div>
-                                  {el.giftedDetails && Object.values(el.giftedDetails).length > 0 ? (
+                                  {el.giftedDetails &&
+                                  Object.values(el.giftedDetails).length > 0 ? (
                                     <div className="gifted-wrapper mb-10">
-                                      {Object.values(el.giftedDetails).map((gift, i) => (
-                                        <div key={i}>
-                                          <span>{gift.membership}</span> -{" "}
-                                          <span className="text-bold">
-                                            {gift.giftTo}
-                                          </span>
-                                          <span>
-                                            {" (" + new Date(gift.paidDate).toLocaleDateString("en-US") + ")"}
-                                          </span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  ) : (
-                                    ''
-                                  )}
-                                  <div className="inf-btm">
-                                    <div className={`inf-rg ${el.benefitTo ? 'gift' : ''}`}>
-                                      {el.status === 'success' && el.benefitTo && (
-                                        <>
-                                          <div className="gf-lf">
-                                            {el.benefitTo.avatar ? (
-                                              <img src={el.benefitTo.avatar} alt="" />
-                                            ) : (
-                                              <div className="no-img">
-                                                <span className="material-symbols-outlined icn">person</span>
-                                              </div>
-                                            )}
+                                      {Object.values(el.giftedDetails).map(
+                                        (gift, i) => (
+                                          <div key={i}>
+                                            <span>{gift.membership}</span> -{" "}
+                                            <span className="text-bold">
+                                              {gift.giftTo}
+                                            </span>
+                                            <span>
+                                              {" (" +
+                                                new Date(
+                                                  gift.paidDate
+                                                ).toLocaleDateString("en-US") +
+                                                ")"}
+                                            </span>
                                           </div>
-                                          <div className="gf-rg">
-                                            <div className="bold">
-                                              {el.benefitTo.firstName} {el.benefitTo.lastName}
-                                            </div>
-                                            <div>{el.benefitTo.memberId}</div>
-                                            <div>
-                                              {el.benefitTo.city}, {el.benefitTo.zipcode}
-                                            </div>
-                                          </div>
-                                        </>
+                                        )
                                       )}
                                     </div>
+                                  ) : (
+                                    ""
+                                  )}
+                                  <div className="inf-btm">
+                                    <div
+                                      className={`inf-rg ${
+                                        el.benefitTo ? "gift" : ""
+                                      }`}
+                                    >
+                                      {el.status === "success" &&
+                                        el.benefitTo && (
+                                          <>
+                                            <div className="gf-lf">
+                                              {el.benefitTo.avatar ? (
+                                                <img
+                                                  src={el.benefitTo.avatar}
+                                                  alt=""
+                                                />
+                                              ) : (
+                                                <div className="no-img">
+                                                  <span className="material-symbols-outlined icn">
+                                                    person
+                                                  </span>
+                                                </div>
+                                              )}
+                                            </div>
+                                            <div className="gf-rg">
+                                              <div className="bold">
+                                                {el.benefitTo.firstName}{" "}
+                                                {el.benefitTo.lastName}
+                                              </div>
+                                              <div>{el.benefitTo.memberId}</div>
+                                              <div>
+                                                {el.benefitTo.city},{" "}
+                                                {el.benefitTo.zipcode}
+                                              </div>
+                                            </div>
+                                          </>
+                                        )}
+                                    </div>
                                     <div className="inf-lf">
-                                      <div>{new Date(el.paidAt).toLocaleDateString('en-US')}</div>
+                                      <div>
+                                        {new Date(el.paidAt).toLocaleDateString(
+                                          "en-US"
+                                        )}
+                                      </div>
                                       {Pix.dollar(el.totalAmount, 1)}
                                     </div>
                                   </div>
                                 </div>
-                                <div className={`status-btn ${el.status} ${el.benefitTo ? 'gift' : ''}`}>
-                                  {el.status}
+                                <div>
+                                  <div
+                                    className={`status-btn ${el.status} ${
+                                      el.benefitTo ? "gift" : ""
+                                    }`}
+                                  >
+                                    {el.status}
+                                  </div>
+                                  <br />
+                                  {el.offlineProof && (
+                                    <div className="uploaded-proofs mt-10">
+                                      <div className="proof-item">
+                                        <a
+                                          href={el.offlineProof.fileUrl}
+                                          target="_blank"
+                                          rel="noreferrer"
+                                        >
+                                          {el.offlineProof.fileName}
+                                        </a>
+                                        {el.status === "pending" && (
+                                          <button
+                                            className="remove-btn"
+                                            onClick={() =>
+                                              handleRemoveProof(el.txnid)
+                                            }
+                                          >
+                                            Remove
+                                          </button>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
+                                  {(el.method === "check" ||
+                                    el.method === "moneyorder") &&
+                                    el.status === "pending" && (
+                                      <Button
+                                        className="button ptb-8 mt-10"
+                                        name="Upload Payment Proof"
+                                        clicked={() =>
+                                          handleUploadClick(el.txnid)
+                                        }
+                                      />
+                                    )}
                                 </div>
                               </div>
                             );
                           });
                         } else {
-                          return <div className="text-center">YOU HAVE NO MEMBERSHIP</div>;
+                          return (
+                            <div className="text-center">
+                              YOU HAVE NO MEMBERSHIP
+                            </div>
+                          );
                         }
                       })()}
                     </div>
@@ -327,6 +437,18 @@ const Dues = (props) => {
             </div>
           </div>
         </Wrapper>
+      )}
+      {openOfflineProof && (
+        <OfflinePaymentProof
+        isOpen={openOfflineProof}
+        toggle={() => setOpenOfflineProof(false)}
+        txnId={activeTxnId}
+        onSuccess={(data) => {
+          handleUploadSuccess(activeTxnId, data);
+          setOpenOfflineProof(false);
+        }}
+      />
+      
       )}
     </>
   );

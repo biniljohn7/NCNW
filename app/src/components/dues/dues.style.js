@@ -440,7 +440,7 @@ const Wrapper = styled.div`
     // margin-top: 30px;
     justify-content: space-between;
     align-items: flex-end;
-    max-width: 445px;
+    //max-width: 445px;
     // margin-left: auto;
     // margin-bottom: 15px;
     margin: 30px 0px 15px auto;
@@ -459,6 +459,11 @@ const Wrapper = styled.div`
   .order-summery .order-ttl-charge .ttl-left .lf-amnt {
     font-size: 1.5em;
     font-weight: 600;
+  }
+
+  .order-summery .order-ttl-charge .ttl-right {
+    display: flex;
+    align-items: center;
   }
 
   .order-summery .ordr-chk-box .chk-label {

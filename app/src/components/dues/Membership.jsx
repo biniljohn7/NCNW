@@ -62,7 +62,12 @@ function Membership(props) {
   const [mntlyDonation, setMntlyDonation] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [updtAmnt, setUpdtAmnt] = useState(0);
-
+  const paymentOptions = [
+    { value: "stripe", label: "Credit / Debit Card" },
+    { value: "check", label: "Check" },
+    { value: "moneyorder", label: "Money Order" },
+  ];
+  const [payMethod, setPayMethod] = useState(null);
   const lgMbr = store.getState().auth.memberId;
   let mbrExist = false;
   let othExist = false;
@@ -265,6 +270,10 @@ function Membership(props) {
   };
 
   const makePayment = () => {
+    if (!payMethod) {
+      Tst.Error("Please select a payment method");
+      return;
+    }
     if (membershipList.length > 0 || otherPurchasableItems.length > 0) {
       Spn.Show();
 
@@ -278,12 +287,17 @@ function Membership(props) {
         })),
         others: otherPurchasableItems.map((oth) => oth.id),
         donation: mntlyDonation,
+        payMethod: payMethod,
       };
       addMembership(membershipData)
         .then((res) => {
           if (res.success === 1) {
-            if (res.data && res.data.paymentUrl) {
-              window.location.href = res.data.paymentUrl;
+            if (res.data) {
+              if (res.data.paymentUrl) {
+                window.location.href = res.data.paymentUrl;
+              } else if (payMethod != "stripe") {
+                window.location.href = '/dues';
+              }
             } else {
               Tst.Error("Something went wrong!");
             }
@@ -712,6 +726,15 @@ function Membership(props) {
                         </span>
                       </div>
                       <div className="ttl-right">
+                        <Select
+                          id="payMethod"
+                          placeholder="Choose a Payment option"
+                          options={paymentOptions}
+                          isSearchable={false}
+                          value={paymentOptions.find(opt => opt.value === payMethod)}
+                          onChange={(option) => setPayMethod(option.value)}
+                        />
+                        &nbsp;&nbsp;
                         <button
                           className="btn button"
                           onClick={(e) => makePayment(e)}
@@ -767,7 +790,7 @@ function Membership(props) {
                             name="affiliation"
                             placeholder="Select Affiliation"
                             options={affiliatesDropdown}
-                            isMulti 
+                            isMulti
                             value={
                               affiliatesDropdown.filter((option) =>
                                 membData.affiliate?.includes(option.value)

@@ -239,3 +239,12 @@ export const duesSearchAffiliate = (key) => {
             return response.data;
         });
 };
+
+export const uploadOfflineProof = (body) => {
+    setHeaders();
+    return axios
+        .post(`${BASE_URL}/member/?method=paymnt-offline-proof`, body)
+        .then((response) => {
+            return response.data;
+        });
+};

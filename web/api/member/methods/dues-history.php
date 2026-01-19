@@ -21,6 +21,7 @@ $paidByOthers = $pixdb->fetchAssoc(
     t.status,
     i.title,
     t.date as paidAt,
+    t.offlineProof,
     i.amount,
     i.benefitTo',
     'id'
@@ -39,6 +40,8 @@ $allTxns = $pixdb->get(
     'id,
     member,
     status,
+    txnid,
+    method,
     title as chargesTitle,
     date as paidAt,
     amount as totalAmount'
@@ -71,6 +74,14 @@ if ($giftedIds) {
 //
 
 foreach ($allTxns as $idx => $itm) {
+    if($itm->method=='check' || $itm->method=='moneyorder'){
+        $itm->offlineProof = [];
+        if($itm->offlineProof){
+            $itm->offlineProof = [
+                'fileName'=>$itm->offlineProof,
+                'fileUrl'=>$evg->getOfflineProofUrl($itm->offlineProof)
+            ];
+        }
     if ($itm->member != $lgUser->id) {
         if (isset($otherMembers[$itm->member]) && $paidByOthers[$itm->id]) {
             $txnItem = $paidByOthers[$itm->id];
