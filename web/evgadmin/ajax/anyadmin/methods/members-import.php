@@ -98,11 +98,13 @@ devMode();
             $exMemb = false;
             $membId = false;
             $newUser = ($user === 'true') ? true : false;
+            $newMbrId = $pix->makeMemberId();
 
             $memberData = [
                 'firstName' => substr($fName, 0, 60),
                 'lastName' => substr($lName, 0, 60),
-                'memberId' => $memberId ?: $pix->makeMemberId(),
+                'memberId' => $newMbrId,
+                'memberIdOld' => $memberId ?: null
             ];
 
             if (
@@ -112,8 +114,7 @@ devMode();
                 $exMemb = $pixdb->getRow(
                     'members',
                     [
-                        'memberId' => $memberId,
-                        'enabled' => 'Y'
+                        '#QRY' => '(memberId = "' . $memberId . '" or memberIdOld = "' . $memberId . '") and enabled = "Y"'
                     ],
                     'id,
                         firstName,
@@ -203,7 +204,7 @@ devMode();
                     'members',
                     $memberData
                 );
-            }  elseif (
+            } elseif (
                 $memberData['firstName'] &&
                 !$exMemb &&
                 !$newUser
@@ -215,7 +216,7 @@ devMode();
                 $r->email = $email;
                 $r->phone = $phone;
                 $r->address = $address;
-            } 
+            }
 
             if (!is_mail($email)) {
                 $email = 'noreply-' . str2url($fName . $lName) . '-' . $pix->makestring(10, 'ln') . '@ncnw.org';
@@ -228,7 +229,7 @@ devMode();
             $memberData = [
                 'firstName' => substr($fName, 0, 60),
                 'lastName' => substr($lName, 0, 60),
-                'memberId' => $memberId ?: null,
+                'memberId' => $newMbrId,
                 'regOn' => $datetime,
                 'verified' => strtolower($verified) == 'yes' ? 'Y' : 'N'
             ];
@@ -263,7 +264,7 @@ devMode();
                         $memberData
                     );
                 }
-            } */
+            }
             if ($membId) {
                 $r->status = 'ok';
                 $exInfo = false;
