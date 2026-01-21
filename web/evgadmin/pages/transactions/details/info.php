@@ -79,6 +79,23 @@
                     ?>
                 </div>
             </div>
+            <?php
+            if ($trData->offlineProof) {
+            ?>
+                <div class="eachitm">
+                    <div class="pymnt-label">
+                        Payment Proof
+                    </div>
+                    <div class="pymnt-vals">
+                        <a href="<?php echo $pix->uploadPath, 'offline-payments/', $trData->offlineProof; ?>" target="_blank">
+                            <span class="material-symbols-outlined">note</span>
+                            <?php echo basename($trData->offlineProof); ?>
+                        </a>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
             <div class="eachitm">
                 <div class="pymnt-label">
                     Transaction ID

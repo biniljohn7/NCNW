@@ -17,7 +17,7 @@ function OfflinePaymentProof(props) {
     setFile(e.target.files[0]);
   };
 
-  const isValidUSPaymentNumber = (value) => {
+  const isValidPayNum = (value) => {
     // checks & money orders are numeric, usually 4–10 digits
     return /^\d{4,10}$/.test(value);
   };
@@ -33,7 +33,7 @@ function OfflinePaymentProof(props) {
       return;
     }
 
-    if (!isValidUSPaymentNumber(payNum)) {
+    if (!isValidPayNum(payNum)) {
       Tst.Error("Invalid check or money order number");
       return;
     }

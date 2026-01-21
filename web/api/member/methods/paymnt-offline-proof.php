@@ -81,7 +81,6 @@ if (
                         $r->success = 1;
                         $r->status = 'ok';
                         $r->data = [
-                            'txnId' => $txnId,
                             'fileName' => basename($docRoot),
                             'fileUrl' => $pix->uploadPath . '/offline-payments/' . $docRoot
                         ];

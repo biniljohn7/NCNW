@@ -30,39 +30,7 @@ const Dues = (props) => {
   const [historyData, setHistoryData] = useState(null);
   const [openOfflineProof, setOpenOfflineProof] = useState(false);
   const [activeTxnId, setActiveTxnId] = useState(null);
-  const [proofs, setProofs] = useState({});
-  // { txnid: [ { id, fileName, fileUrl } ] }
-
-  // const [chargesTitle, setChargesTitle] = useState(null);
-  // const [isOpen, setOpen] = useState(false);
-
-  /* const list = [
-      {
-        title: "2019 Membership Dues",
-        date: "13-11-2019",
-        fees: "$475.00",
-      },
-      {
-        title: "2019 Membership Dues",
-        date: "13-11-2019",
-        fees: "$475.00",
-      },
-      {
-        title: "2019 Membership Dues",
-        date: "13-11-2019",
-        fees: "$475.00",
-      },
-      {
-        title: "2019 Membership Dues",
-        date: "13-11-2019",
-        fees: "$475.00",
-      },
-      {
-        title: "2019 Membership Dues",
-        date: "13-11-2019",
-        fees: "$475.00",
-      },
-    ]; */
+  const [proofs, setProofs] = useState({}); // proofs = { txnid: { id, fileName, fileUrl } }
 
   useEffect(() => {
     setLoading(true);
@@ -121,9 +89,8 @@ const Dues = (props) => {
     const initialProofs = {};
 
     Object.values(historyData).forEach((el) => {
-      console.log(el);
       if (el.offlineProof) {
-        initialProofs[el.txnid] = [el.offlineProof];
+        initialProofs[el.txnid] = el.offlineProof;
       }
     });
 
@@ -134,6 +101,7 @@ const Dues = (props) => {
     setActiveTxnId(txnid);
     setOpenOfflineProof(true);
   };
+
   const handleUploadSuccess = (txnid, data) => {
     setProofs((prev) => ({
       ...prev,
@@ -395,20 +363,15 @@ const Dues = (props) => {
                                   <br />
                                   {proofs[el.txnid] && (
                                     <div className="uploaded-proofs mt-10">
-                                      {proofs[el.txnid].map((proof) => (
-                                        <div
-                                          className="proof-item"
-                                          key={proof.id}
+                                      <div className="proof-item">
+                                        <a
+                                          href={proofs[el.txnid].fileUrl}
+                                          target="_blank"
+                                          rel="noreferrer"
                                         >
-                                          <a
-                                            href={proof.fileUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                          >
-                                            {proof.fileName}
-                                          </a>
-                                        </div>
-                                      ))}
+                                          {proofs[el.txnid].fileName}
+                                        </a>
+                                      </div>
                                     </div>
                                   )}
 
