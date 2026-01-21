@@ -208,7 +208,6 @@ $pix->pagination(
                 'st_sort' => [$stDatas->id],
                 'sh_sc_sort' => [$row->id]
             ];
-            //$lnk  = $pix->adminURL . '?page=members&st_sort[]=' . $stDatas->id . '&sh_sc_sort[]=' . $row->id;
             $lnk  = $pix->adminURL . '?' . http_build_query($params);
         }
     ?>

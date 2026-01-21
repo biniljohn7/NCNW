@@ -250,6 +250,11 @@ $pgData = (object)[
                         'Admins oversee all financial transactions, ensuring accurate processing, tracking, and reporting of payments and receipts.'
                     ],
                     [
+                        'pos',
+                        'POS Permissions',
+                        'Admins can limit leaders from accessing the POS Cart page and allow them to make bulk payments for the members of their section.'
+                    ],
+                    [
                         'career',
                         'Career Services',
                         'Admins manage career-related resources, including job postings, and career development programs for members.'
