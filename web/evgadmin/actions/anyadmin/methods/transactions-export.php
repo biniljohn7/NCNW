@@ -15,6 +15,7 @@ if (!$pix->canAccess('members')) {
                 t.amount,
                 t.method,
                 t.status,
+                t.offlinePayNum,
                 t.date
               FROM 
                 transactions t
@@ -110,8 +111,8 @@ if (!$pix->canAccess('members')) {
         if (!empty($ar[8])) {
             $ar[8] = ucwords($ar[8]);
         }
-        if (!empty($ar[9])) {
-            $ar[9] = '="' . date('d-m-Y h:i A', strtotime($ar[9])) . '"';
+        if (!empty($ar[10])) {
+            $ar[10] = '="' . date('d-m-Y h:i A', strtotime($ar[10])) . '"';
         }
 
         $trasactionArray[] = $ar;
@@ -128,7 +129,8 @@ if (!$pix->canAccess('members')) {
             'Amount Paid',
             'Payment Method',
             'Payment Status',
-            'Payment date'
+            'Money Order/Cheque No.',
+            'Payment date',
         ]
     ];
 
