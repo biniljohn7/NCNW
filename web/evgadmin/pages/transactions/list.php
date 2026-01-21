@@ -539,7 +539,7 @@
             0,
             0,
             '?page=transactions&sec=cart'
-        ] : null,
+        ] : null
 
     );
 })($pix, $pixdb, $evg, $date);

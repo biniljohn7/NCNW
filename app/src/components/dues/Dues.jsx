@@ -114,8 +114,23 @@ const Dues = (props) => {
       Tst.Success("An active membership is required to continue.");
     }
   }, []);
+
+  useEffect(() => {
+    if (!historyData) return;
+
+    const initialProofs = {};
+
+    Object.values(historyData).forEach((el) => {
+      console.log(el);
+      if (el.offlineProof) {
+        initialProofs[el.txnid] = [el.offlineProof];
+      }
+    });
+
+    setProofs(initialProofs);
+  }, [historyData]);
+
   const handleUploadClick = (txnid) => {
-    console.log(txnid);
     setActiveTxnId(txnid);
     setOpenOfflineProof(true);
   };
@@ -125,15 +140,6 @@ const Dues = (props) => {
       [txnid]: data,
     }));
   };
-  
-  const handleRemoveProof = (txnid) => {
-    setProofs((prev) => {
-      const updated = { ...prev };
-      delete updated[txnid];
-      return updated;
-    });
-  };
-  
 
   document.title = "Dues - " + window.seoTagLine;
 
@@ -291,6 +297,7 @@ const Dues = (props) => {
                                 >
                                   <div className="bold-600 text-12 mb5 inf-top">
                                     <span>{el.chargesTitle}</span>
+                                    <br />
                                     {el.benefitTo ? (
                                       <span className="paid-by">
                                         (Paid by{" "}
@@ -365,6 +372,9 @@ const Dues = (props) => {
                                         )}
                                     </div>
                                     <div className="inf-lf">
+                                      <div className="note">
+                                        Paid via {el.method}
+                                      </div>
                                       <div>
                                         {new Date(el.paidAt).toLocaleDateString(
                                           "en-US"
@@ -374,7 +384,7 @@ const Dues = (props) => {
                                     </div>
                                   </div>
                                 </div>
-                                <div>
+                                <div className="text-right">
                                   <div
                                     className={`status-btn ${el.status} ${
                                       el.benefitTo ? "gift" : ""
@@ -383,34 +393,30 @@ const Dues = (props) => {
                                     {el.status}
                                   </div>
                                   <br />
-                                  {el.offlineProof && (
+                                  {proofs[el.txnid] && (
                                     <div className="uploaded-proofs mt-10">
-                                      <div className="proof-item">
-                                        <a
-                                          href={el.offlineProof.fileUrl}
-                                          target="_blank"
-                                          rel="noreferrer"
+                                      {proofs[el.txnid].map((proof) => (
+                                        <div
+                                          className="proof-item"
+                                          key={proof.id}
                                         >
-                                          {el.offlineProof.fileName}
-                                        </a>
-                                        {el.status === "pending" && (
-                                          <button
-                                            className="remove-btn"
-                                            onClick={() =>
-                                              handleRemoveProof(el.txnid)
-                                            }
+                                          <a
+                                            href={proof.fileUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
                                           >
-                                            Remove
-                                          </button>
-                                        )}
-                                      </div>
+                                            {proof.fileName}
+                                          </a>
+                                        </div>
+                                      ))}
                                     </div>
                                   )}
+
                                   {(el.method === "check" ||
                                     el.method === "moneyorder") &&
                                     el.status === "pending" && (
                                       <Button
-                                        className="button ptb-8 mt-10"
+                                        class="button mt-10"
                                         name="Upload Payment Proof"
                                         clicked={() =>
                                           handleUploadClick(el.txnid)
@@ -440,15 +446,14 @@ const Dues = (props) => {
       )}
       {openOfflineProof && (
         <OfflinePaymentProof
-        isOpen={openOfflineProof}
-        toggle={() => setOpenOfflineProof(false)}
-        txnId={activeTxnId}
-        onSuccess={(data) => {
-          handleUploadSuccess(activeTxnId, data);
-          setOpenOfflineProof(false);
-        }}
-      />
-      
+          isOpen={openOfflineProof}
+          toggle={() => setOpenOfflineProof(false)}
+          txnId={activeTxnId}
+          onSuccess={(data) => {
+            handleUploadSuccess(activeTxnId, data);
+            setOpenOfflineProof(false);
+          }}
+        />
       )}
     </>
   );

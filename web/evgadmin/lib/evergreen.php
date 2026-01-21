@@ -3899,13 +3899,12 @@ class EverGreen
             $txnTbData = [
                 'txnid' => $nTxnId,
                 'type' => $txnDta->type,
-                'method' => 'stripe',
+                'method' => $txnDta->paymentMode ?? 'stripe',
                 'member' => $txnDta->member,
                 'date' => $datetime,
                 'amount' => $txnDta->amount,
                 'title' => $txnDta->title,
-                'posDoneBy' => $txnDta->posDoneBy ?? null,
-                'method' => $txnDta->paymentMode ?? 'stripe'
+                'posDoneBy' => $txnDta->posDoneBy ?? null
             ];
 
             $insId = $pixdb->insert(

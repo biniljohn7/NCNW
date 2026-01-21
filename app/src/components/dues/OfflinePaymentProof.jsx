@@ -7,7 +7,7 @@ import { uploadOfflineProof } from "../../api/duesAPI";
 
 function OfflinePaymentProof(props) {
   const [file, setFile] = useState(null);
-  const [remarks, setRemarks] = useState("");
+  const [payNum, setPayNum] = useState("");
   const fileInputRef = React.useRef(null);
 
   let Spn = Spinner();
@@ -17,9 +17,24 @@ function OfflinePaymentProof(props) {
     setFile(e.target.files[0]);
   };
 
+  const isValidUSPaymentNumber = (value) => {
+    // checks & money orders are numeric, usually 4–10 digits
+    return /^\d{4,10}$/.test(value);
+  };
+
   const submitProof = async () => {
     if (!file) {
       Tst.Error("Please upload payment proof");
+      return;
+    }
+
+    if (!payNum) {
+      Tst.Error("Please enter check or money order number");
+      return;
+    }
+
+    if (!isValidUSPaymentNumber(payNum)) {
+      Tst.Error("Invalid check or money order number");
       return;
     }
 
@@ -28,7 +43,7 @@ function OfflinePaymentProof(props) {
 
       const formData = new FormData();
       formData.append("paymentProof", file);
-      formData.append("remarks", remarks);
+      formData.append("payNum", payNum);
       formData.append("txnId", props.txnId);
 
       const res = await uploadOfflineProof(formData);
@@ -82,20 +97,24 @@ function OfflinePaymentProof(props) {
             </div>
 
             <div className="form-group mt-20">
-              <label>Remarks (optional)</label>
-              <textarea
+              <label>Check / Money Order Number</label>
+              <input
+                type="text"
                 className="form-control"
-                rows="3"
-                value={remarks}
-                onChange={(e) => setRemarks(e.target.value)}
+                placeholder="Enter check or money order number"
+                value={payNum}
+                onChange={(e) =>
+                  setPayNum(e.target.value.replace(/\D/g, ""))
+                }
+                maxLength={10}
               />
+              <small className="text-muted">
+                Checks and Money Orders only (4-10 digits)
+              </small>
             </div>
 
             <div className="text-right mt-30">
-              <button
-                className="btn btn-secondary mr-10"
-                onClick={props.toggle}
-              >
+              <button className="btn mr-10" onClick={props.toggle}>
                 Cancel
               </button>
 
