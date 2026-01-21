@@ -81,17 +81,17 @@
     // Section search
     $shSecSearch = esc($_GET['sh_sec_search'] ?? '');
     if ($shSecSearch) {
-        $adnlqry[] = 'id IN (SELECT txnId FROM txn_items WHERE sectionId IN(SELECT id FROM chapters WHERE id = ' . $shSecSearch . '))';
+        $adnlqry[] = 'member IN (SELECT member FROM members_info WHERE cruntChptr IN(SELECT id FROM chapters WHERE id = ' . $shSecSearch . '))';
     }
     ///State Search
     $stateKey = esc($_GET['st_sort'] ?? '');
     if ($stateKey) {
-        $adnlqry[] = 'id IN (SELECT txnId FROM txn_items WHERE sectionId IN(SELECT id FROM chapters WHERE state = ' . $stateKey . '))';
+        $adnlqry[] = 'member IN (SELECT member FROM members_info WHERE state IN(SELECT id FROM states WHERE id = ' . $stateKey . '))';
     }
     //Affilations / organizations search
     $affliateKey = esc($_GET['af_sort'] ?? '');
     if ($affliateKey) {
-        $adnlqry[] = 'id IN (SELECT txnId FROM txn_items WHERE affiliateId= ' . $affliateKey . ')';
+        $adnlqry[] = 'member IN (SELECT member FROM members_affiliation WHERE affiliation = ' . $affliateKey . ')';
     }
     //Membership plan
     $memPlanKey = esc($_GET['mp_sort'] ?? '');

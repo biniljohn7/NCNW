@@ -9,11 +9,18 @@ if (!$pix->canAccess('members')) {
                 t.title,
                 t.txnid,
                 concat(m.firstName,' ',m.lastName) AS member,
+                m.memberId,
+                s.name,
+                s.secId,
                 t.amount,
+                t.method,
+                t.status,
                 t.date
               FROM 
                 transactions t
               LEFT JOIN members m ON m.id = t.member
+              LEFT JOIN members_info mi ON mi.member = t.member
+              LEFT JOIN chapters s ON s.id = mi.cruntChptr
               WHERE 1=1
             ";
     //Transaction id search            
@@ -36,17 +43,17 @@ if (!$pix->canAccess('members')) {
     // Section Search
     $shSecSearch = esc($_GET['sh_sec_search'] ?? '');
     if ($shSecSearch) {
-        $query .= "AND t.id IN (SELECT ti.txnId FROM txn_items ti WHERE ti.sectionId IN(SELECT c.id FROM chapters c WHERE c.id = '$shSecSearch'))";
+        $query .= "AND t.member IN (SELECT mi.member FROM members_info mi WHERE mi.cruntChptr IN(SELECT c.id FROM chapters c WHERE c.id = '$shSecSearch'))";
     }
     ///State Search
     $stateKey = esc($_GET['st_sort'] ?? '');
     if ($stateKey) {
-        $query .= "AND t.id IN (SELECT ti.txnId FROM txn_items ti WHERE ti.sectionId IN(SELECT c.id FROM chapters c WHERE c.state = '$stateKey'))";
+        $query .= "AND t.member IN (SELECT mi.member FROM members_info mi WHERE mi.state IN(SELECT s.id FROM states s WHERE s.id = '$stateKey'))";
     }
     //Affilations / organizations search
     $affliateKey = esc($_GET['af_sort'] ?? '');
     if ($affliateKey) {
-        $query .= "AND t.id IN (SELECT ti.txnId FROM txn_items ti WHERE ti.affiliateId= '$affliateKey')";
+        $query .= "AND t.member IN (SELECT ma.member FROM members_affiliation ma WHERE ma.affiliation= '$affliateKey')";
     }
     //Membership plan
     $memPlanKey = esc($_GET['mp_sort'] ?? '');
@@ -85,28 +92,42 @@ if (!$pix->canAccess('members')) {
     if ($shStatus == 'success' || $shStatus == 'pending') {
         $query .= 'AND t.status="' . ($shStatus == 'success' ? 'success' : 'pending') . '"';
     }
+
+    // var_dump($query);
+    // exit;
     $txns = $pixdb->fetchAll($query, PDO::FETCH_NUM);
 
     $trasactionArray = [];
     foreach ($txns as $obj) {
         $ar = (array) $obj;
-        if (!empty($ar['date'])) {
-            $ar['date'] = '="' . date('d-m-Y h:i A', strtotime($ar['date'])) . '"';
+
+        if (!empty($ar[6])) {
+            $ar[6] = '$' . $ar[6];
         }
-        if (!empty($ar['amount'])) {
-            $ar['amount'] = '$' . $ar['amount'];
+        if (!empty($ar[7])) {
+            $ar[7] = ucwords($ar[7]);
+        }
+        if (!empty($ar[8])) {
+            $ar[8] = ucwords($ar[8]);
+        }
+        if (!empty($ar[9])) {
+            $ar[9] = '="' . date('d-m-Y h:i A', strtotime($ar[9])) . '"';
         }
 
         $trasactionArray[] = $ar;
     }
-
     // CSV Head 
     $data = [
         [
             'Title',
             'Transaction ID',
             'Member',
+            'Member ID',
+            'Section Name',
+            'Section ID',
             'Amount Paid',
+            'Payment Method',
+            'Payment Status',
             'Payment date'
         ]
     ];
