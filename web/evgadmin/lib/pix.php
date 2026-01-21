@@ -1284,13 +1284,21 @@ class pix
     {
         global $pixdb;
         $nMbrId = '';
+        $mbrID = $pixdb->get(
+            'members',
+            ['single' => 1],
+            'max(id) as id'
+        );
+        $mbrID = $mbrID->id ?? 1;
+
+        $nMbrId = 'NC' . sprintf('%06d', $mbrID);
         while (
             !$nMbrId  || (
                 $nMbrId &&
                 $pixdb->getRow('members', ['memberId' => $nMbrId], 'id')
             )
         ) {
-            $nMbrId = $this->makestring(6, 'un');
+            $nMbrId = 'NC' . sprintf('%06d', $mbrID + 1);
         }
         return $nMbrId;
     }

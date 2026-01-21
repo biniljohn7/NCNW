@@ -81,15 +81,32 @@
             $electedExpiry = esc($electedExpiry);
 
             $exMemb = false;
-            if (is_mail($email)) {
+            $membId = false;
+            $newUser = ($user === 'true') ? true : false;
+            $newMbrId = $pix->makeMemberId();
+
+            $memberData = [
+                'firstName' => substr($fName, 0, 60),
+                'lastName' => substr($lName, 0, 60),
+                'memberId' => $newMbrId,
+                'memberIdOld' => $memberId ?: null
+            ];
+
+            if (
+                !$exMemb &&
+                $memberId
+            ) {
                 $exMemb = $pixdb->getRow(
                     'members',
-                    ['email' => $email],
-                    'firstName, lastName, memberId, email'
+                    [
+                        '#QRY' => '(memberId = "' . $memberId . '" or memberIdOld = "' . $memberId . '") and enabled = "Y"'
+                    ],
+                    'id,
+                        firstName,
+                        lastName,
+                        memberId,
+                        memberIdOld'
                 );
-                if ($exMemb) {
-                    $r->duplicate = 'email';
-                }
             }
 
             if (!$exMemb && $phone) {
@@ -98,51 +115,140 @@
                     [
                         '#QRY' => "id IN(SELECT member FROM members_info WHERE phone = '$phone')",
                     ],
-                    'firstName,
-                    lastName,
-                    memberId,
-                    email'
+                    'id,
+                        firstName,
+                        lastName,
+                        memberId,
+                        memberIdOld'
                 );
-                if ($exMemb) {
-                    $r->duplicate = 'phone';
-                }
+            }
+
+            if (
+                !$exMemb &&
+                is_mail($email)
+            ) {
+                $exMemb = $pixdb->getRow(
+                    'members',
+                    [
+                        'email' => $email,
+                        'enabled' => 'Y'
+                    ],
+                    'id,
+                        firstName,
+                        lastName,
+                        memberId,
+                        memberIdOld'
+                );
             }
 
             if (!$exMemb && $memberId) {
                 $exMemb = $pixdb->getRow(
                     'members',
-                    ['memberId' => $memberId],
-                    'firstName, lastName, memberId, email'
+                    [
+                        '#QRY' => "id IN(SELECT member FROM members_info WHERE phone = '$phone')",
+                        'enabled' => 'Y'
+                    ],
+                    'id,
+                        firstName,
+                        lastName,
+                        memberId,
+                        memberIdOld'
                 );
-                if ($exMemb) {
-                    $r->duplicate = 'Member ID';
+            }
+            //&&
+            //!$newUser
+            if (
+                $memberData['firstName'] &&
+                $exMemb
+            ) {
+                $membId = $exMemb->id;
+                $memberData['firstName'] = $exMemb->firstName ?: $memberData['firstName'];
+                $memberData['lastName'] = $exMemb->lastName ?: $memberData['lastName'];
+                $memberData['memberId'] = $exMemb->memberId ?: $memberData['memberId'];
+                $memberData['memberIdOld'] = $exMemb->memberIdOld ?: $memberData['memberIdOld'];
+                $pixdb->update(
+                    'members',
+                    ['id' => $membId],
+                    $memberData
+                );
+            } elseif (
+                $memberData['firstName'] &&
+                !$exMemb
+            ) {
+                if (!is_mail($email)) {
+                    $email = 'noreply-' . str2url($fName . $lName) . '-' . $pix->makestring(10, 'ln') . '@ncnw.org';
                 }
+                $memberData['email'] = $email;
+                $memberData['regOn'] = $datetime;
+                $memberData['verified'] = strtolower($verified) == 'yes' ? 'Y' : 'N';
+                $membId = $pixdb->insert(
+                    'members',
+                    $memberData
+                );
+            } elseif (
+                $memberData['firstName'] &&
+                !$exMemb &&
+                !$newUser
+            ) {
+                $r->status = 'new';
+                $r->fname = $memberData['firstName'];
+                $r->lname = $memberData['lastName'];
+                $r->memberID = $memberData['memberId'];
+                $r->email = $email;
+                $r->phone = $phone;
+                $r->address = $address;
             }
 
-            if ($exMemb) {
-                $r->status = 'exist';
-                $r->member = [
-                    'fname' => $exMemb->firstName,
-                    'lname' => $exMemb->lastName,
-                    'memberID' => $exMemb->memberId,
-                    'email' => $exMemb->email
-                ];
-                return;
+            if (!is_mail($email)) {
+                $email = 'noreply-' . str2url($fName . $lName) . '-' . $pix->makestring(10, 'ln') . '@ncnw.org';
             }
 
-            // continue if it is a new member
+            // if (!$memberId) {
+            //     $memberId = $pix->makeMemberId();
+            // }
+
             $memberData = [
                 'firstName' => substr($fName, 0, 60),
                 'lastName' => substr($lName, 0, 60),
-                'memberId' => $memberId ?: $pix->makeMemberId(),
+                'memberId' => $newMbrId,
+                'memberIdOld' => $memberId ?: null,
                 'regOn' => $datetime,
                 'verified' => strtolower($verified) == 'yes' ? 'Y' : 'N'
             ];
-            $membId = $pixdb->insert(
-                'members',
-                $memberData
-            );
+            $exMemb = false;
+            $membId = false;
 
+            if ($memberData['firstName']) {
+                if (
+                    $exMemb = $pixdb->getRow(
+                        'members',
+                        ['email' => $email],
+                        'id,
+                    firstName,
+                    lastName,
+                    memberId,
+                    memberIdOld'
+                    )
+
+                ) {
+                    $membId = $exMemb->id;
+                    $memberData['firstName'] = $exMemb->firstName ?: $memberData['firstName'];
+                    $memberData['lastName'] = $exMemb->lastName ?: $memberData['lastName'];
+                    $memberData['memberId'] = $exMemb->memberId ?: $memberData['memberId'];
+                    $memberData['memberIdOld'] = $exMemb->memberIdOld ?: $memberData['memberIdOld'];
+                    $pixdb->update(
+                        'members',
+                        ['id' => $membId],
+                        $memberData
+                    );
+                } else {
+                    $memberData['email'] = $email;
+                    $membId = $pixdb->insert(
+                        'members',
+                        $memberData
+                    );
+                }
+            }
             if ($membId) {
                 $r->status = 'ok';
 
