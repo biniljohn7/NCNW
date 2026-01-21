@@ -119,7 +119,8 @@ devMode();
                     'id,
                         firstName,
                         lastName,
-                        memberId'
+                        memberId,
+                        memberIdOld'
                 );
             }
 
@@ -138,7 +139,8 @@ devMode();
                     'id,
                         firstName,
                         lastName,
-                        memberId'
+                        memberId,
+                        memberIdOld'
                 );
             }
 
@@ -155,7 +157,8 @@ devMode();
                     'id,
                         firstName,
                         lastName,
-                        memberId'
+                        memberId,
+                        memberIdOld'
                 );
             }
 
@@ -172,7 +175,8 @@ devMode();
                     'id,
                         firstName,
                         lastName,
-                        memberId'
+                        memberId,
+                        memberIdOld'
                 );
             }
             //&&
@@ -185,6 +189,7 @@ devMode();
                 $memberData['firstName'] = $exMemb->firstName ?: $memberData['firstName'];
                 $memberData['lastName'] = $exMemb->lastName ?: $memberData['lastName'];
                 $memberData['memberId'] = $exMemb->memberId ?: $memberData['memberId'];
+                $memberData['memberIdOld'] = $exMemb->memberIdOld ?: $memberData['memberIdOld'];
                 $pixdb->update(
                     'members',
                     ['id' => $membId],
@@ -222,14 +227,15 @@ devMode();
                 $email = 'noreply-' . str2url($fName . $lName) . '-' . $pix->makestring(10, 'ln') . '@ncnw.org';
             }
 
-            if (!$memberId) {
-                $memberId = $pix->makeMemberId();
-            }
+            // if (!$memberId) {
+            //     $memberId = $pix->makeMemberId();
+            // }
 
             $memberData = [
                 'firstName' => substr($fName, 0, 60),
                 'lastName' => substr($lName, 0, 60),
                 'memberId' => $newMbrId,
+                'memberIdOld' => $memberId ?: null,
                 'regOn' => $datetime,
                 'verified' => strtolower($verified) == 'yes' ? 'Y' : 'N'
             ];
@@ -244,7 +250,8 @@ devMode();
                         'id,
                     firstName,
                     lastName,
-                    memberId'
+                    memberId,
+                    memberIdOld'
                     )
 
                 ) {
@@ -252,6 +259,7 @@ devMode();
                     $memberData['firstName'] = $exMemb->firstName ?: $memberData['firstName'];
                     $memberData['lastName'] = $exMemb->lastName ?: $memberData['lastName'];
                     $memberData['memberId'] = $exMemb->memberId ?: $memberData['memberId'];
+                    $memberData['memberIdOld'] = $exMemb->memberIdOld ?: $memberData['memberIdOld'];
                     $pixdb->update(
                         'members',
                         ['id' => $membId],
