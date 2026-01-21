@@ -1,5 +1,6 @@
 <?php
-(function () use (
+devMode();
+(function (
     &$r,
     $pix,
     $pixdb,
@@ -9,12 +10,20 @@
     $_ = $_POST;
     if (
         $pix->canAccess('members') &&
-        isset($_['records'])
+        isset($_['records'], $_['user'])
     ) {
         $records = $_['records'];
-        $records = json_decode($records);
+        $user = esc($_['user']);
+        if (
+            $records &&
+            ($records = json_decode($records)) &&
+            isset($records->data) &&
+            $records->data
+        ) {
+            if (!is_array($records->data)) {
+                $records->data = [];
+            }
 
-        if (isset($records->data) && is_array($records->data)) {
             list(
                 $fName,
                 $lName,
@@ -46,7 +55,9 @@
                 $prefix,
                 $electedTitle,
                 $electedDate,
-                $electedExpiry
+                $electedExpiry,
+                $sectionEin,
+                $sectionID
             ) = $records->data;
 
             $fName = ucwords(esc($fName));
@@ -79,6 +90,10 @@
             $electedTitle = esc($electedTitle);
             $electedDate = esc($electedDate);
             $electedExpiry = esc($electedExpiry);
+            $sectionEin = esc($sectionEin);
+            $sectionID = esc($sectionID);
+
+            $loggedUserMemberId = $pix->getLoggedUser()->memberid;
 
             $exMemb = false;
             $membId = false;
@@ -109,10 +124,16 @@
                 );
             }
 
-            if (!$exMemb && $phone) {
+            if (
+                !$exMemb &&
+                is_mail($email) &&
+                $phone
+            ) {
                 $exMemb = $pixdb->getRow(
                     'members',
                     [
+                        'email' => $email,
+                        'enabled' => 'Y',
                         '#QRY' => "id IN(SELECT member FROM members_info WHERE phone = '$phone')",
                     ],
                     'id,
@@ -141,7 +162,10 @@
                 );
             }
 
-            if (!$exMemb && $memberId) {
+            if (
+                !$exMemb &&
+                $phone
+            ) {
                 $exMemb = $pixdb->getRow(
                     'members',
                     [
@@ -251,8 +275,17 @@
             }
             if ($membId) {
                 $r->status = 'ok';
-
+                $exInfo = false;
                 $refCode = null;
+
+                // update member info details
+                if ($exMemb) {
+                    $exInfo = $pixdb->getRow('members_info', ['member' => $membId]);
+                    if ($exInfo) {
+                        $refCode = $exInfo->refcode;
+                    }
+                }
+
                 if (!$refCode) {
                     while (
                         !$refCode ||
@@ -347,6 +380,9 @@
                 }
 
                 if ($cruntChptr) {
+                    /* $cruntChptr = ucwords(trim($cruntChptr));
+                    $cruntChptr = preg_replace('/\s+/', ' ', $cruntChptr);
+                    $cruntChptrId = $evg->getChapterId($cruntChptr, null, null, $stateId); */
                     $qc = q($cruntChptr);
                     $cruntChptrChk = $pixdb->getRow(
                         'chapters',
@@ -364,6 +400,21 @@
                             $prefixId = $idx;
                         }
                     }
+                }
+
+                if ($exInfo) {
+                    $prefixId = $prefixId ?: $exInfo->prefix;
+                    $countryId = $countryId ?: $exInfo->country;
+                    $stateId = $stateId ?: $exInfo->state;
+                    $city = $city ?: $exInfo->city;
+                    $address = $address ?: $exInfo->address;
+                    $zipCode = $zipCode ?: $exInfo->zipcode;
+                    $phone = $phone ?: $exInfo->phone;
+                    $nationId = $nationId ?: $exInfo->nationId;
+                    $regionId = $regionId ?: $exInfo->regionId;
+                    $orgznSteId = $orgznSteId ?: $exInfo->orgznSteId;
+                    $chptrOfInitn = $chptrOfInitn ?: $exInfo->chptrOfInitn;
+                    $cruntChptrId = $cruntChptrId ?: $exInfo->cruntChptr;
                 }
 
                 $membInfoData = [
@@ -394,8 +445,9 @@
                     true
                 );
 
-                // member affiliations
+                // update member affiliations
                 if ($affilateOrgzn) {
+                    /* $affId = $evg->getAffiliatesId($affilateOrgzn);*/
                     $qs = q($affilateOrgzn);
                     $affId = $pixdb->getRow(
                         'affiliates',
@@ -406,13 +458,22 @@
                         $affId &&
                         $affId->id
                     ) {
-                        $pixdb->insert(
+                        $exAffId = $pixdb->getRow(
                             'members_affiliation',
                             [
                                 'member' => $membId,
                                 'affiliation' => $affId
                             ]
                         );
+                        if (!$exAffId) {
+                            $pixdb->insert(
+                                'members_affiliation',
+                                [
+                                    'member' => $membId,
+                                    'affiliation' => $affId
+                                ]
+                            );
+                        }
                     }
                 }
 
@@ -427,11 +488,13 @@
                             'Created' => null,
                             'expiry' => $mmbrshpExpiry ? date('Y-m-d', strtotime($mmbrshpExpiry)) : null,
                             'enabled' => strtolower($mmbrshpStatus) == 'active' ? 'Y' : 'N'
-                        ]
+                        ],
+                        true
                     );
                 }
 
                 // update member certificate details
+
                 $newCertificates = [];
                 $certificats = array_filter(explode(',', $certificates));
                 $certificats = array_map('strtolower', $certificats);
@@ -669,7 +732,6 @@
                                     $updateMemberRole($pixdb, $membId, $roles);
                                 }
                             } else {
-                                $loggedUserMemberId = $pix->getLoggedUser()->memberid;
                                 $officerData = [
                                     'memberId' => $membId,
                                     'title' => $titleId,
@@ -702,6 +764,27 @@
                                         );
                                     }
                                 }
+                                //
+                                if (
+                                    $sectionSearch &&
+                                    $sectionEin &&
+                                    $sectionID &&
+                                    !$sectionSearch->ein &&
+                                    !$sectionSearch->secId
+                                ) {
+                                    $pixdb->update(
+                                        'chapters',
+                                        [
+                                            'id' => $cruntChptr
+                                        ],
+                                        [
+                                            'ein' => $sectionEin,
+                                            'secId' => $sectionID
+
+                                        ]
+                                    );
+                                }
+                                //
                                 $updateMemberRole($pixdb, $membId, $roles);
                             }
                         }
@@ -714,9 +797,15 @@
                     }
 
                     $qry = 'INSERT INTO `members_certification` (`member`, `certification`) VALUES ' . $valStr;
-                    $pixdb->run($qry);
+                    //$pixdb->run($qry);
                 }
             }
         }
     }
-})();
+})(
+    $r,
+    $pix,
+    $pixdb,
+    $datetime,
+    $evg
+);
