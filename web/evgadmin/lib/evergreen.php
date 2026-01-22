@@ -3899,7 +3899,7 @@ class EverGreen
             $txnTbData = [
                 'txnid' => $nTxnId,
                 'type' => $txnDta->type,
-                'method' => $txnDta->paymentMode ?? 'stripe',
+                'method' => $txnDta->payMethod ?? 'stripe',
                 'member' => $txnDta->member,
                 'date' => $datetime,
                 'amount' => $txnDta->amount,

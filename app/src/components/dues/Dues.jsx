@@ -78,8 +78,19 @@ const Dues = (props) => {
       .finally(() => {
         setLoading(false);
       });
-    if (membershipStatus != "active" && supporterStatus != "active") {
+    if (membershipStatus != "active" && 
+        supporterStatus != "active" && 
+        !props.location?.state?.openOfflineProof
+    ) {
       Tst.Success("An active membership is required to continue.");
+    }
+    if (
+      props.location?.state?.openOfflineProof &&
+      props.location?.state?.txnId
+    ) {
+      setActiveTxnId(props.location.state.txnId);
+      setOpenOfflineProof(true);
+        props.history.replace("/dues", {});
     }
   }, []);
 

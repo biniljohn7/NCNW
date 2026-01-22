@@ -233,6 +233,7 @@ if (preg_match('/(stripe|check|moneyorder)/', $payMethod)) {
                     // for check and money order
                     $r->success = 1;
                     $r->status = 'ok';
+                    $r->data->txnId = $nTxnId;
                 }
             }
         }

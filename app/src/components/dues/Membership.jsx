@@ -296,7 +296,10 @@ function Membership(props) {
               if (res.data.paymentUrl) {
                 window.location.href = res.data.paymentUrl;
               } else if (payMethod != "stripe") {
-                window.location.href = '/dues';
+                props.history.push("/dues", {
+                  openOfflineProof: true,
+                  txnId: res.data.txnId || null,
+                });
               }
             } else {
               Tst.Error("Something went wrong!");
@@ -731,7 +734,9 @@ function Membership(props) {
                           placeholder="Choose a Payment option"
                           options={paymentOptions}
                           isSearchable={false}
-                          value={paymentOptions.find(opt => opt.value === payMethod)}
+                          value={paymentOptions.find(
+                            (opt) => opt.value === payMethod
+                          )}
                           onChange={(option) => setPayMethod(option.value)}
                         />
                         &nbsp;&nbsp;
