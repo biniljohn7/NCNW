@@ -24,7 +24,7 @@ function OfflinePaymentProof(props) {
 
   const submitProof = async () => {
     if (!file) {
-      Tst.Error("Please upload payment proof");
+      Tst.Error("Please upload receipt");
       return;
     }
 
@@ -76,7 +76,7 @@ function OfflinePaymentProof(props) {
       >
         <Wrapper>
           <div className="plr-30 ptb-40 position-relative">
-            <div className="popup-title">Upload Payment Proof</div>
+            <div className="popup-title">Upload Receipt</div>
 
             <div
               className="cursor-pointer text-bold close"
@@ -114,8 +114,8 @@ function OfflinePaymentProof(props) {
             </div>
 
             <div className="text-right mt-30">
-              <button className="btn mr-10" onClick={props.toggle}>
-                Cancel
+              <button className="btn outlined mr-10" onClick={props.toggle}>
+                Later
               </button>
 
               <button className="btn btn-primary" onClick={submitProof}>

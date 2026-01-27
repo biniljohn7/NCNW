@@ -363,7 +363,7 @@ const Dues = (props) => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="text-right">
+                                <div className="status-info text-right">
                                   <div
                                     className={`status-btn ${el.status} ${
                                       el.benefitTo ? "gift" : ""
@@ -380,7 +380,7 @@ const Dues = (props) => {
                                           target="_blank"
                                           rel="noreferrer"
                                         >
-                                          {proofs[el.txnid].fileName}
+                                          View / Download Receipt
                                         </a>
                                       </div>
                                     </div>
@@ -391,7 +391,7 @@ const Dues = (props) => {
                                     el.status === "pending" && (
                                       <Button
                                         class="button mt-10"
-                                        name="Upload Payment Proof"
+                                        name="Upload Reciept"
                                         clicked={() =>
                                           handleUploadClick(el.txnid)
                                         }

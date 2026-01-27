@@ -202,6 +202,12 @@ input[type="reset"]:hover,
     color: #fff;
 }
 
+.btn.outlined {
+    background-color: #fff;
+    color: #3c0f44;
+    border: 1px solid #3c0f44;
+}
+
 .form-control {
     border-radius: 0px;
     -moz-border-radius: 0px;
@@ -932,6 +938,15 @@ a:focus {
 
 .due-box .due-item .due-content .hist-item .inf-btm .inf-rg.gift .gf-rg {
     flex: 1 1 0;
+}
+
+.due-box .due-item .due-content .hist-item .status-info {
+    flex-grow: 1;
+}
+
+.due-box .due-item .due-content .hist-item+.hist-item {
+    border-top: 1px dashed;
+    padding-top: 20px;
 }
 
 .status-btn {
