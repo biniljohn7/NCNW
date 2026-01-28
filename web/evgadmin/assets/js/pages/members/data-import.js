@@ -3,6 +3,8 @@
         cmpCount = 0,
         sccCount = 0,
         errCount = 0,
+        duplicates = [],
+        duplicateKeys = new Set(),
         refError = [];
 
     $(document).ready(function () {
@@ -46,25 +48,72 @@
                                 } else {
                                     _e('importForm').reset();
                                     popup.hide();
-                                    popup.showSuccess(
-                                        `<div class="bold-600 text-black">
+                                    let duplicateHtml = '';
+
+                                    if (duplicates.length > 0) {
+                                        duplicateHtml = `
+                                        <div class="mt20">
+                                            <h4>Duplicate Members (${duplicates.length})</h4>
+                                        
+                                            <div class="duplicate-list compare-list">
+                                        
+                                                ${duplicates.map(d => `
+                                                <div class="duplicate-compare-card">
+                                        
+                                                    <div class="dup-header">
+                                                        Duplicate By: ${d.type.toUpperCase()}
+                                                    </div>
+                                        
+                                                    <div class="dup-compare-grid">
+                                        
+                                                        <!-- Uploaded -->
+                                                        <div class="dup-column uploaded">
+                                                            <h5>Import</h5>
+                                        
+                                                            <p><b>Name:</b> ${d.uploaded.fname} ${d.uploaded.lname}</p>
+                                                            <p><b>Email:</b> ${d.uploaded.email ?? '--'}</p>
+                                                            <p><b>Member ID:</b> ${d.uploaded.memberID ?? '--'}</p>
+                                                        </div>
+                                        
+                                                        <!-- Existing -->
+                                                        <div class="dup-column existing">
+                                                            <h5>Existing</h5>
+                                        
+                                                            <a href="${d.uploaded.link}"
+                                                            target="_blank"
+                                                            class="pix-btn xs outlined">
+                                                            View Member
+                                                            </a>
+                                        
+                                                            <p><b>Name:</b> ${d.existing.fname} ${d.existing.lname}</p>
+                                                            <p><b>Email:</b> ${d.existing.email ?? '--'}</p>
+                                                            <p><b>Member ID:</b> ${d.existing.memberID ?? '--'}</p>
+                                                        </div>
+                                        
+                                                    </div>
+                                        
+                                                </div>
+                                                `).join('')}
+                                        
+                                            </div>
+                                        </div>`;
+                                    }
+
+
+                                    popup.showSuccess(`
+                                        <div class="bold-600 text-black">
                                             ${finalWord}
                                         </div>
                                         <div class="pt10 mb30">
                                             <span class="text-green pr30">
-                                                <span class="bold-600">
-                                                    Added:
-                                                </span>
-                                                ${sccCount}
+                                                <strong>Added:</strong> ${sccCount}
                                             </span>
                                             <span class="text-red">
-                                                <span class="bold-600">
-                                                    Failed:
-                                                </span>
-                                                ${errCount}
+                                                <strong>Failed:</strong> ${errCount}
                                             </span>
-                                        </div>`
-                                    );
+                                        </div>
+                                        ${duplicateHtml}
+                                    `);
                                 }
                             }
 
@@ -86,7 +135,7 @@
                                 <div style="padding:10px 0; text-align:left">
                                     <span class="pix-btn mb20" id="cancelImport">Cancel</span>
                                 </div>`, {
-                                    width: 400,
+                                    width: 600,
                                     align: 'center',
                                     closebtn: false
                                 }
@@ -117,55 +166,26 @@
                                             setTimeout(uploadRow, 100);
 
                                         } else if (data.status == 'exist') {
-                                            console.log(data);
-                                            popup.hide();
-                                            popup.show(
-                                                'Duplicate Found',
-                                                `<div style="padding-bottom:20px">
-                                                    <p>One duplicate member record has been identified due to a matching ${data.duplicate}. 
-                                                    This member already exists in the database and does not need to be added again.</p>
-                                                    <p>
-                                                    <table>
-                                                        <tr>
-                                                            <td><strong>Name</strong></td>
-                                                            <td>:</td>
-                                                            <td>${data.member.fname} ${data.member.lname}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>MemberID</strong></td>
-                                                            <td>:</td>
-                                                            <td>${data.member.memberID}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Email</strong></td>
-                                                            <td>:</td>
-                                                            <td>${data.member.email}</td>
-                                                        </tr>
-                                                    </table>
-                                                    </p>
-                                                </div>
-                                                <div style="padding:10px 0; text-align:left">
-                                                    <span class="pix-btn mb10" id="skipImport">Skip</span>
-                                                </div>`, { width: 500, closebtn: false }
-                                            );
-                                            // $('#acceptImport').on("click", function () {
-                                            //     popup.hide();
-                                            //     continuePop();
-                                            //     setTimeout(uploadRow, 100);
-                                            // });
-                                            $('#skipImport').on("click", function () {
-                                                popup.hide();
-                                                errCount++;
-                                                incCount();
-                                                continuePop();
-                                                setTimeout(uploadRow, 100);
-                                            });
+                                            let key = `${data.member.email || ''}-${data.member.phone || ''}-${data.member.memberID || ''}`;
+
+                                            if (!duplicateKeys.has(key)) {
+                                                duplicateKeys.add(key);
+                                                duplicates.push({
+                                                    type: data.duplicate,
+                                                    uploaded: data.uploaded,
+                                                    existing: data.member
+                                                });
+
+                                            }
+
+                                            errCount++;
+                                            incCount();
+                                            setTimeout(uploadRow, 100);
                                         } else {
                                             this.error();
                                         }
                                     }
-                                }
-                                );
+                                });
                             }
 
                             function incCount(data) {

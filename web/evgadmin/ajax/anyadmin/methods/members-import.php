@@ -98,7 +98,8 @@
                     [
                         '#QRY' => "id IN(SELECT member FROM members_info WHERE phone = '$phone')",
                     ],
-                    'firstName,
+                    'id,
+                    firstName,
                     lastName,
                     memberId,
                     email'
@@ -126,6 +127,13 @@
                     'lname' => $exMemb->lastName,
                     'memberID' => $exMemb->memberId,
                     'email' => $exMemb->email
+                ];
+                $r->uploaded = [
+                    'fname' => $fName,
+                    'lname' => $lName,
+                    'memberID' => $memberId,
+                    'email' => $email,
+                    'link' => DOMAIN . 'evgadmin/?page=members&sec=details&id=' . $exMemb->id
                 ];
                 return;
             }

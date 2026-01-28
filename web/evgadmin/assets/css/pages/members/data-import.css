@@ -7,3 +7,20 @@
 .sample-file:hover {
     color: #a63eb6;
 }
+
+.duplicate-list.compare-list .duplicate-compare-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.duplicate-list.compare-list .duplicate-compare-card .dup-header {
+    font-weight: 600;
+    color: #222;
+}
+
+.duplicate-list.compare-list .dup-compare-grid {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+}
