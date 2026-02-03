@@ -113,7 +113,7 @@
                                             </span>
                                         </div>
                                         ${duplicateHtml}
-                                    `);
+                                    `, { width: 800 });
                                 }
                             }
 

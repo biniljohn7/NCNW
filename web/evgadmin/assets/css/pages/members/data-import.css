@@ -24,3 +24,7 @@
     flex-wrap: wrap;
     text-align: left;
 }
+
+.duplicate-list.compare-list .dup-compare-grid .dup-column.uploaded {
+    min-width: 280px;
+}
