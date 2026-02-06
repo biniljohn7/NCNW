@@ -391,11 +391,14 @@ if (!$pix->canAccess('members') || !$pix->canAccess('elect')) {
         }
     }
     $members = [];
-    $whereClause = '';
+    $whereClause = 'WHERE m.enabled = "Y"';
 
     if ($idString) {
-        $whereClause = ' WHERE m.id IN (' . $idString . ')';
+        $whereClause = ' AND m.id IN (' . $idString . ')';
     }
+
+    var_dump($whereClause);
+    exit;
     $members = $pixdb->fetchAll(
         "SELECT 
             i.prefix,
