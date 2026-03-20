@@ -22,7 +22,8 @@ if ($search) {
             firstName like ' . $qSearch . ' OR 
             lastName like ' . $qSearch . ' OR 
             email like ' . $qSearch . ' OR 
-            memberId like ' . $qSearch . '
+            memberId like ' . $qSearch . ' OR
+            concat(firstName, " ", lastName) like ' . $qSearch . '
         )';
     }
 } else {

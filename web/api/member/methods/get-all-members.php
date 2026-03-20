@@ -14,7 +14,7 @@ $filterArr =  [
 ];
 
 if ($key) {
-    $filterArr['__QUERY__'][] = "(firstName like '%" . $key . "%' or lastName like '%" . $key . "%')";
+    $filterArr['__QUERY__'][] = "(firstName like '%" . $key . "%' or lastName like '%" . $key . "%' or concat(firstName,' ',lastName) like '%" . $key . "%')";
 }
 
 $members = $pixdb->get(
