@@ -66,18 +66,48 @@ if (
             );
         }
         $filePath = null;
+        $absFilePath = null;
         if ($pdfUpload['tmp_name']) {
             $dateDir = $pix->setDateDir('advocacy-pdf');
             $fileName = $pix->makestring(50, 'ln') . '.' . exf($pdfUpload['name']);
+            $absFilePath = $dateDir->absdir . $fileName;
             if (
                 move_uploaded_file(
                     $pdfUpload['tmp_name'],
-                    $dateDir->absdir . $fileName
+                    $absFilePath
                 )
             ) {
                 $filePath = $dateDir->uplroot . $fileName;
             };
         }
+        //This will not work in Local , only on live
+        $imgPath = null;
+        if ($filePath && $absFilePath) {
+            $tDateDir = $pix->setDateDir('advocacy-image');
+            $imgName = $pix->makestring(50, 'ln') . '.jpg';
+            $absImg = $dateDir->absdir . $imgName;
+
+            $absFilePathEsc = escapeshellarg($absFilePath);
+            $absImgEsc = escapeshellarg($absImg);
+
+            $cmd = "gs -sDEVICE=jpeg -dFirstPage=1 -dLastPage=1 -r150 " .
+                "-sOutputFile=$absImgEsc $absFilePathEsc -dNOPAUSE -dBATCH";
+            exec($cmd, $out, $status);
+
+            if ($status === 0 && file_exists($absImg)) {
+                $pix->make_thumb('advocacy-icon', $absImg);
+                $imgPath = $tDateDir->uplroot . $imgName;
+
+                if ($advData->image) {
+                    $pix->cleanThumb(
+                        'advocacy-icon',
+                        $tDateDir->upldir . $advData->image,
+                        true
+                    );
+                }
+            }
+        }
+        //
         if (
             $new ||
             (
@@ -99,6 +129,7 @@ if (
                 'descrptn' => $desc,
                 'pdfContent' => $pdf,
                 'pdfUpload' => $filePath,
+                'image' => $imgPath
             ];
             if ($new) {
                 $dbData['createdAt'] = $datetime;
