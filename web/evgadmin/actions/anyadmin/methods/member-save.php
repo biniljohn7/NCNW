@@ -152,6 +152,30 @@ if (!$pix->canAccess('members')) {
                 $mailErrorMsg .= 'Guardian / parental email is not valid!';
             }
 
+            $emCheck = $pixdb->getRow(
+                'members',
+                ['email' => $email],
+                'id'
+            );
+
+            if (
+                (
+                    $new &&
+                    $emCheck
+                ) ||
+                (
+                    $mid &&
+                    (
+                        $emCheck &&
+                        $mid != $emCheck->id
+                    )
+                )
+
+            ) {
+                $validMail = false;
+                $mailErrorMsg .= ' Email already used by another member';
+            }
+
             if ($validMail) {
 
                 $data = false;
