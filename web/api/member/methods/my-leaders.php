@@ -70,6 +70,7 @@ if ($memberCircle) {
 }
 
 $offcrCnds = '';
+$officersChk = [];
 foreach ($ownCircles as $row) {
     $offcrCnds .= ($offcrCnds != '' ? ' OR ' : '') . '(circle=' . q($row['circle']) . ' and circleId=' . $row['circleId'] . ')';
 }
@@ -80,7 +81,7 @@ if ($offcrCnds) {
             ['officers_titles', 't', 'id']
         ],
         ['#QRY' => $offcrCnds],
-        't.title, o.memberId'
+        't.title, o.memberId, o.circleId'
     )->data;
 
     foreach ($getOfficers as $row) {
@@ -88,19 +89,40 @@ if ($offcrCnds) {
             'title' => $row->title,
             'memberId' => $row->memberId
         ];
+
+        $officersChk[$row->memberId] = $row->circleId;
     }
 }
 
 $memberIds = array_unique(collectObjData($teamData, 'memberId'));
 $memberInfo = [];
 if ($memberIds) {
-    $memberInfo = $evg->getMemberInfo($memberIds, ['firstName', 'lastName', 'email', 'memberId', 'avatar'], ['city,zipcode'], true);
+    $memberInfo = $evg->getMemberInfo($memberIds, ['firstName', 'lastName', 'email', 'memberId', 'avatar'], ['city,zipcode,cruntChptr'], true);
 }
-foreach ($teamData as $row) {
+/*foreach ($teamData as $row) {
     if (isset($memberInfo[$row->memberId])) {
         $row->member = $memberInfo[$row->memberId];
     }
-}
+}*/
+$teamData = array_filter($teamData, function ($row) use ($memberInfo, $officersChk) {
+    if (isset($memberInfo[$row->memberId])) {
+
+        if (isset($officersChk[$row->memberId])) {
+
+            if ($officersChk[$row->memberId] == $memberInfo[$row->memberId]->cruntChptr) {
+                $row->member = $memberInfo[$row->memberId];
+                return true;
+            } else {
+                return false;
+            }
+            //         
+        } else {
+            $row->member = $memberInfo[$row->memberId];
+            return true;
+        }
+    }
+    return false;
+});
 
 $groupedTeamData = [];
 foreach ($teamData as $row) {

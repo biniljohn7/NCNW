@@ -830,7 +830,7 @@ $pix->pagination(
             <div class="mbr-item left">
                 <div class="mbr-itm usr">
                     <div class="usr-thumb">
-                        <span class="user-thumb <?php echo $mbr->avatar ? '' : 'letter-' . strtolower($name[0]) ?? ''; ?>">
+                        <span class="user-thumb <?php echo $mbr->avatar ? '' : 'letter-' . ($name ? strtolower($name[0]) : ''); ?>">
                             <?php
                             echo $mbr->avatar ?
                                 '<img src="' . $evg->getAvatar($mbr->avatar) . '">' :
