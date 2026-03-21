@@ -849,36 +849,14 @@
                     <th>Appointed NCNW Officer Positions</th>
                     <td>
                         <?php
-                        $secOfficers = $pixdb->fetchAll(
-                            'select 
-                                o.memberId,
-                                t.title,
-                                o.circleId,
-                                c.name 
-                            from `officers` `o` join 
-                                `officers_titles` `t` on `o`.`title`=`t`.`id` join 
-                                `chapters` `c` on `o`.`circleId`=`c`.`id` 
-                            where 
-                                `o`.`memberId` = ' . $member->id . ' and 
-                                `o`.`circle` = "section" and 
-                                `o`.`circleId` = ' . ($info->cruntChptr ?: 0)
-                        );
-                        if (!empty($secOfficers)) {
-                            foreach ($secOfficers as $row) {
-                                echo $row->title . ' (' . $row->name . ')' . '<br>';
-                            }
-                        } else {
-                            echo '--';
-                        }
-
-                        /*$mbrRoles = loadModule('members')->getRoles($member);
+                        $mbrRoles = loadModule('members')->getRoles($member);
                         if (!empty($mbrRoles)) {
                             foreach ($mbrRoles as $row) {
                                 echo $row->role . ' (' . $row->circle . ')' . '<br>';
                             }
                         } else {
                             echo '--';
-                        }*/
+                        }
                         ?>
                     </td>
                 </tr>

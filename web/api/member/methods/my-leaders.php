@@ -97,19 +97,19 @@ if ($offcrCnds) {
 $memberIds = array_unique(collectObjData($teamData, 'memberId'));
 $memberInfo = [];
 if ($memberIds) {
-    $memberInfo = $evg->getMemberInfo($memberIds, ['firstName', 'lastName', 'email', 'memberId', 'avatar'], ['city,zipcode,cruntChptr'], true);
+    $memberInfo = $evg->getMemberInfo($memberIds, ['firstName', 'lastName', 'email', 'memberId', 'avatar', 'role'], ['city,zipcode,cruntChptr'], true);
 }
-/*foreach ($teamData as $row) {
-    if (isset($memberInfo[$row->memberId])) {
-        $row->member = $memberInfo[$row->memberId];
-    }
-}*/
-$teamData = array_filter($teamData, function ($row) use ($memberInfo, $officersChk) {
-    if (isset($memberInfo[$row->memberId])) {
 
+$teamData = array_filter($teamData, function ($row) use ($memberInfo, $officersChk) {
+    if (
+        isset($memberInfo[$row->memberId]) &&
+        $memberInfo[$row->memberId]->role != null
+    ) {
         if (isset($officersChk[$row->memberId])) {
 
-            if ($officersChk[$row->memberId] == $memberInfo[$row->memberId]->cruntChptr) {
+            if (
+                $officersChk[$row->memberId] == $memberInfo[$row->memberId]->cruntChptr
+            ) {
                 $row->member = $memberInfo[$row->memberId];
                 return true;
             } else {

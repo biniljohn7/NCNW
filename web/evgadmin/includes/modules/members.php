@@ -89,6 +89,7 @@ if (!class_exists('members')) {
 
         public function getRoles($user)
         {
+            global $pixdb;
             $ldrshpRoles = [];
 
             if ($user->role && $user->id) {
@@ -107,6 +108,9 @@ if (!class_exists('members')) {
 
             if (empty($roles)) return $ldrshpRoles;
 
+            $info = $pixdb->getRow('members_info', ['member' => $user->id], 'cruntChptr');
+            $user->cruntChptr = $info->cruntChptr ?: null;
+
             // Map roles to their handler methods
             $roleMap = [
                 'state-leader'   => [self::class, 'stateLeaderInfo'],
@@ -114,7 +118,7 @@ if (!class_exists('members')) {
                 // 'section-president' => [self::class, 'sectionLeaderInfo'],
                 // 'section-delegate' => [self::class, 'sectionLeaderInfo'],
                 'affiliate-leader' => [self::class, 'affiliateLeaderInfo'],
-                'collegiate-leaders' => [self::class, 'collegiateLiaisonInfo'],
+                'collegiate-leaders' => [self::class, 'affiliateLeaderInfo'],
                 'section-officer' => [self::class, 'electOfficerInfo']
             ];
 
@@ -206,30 +210,33 @@ if (!class_exists('members')) {
             $info = [];
             $getCircle = $pixdb->get('officers', ['memberId' => $user->id], 'title, circle, circleId');
             foreach ($getCircle->data as $rw) {
-                $role = $pixdb->getRow('officers_titles', ['id' => $rw->title], 'title');
-                if ($rw->circle == 'section') {
-                    $section = $evg->getChapter($rw->circleId, 'id, name');
-                    if ($section) {
-                        $info[] = (object)[
-                            'role'   => $role->title,
-                            'circle' => $section->name
-                        ];
-                    }
-                } elseif ($rw->circle == 'affiliate') {
-                    $affiliate = $evg->getAffiliation($rw->circleId, 'id, name');
-                    if ($affiliate) {
-                        $info[] = (object)[
-                            'role'   => $role->title,
-                            'circle' => $affiliate->name
-                        ];
-                    }
-                } elseif ($rw->circle == 'collegiate') {
-                    $collegiate = $evg->getCollgueSection($rw->circleId, 'id, name');
-                    if ($collegiate) {
-                        $info[] = (object)[
-                            'role'   => $role->title,
-                            'circle' => $collegiate->name
-                        ];
+                if ($user->cruntChptr == $rw->circleId) {
+
+                    $role = $pixdb->getRow('officers_titles', ['id' => $rw->title], 'title');
+                    if ($rw->circle == 'section') {
+                        $section = $evg->getChapter($rw->circleId, 'id, name');
+                        if ($section) {
+                            $info[] = (object)[
+                                'role'   => $role->title,
+                                'circle' => $section->name
+                            ];
+                        }
+                    } elseif ($rw->circle == 'affiliate') {
+                        $affiliate = $evg->getAffiliation($rw->circleId, 'id, name');
+                        if ($affiliate) {
+                            $info[] = (object)[
+                                'role'   => $role->title,
+                                'circle' => $affiliate->name
+                            ];
+                        }
+                    } elseif ($rw->circle == 'collegiate') {
+                        $collegiate = $evg->getCollgueSection($rw->circleId, 'id, name');
+                        if ($collegiate) {
+                            $info[] = (object)[
+                                'role'   => $role->title,
+                                'circle' => $collegiate->name
+                            ];
+                        }
                     }
                 }
             }

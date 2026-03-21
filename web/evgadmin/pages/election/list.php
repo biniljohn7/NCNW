@@ -550,7 +550,7 @@ if (
         $conds['__QUERY__'][] = '`id` IN (0)';
     }
 }
-//var_dump($conds);
+
 $members = $pixdb->get(
     'members',
     $conds,
@@ -626,7 +626,8 @@ if (!empty($mbrIds)) {
         'mbrId'
     );
 
-    $secOfficers = $pixdb->fetchAssoc(
+
+    $officerTmp = $pixdb->get(
         'officers',
         [
             'memberId' => $mbrIds,
@@ -634,9 +635,24 @@ if (!empty($mbrIds)) {
         ],
         'memberId,
         title,
-        circleId',
-        'memberId'
+        circleId'
     );
+
+    $secOfficers = [];
+    if ($officerTmp->data) {
+        foreach ($officerTmp->data as $dta) {
+            if (
+                isset($mbrInfos[$dta->memberId])
+            ) {
+                if (
+                    $mbrInfos[$dta->memberId]->cruntChptr == $dta->circleId
+                ) {
+                    $secOfficers[$dta->memberId] = $dta;
+                }
+            }
+        }
+    }
+    unset($officerTmp);
 }
 foreach ($mbrInfos as $sts) {
     $stateIds[] = $sts->state;
@@ -1014,7 +1030,7 @@ $pix->pagination(
                         <div class="box-infos">
                             <div class="pt-10">
                                 <?php
-                                $officerMbr = isset($secOfficers[$mbr->id]) ? $secOfficers[$mbr->id] : '';
+                                $officerMbr = isset($secOfficers[$mbr->id]) && $mbr->role != null ? $secOfficers[$mbr->id] : '';
                                 ?>
                                 <select
                                     name="member_elect"
