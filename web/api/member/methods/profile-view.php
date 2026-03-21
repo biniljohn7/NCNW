@@ -74,11 +74,13 @@ if ($lgUser->id) {
             $volunteerInfo = json_decode($memberInfo->volunteerId);
 
             $volntInfo = $OPTIONS['volunteerInterest'] ?? [];
-            foreach ($volunteerInfo as $info) {
-                $volunteers[] = [
-                    'name' => $volntInfo[$info] ?? '',
-                    'id' => intval($info)
-                ];
+            if (is_array($volunteerInfo)) {
+                foreach ($volunteerInfo as $info) {
+                    $volunteers[] = [
+                        'name' => $volntInfo[$info] ?? '',
+                        'id' => intval($info)
+                    ];
+                }
             }
         }
 

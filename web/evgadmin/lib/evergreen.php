@@ -3982,7 +3982,8 @@ class EverGreen
                     ['members_info', 'i', 'member']
                 ],
                 [
-                    'm.id' => $ids
+                    'm.id' => $ids,
+                    'm.enabled' => 'Y'
                 ],
                 $fields,
                 'id'
