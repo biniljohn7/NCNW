@@ -3229,8 +3229,8 @@ class EverGreen
     public function postNotification(
         $id,
         $from = null,
-        $type,
-        $title,
+        $type = null,
+        $title = null,
         $msg = null,
         $props = null
     ) {
