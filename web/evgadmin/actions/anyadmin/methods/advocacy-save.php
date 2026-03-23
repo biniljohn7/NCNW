@@ -98,7 +98,7 @@ if (
                 $pix->make_thumb('advocacy-icon', $absImg);
                 $imgPath = $tDateDir->uplroot . $imgName;
 
-                if ($advData->image) {
+                if ($advData && $advData->image) {
                     $pix->cleanThumb(
                         'advocacy-icon',
                         $tDateDir->upldir . $advData->image,
