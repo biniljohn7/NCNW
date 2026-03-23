@@ -128,9 +128,13 @@ if (
                 'recipEmail' => $recipEmail,
                 'descrptn' => $desc,
                 'pdfContent' => $pdf,
-                'pdfUpload' => $filePath,
-                'image' => $imgPath
             ];
+            if ($filePath) {
+                $dbData['pdfUpload'] = $filePath;
+            }
+            if ($imgPath) {
+                $dbData['image'] = $imgPath;
+            }
             if ($new) {
                 $dbData['createdAt'] = $datetime;
                 $iid = $pixdb->insert(
