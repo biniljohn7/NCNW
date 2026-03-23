@@ -85,7 +85,7 @@ if (
         if ($filePath && $absFilePath) {
             $tDateDir = $pix->setDateDir('advocacy-image');
             $imgName = $pix->makestring(50, 'ln') . '.jpg';
-            $absImg = $dateDir->absdir . $imgName;
+            $absImg = $tDateDir->absdir . $imgName;
 
             $absFilePathEsc = escapeshellarg($absFilePath);
             $absImgEsc = escapeshellarg($absImg);
